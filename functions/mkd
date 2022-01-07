@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Make directory and cd into it
+
+mkd() {
+	mkdir -p "$@" && cd "$_";
+}
