@@ -1,1 +1,7 @@
-git/gitconfig.local.symlink
+# Use .local.symlink extension for machine-specific config
+*.local.symlink
+*.env
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
