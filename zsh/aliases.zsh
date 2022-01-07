@@ -6,7 +6,7 @@ alias cdc="cd ~/Code"
 alias g="git"
 
 alias habits="code ~/Code/habits/building-habits/backend && code ~/Code/habits/building-habits/frontend"
-alias code. ="code ~/.dotfiles"
+alias code.="code ~/.dotfiles"
 
 ### FILES ###########################
 
