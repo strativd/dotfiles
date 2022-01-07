@@ -1,15 +1,15 @@
-# [ztratify/dotfiles](https://github.com/ztratify/dotfiles) < forked from [holman/dotfiles](https://github.com/holman/dotfiles) 📎
+# [ztratify/dotfiles](https://github.com/ztratify/dotfiles)
 
-> ## _holman does dotfiles_
-> 
+> **forked from [holman/dotfiles](https://github.com/holman/dotfiles) 🍴**
+>
 > _Your dotfiles are how you personalize your system. These are mine._
-> 
+>
 > _I was a little tired of having long alias files and everything strewn about_
 > _(which is extremely common on other dotfiles projects, too). That led to this_
 > _project being much more topic-centric. I realized I could split a lot of things_
 > _up into the main areas I used (Ruby, git, system libraries, and so on), so I_
 > _structured the project accordingly._
-> 
+>
 > _If you're interested in the philosophy behind why projects like these are_
 > _awesome, you might want to [read my post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)._
 
@@ -25,7 +25,8 @@ symlinked without extension into `$HOME` when you run `script/bootstrap`.
 
 A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
 above and see what components may mesh up with you.
-[Fork it](https://github.com/holman/dotfiles/fork), remove what you don't
+
+[Fork Holman's dotfiles](https://github.com/holman/dotfiles/fork), remove what you don't
 use, and build on what you do use.
 
 ## Components 🏗️
@@ -51,7 +52,7 @@ There's a few special files in the hierarchy.
 Run this:
 
 ```sh
-git clone https://github.com/holman/dotfiles.git ~/.dotfiles
+git clone https://github.com/ztratify/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
@@ -75,7 +76,7 @@ this script in `bin/`.
 > dotfiles were an easy way to get into bash customization, and then to jump ship
 > to zsh a bit later. A decent amount of the code in these dotfiles stem or are
 > inspired from Ryan's original project._
-> 
+>
 > – [Holman](https://github.com/holman/dotfiles) 🙏
 
 ## Bugs 🐛
