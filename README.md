@@ -57,7 +57,7 @@ cd ~/.dotfiles
 script/bootstrap
 ```
 <p align="center">
-  <img width="750" align="center" alt="Screen Shot 2022-01-10 of terminal window after running bootstrap script" src="https://user-images.githubusercontent.com/25858762/149021118-5eb98d94-6231-4055-aa81-32045709b2e0.png">
+  <img width="750" alt="Screenshot of terminal window after running bootstrap script" src="https://user-images.githubusercontent.com/25858762/149021118-5eb98d94-6231-4055-aa81-32045709b2e0.png">
 </p>
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
