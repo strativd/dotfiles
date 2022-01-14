@@ -1,5 +1,6 @@
-# Use .local.symlink extension for machine-specific config
+# Use *.local.* extensions for machine-specific config
 *.local.symlink
+*.local.zsh
 *.env
 
 # Folder view configuration files
