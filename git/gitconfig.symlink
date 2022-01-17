@@ -1,5 +1,6 @@
 # Local/private config goes in the include
 [include]
+
   path = ~/.gitconfig.local
 
 [alias]
@@ -906,6 +907,7 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+  renamelimit = 15345
 
 [rerere]
 	# $ git rerere ("reuse recorded resolution")
