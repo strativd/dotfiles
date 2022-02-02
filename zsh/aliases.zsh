@@ -3,7 +3,7 @@
 alias cddl="cd ~/Downloads"
 alias cddt="cd ~/Desktop"
 alias cdc="cd ~/Code"
-alias g="git"
+alias g="git "
 
 alias habits="code ~/Code/habits/building-habits/backend && code ~/Code/habits/building-habits/frontend"
 alias code.="code ~/.dotfiles"
@@ -81,4 +81,4 @@ alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
+alias paths='echo -e ${PATH//:/\\n}'
