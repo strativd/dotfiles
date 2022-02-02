@@ -37,8 +37,8 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 ### UTILITIES #######################
 
-# Print file contents in terminal
-alias show='less -FX'
+# Print out file contents in terminal
+alias printout='less -FX'
 
 # Trim new lines and copy to clipboard
 alias cpy="tr -d '\n' | pbcopy"
