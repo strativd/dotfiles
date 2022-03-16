@@ -2,6 +2,7 @@
 [include]
 
   path = ~/.gitconfig.local
+	path = ~/.config/dev/gitconfig
 
 [alias]
 
@@ -262,6 +263,9 @@
 	push-to-all-remotes = !git remote | xargs -I% -n1 git push %
 
 	### revert ###
+
+  # This command creates a new commit that undoes the changes from a previous commit.
+  # This command adds new history to the project (it doesn't modify existing history).
 
 	# revert - undo the changes from some existing commits
 	rv = revert
@@ -524,9 +528,10 @@
 	# Do a force push of current branch
 	push-f = !git push -f origin $(git branch-name) --force-with-lease
 
-	##
-	# Reset & Undo
-	##
+	### Reset & Undo
+
+  # This command changes which commit a branch head is currently pointing at.
+  # This command may alter existing history (by changing the commit that a branch references).
 
 	# Reset and undo aliases are ways to move backwards on the commit chain.
 	# We find that novices prefer the wording "undo"; experts prefer "reset".
