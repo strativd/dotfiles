@@ -12,7 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
+brew upgrade
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -24,7 +24,7 @@ brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 # Install Bash 4.
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
@@ -42,14 +42,15 @@ brew install tree
 brew install --cask raycast
 brew install --cask rectangle
 brew install --cask iterm2
+brew install --cask visual-studio-code
 brew install --cask github-desktop
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask slack
 brew install --cask spotify
-brew install --cask dropbox
-brew install --cask imageoptim
-brew install --cask cleanmymac
+# brew install --cask dropbox
+# brew install --cask imageoptim
+# brew install --cask cleanmymac
 
 # Remove outdated versions from the cellar.
 brew cleanup
