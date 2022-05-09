@@ -1,4 +1,4 @@
-# [ztratify/dotfiles](https://github.com/ztratify/dotfiles)
+# [strativd/dotfiles](https://github.com/strativd/dotfiles)
 
 > **forked from [holman/dotfiles](https://github.com/holman/dotfiles) 🍴**
 >
@@ -52,7 +52,7 @@ There's a few special files in the hierarchy.
 Run this:
 
 ```sh
-git clone https://github.com/ztratify/dotfiles.git ~/.dotfiles
+git clone https://github.com/strativd/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
