@@ -6,7 +6,6 @@ alias cdc="cd ~/Code"
 alias g="git "
 
 alias habits="code ~/Code/habits/building-habits/backend && code ~/Code/habits/building-habits/frontend"
-alias code.="code ~/.dotfiles"
 
 ### FILES ###########################
 
@@ -82,3 +81,11 @@ alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[
 
 # Print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
+
+killit() {
+  if [ -z "$1" ]; then
+    echo "Not killin' it... No argument supplied"
+  else
+    kill -9 $(lsof -i tcp:$1 -t)
+  fi
+}
