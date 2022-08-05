@@ -8,6 +8,7 @@
 
   promote = !$ZSH/bin/git-promote
   wtf     = !$ZSH/bin/git-wtf
+  cob     = !$ZSH/bin/git-cob
 
 	## 🌟 = most used
 
@@ -68,7 +69,7 @@
 
 	# 🌟
 	# branch and checkout the newly created branch
-	bo = checkout -b
+	cb = checkout -b
 
 	### commit ###
 
@@ -154,10 +155,15 @@
 	# ls-ignored -  list files that git has ignored.
 	ls-ignored = ls-files --others --i --exclude-standard
 
+	### fetch ###
+
+  fo = fetch origin
+
 	### merge ###
 
 	# merge but without autocommit, and with a commit even if the merge resolved as a fast-forward.
 	me = merge --no-commit --no-ff
+  mom = merge origin/main
 
 	### pull ###
 
@@ -192,6 +198,7 @@
 	# 🌟
 	pre = pull --rebase
 	preon = !git pull --rebase origin $(git branch-name)
+	preom = !git pull --rebase origin main
 
 	### rebase ###
 
@@ -592,10 +599,10 @@
 	# Work In Progress: from https://gist.github.com/492227 and VonC on stackoverflow.
 	# This enables a quick way to add all new and modified files to the index,
 	# while cleaning the index from the files removed from the working tree;
-	# this cleaning will facilite a rebase, because there won't be any conlfict
+	# this cleaning will facilite a rebase, because there won't be any conflict
 	# due to an "unclean" working directory (not in sync with the index).asdf
 	# The unwip will restore the deleted files to the working tree.
-	wip = !"git add --all; git ls-files --deleted -z | xargs -0 git rm; git commit --message=wip"
+	wip = !"git add --all; git ls-files --deleted -z | xargs -0 git rm; git commit --message=WIP --no-verify"
 	unwip = !"git log -n 1 | grep -q -c wip && git reset HEAD~1"
 
 	# Assume
@@ -948,3 +955,10 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+
+[filter "lfs"]
+
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
