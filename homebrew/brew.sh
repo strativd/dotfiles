@@ -38,19 +38,29 @@ brew install dark-mode
 brew install git
 brew install tree
 
+# Install others for bin commands
+brew install fzf
+
+# Install pls (pretty-ls) — requires Python 3.8 + Nerd Fonts
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+brew install pipx
+pipx ensurepath
+pipx install pls
+
 # Install Apps
 brew install --cask raycast
 brew install --cask rectangle
 brew install --cask iterm2
 brew install --cask visual-studio-code
-brew install --cask github-desktop
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask slack
 brew install --cask spotify
 # brew install --cask dropbox
-# brew install --cask imageoptim
 # brew install --cask cleanmymac
+# brew install --cask github
+# brew install --cask imageoptim
 
 # Remove outdated versions from the cellar.
 brew cleanup
