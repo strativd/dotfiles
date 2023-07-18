@@ -535,6 +535,26 @@
 	# Do a force push of current branch
 	push-f = !git push -f origin $(git branch-name) --force-with-lease
 
+  # 🌟
+  # Open this PR at github.com
+  pr = "!f() { \
+    open \"$(git ls-remote --get-url $(git config --get branch.$(git rev-parse --abbrev-ref HEAD).remote) \
+    | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
+    | sed 's|\\.git$||'; \
+    )/compare/$(\
+    git config --get branch.$(git rev-parse --abbrev-ref HEAD).merge | cut -d '/' -f 3- \
+    )?expand=1\"; \
+  }; f"
+
+  # 🌟
+  # Open this repo at github.com
+  hub = "!f() { \
+       open \"$(git ls-remote --get-url \
+       | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
+       | sed 's|\\.git$||'; \
+       )\"; \
+  }; f"
+
 	### Reset & Undo
 
   # This command changes which commit a branch head is currently pointing at.
@@ -879,6 +899,8 @@
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
+
+	longpaths = true
 
 [color]
 
