@@ -48,6 +48,9 @@ brew install pipx
 pipx ensurepath
 pipx install pls
 
+brew install pnpm
+brew install git-completion
+
 # Install Apps
 brew install --cask raycast
 brew install --cask rectangle
