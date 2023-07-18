@@ -1,9 +1,9 @@
 # shortcut to this dotfiles path is $ZSH
 DOTFILES=$HOME/.dotfiles
 
-if [ -d ~/src/github.com/ztratify/dotfiles ]
+if [ -d ~/src/github.com/strativd/dotfiles ]
 then
-  DOTFILES=$HOME/src/github.com/ztratify/dotfiles
+  DOTFILES=$HOME/src/github.com/strativd/dotfiles
 fi
 
 export ZSH=$DOTFILES
