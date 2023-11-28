@@ -1,4 +1,4 @@
-# auto-nvm – call `nvm use`` automatically in a directory with a .nvmrc file
+# auto-nvm – call `nvm use` automatically in a directory with a .nvmrc file
 # https://github.com/nvm-sh/nvm#zsh
 
 autoload -U add-zsh-hook
