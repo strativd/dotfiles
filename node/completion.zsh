@@ -21,3 +21,8 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# Check if nvm command exists
+if ! type nvm &> /dev/null; then
+  echo "❌ Install nvm manually: https://github.com/nvm-sh/nvm#installing-and-updating"
+fi
