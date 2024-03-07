@@ -53,13 +53,16 @@ brew install git-completion
 
 # Install Apps
 brew install --cask raycast
-brew install --cask rectangle
 brew install --cask iterm2
 brew install --cask visual-studio-code
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask slack
 brew install --cask spotify
+brew install --cask readdle-spark
+brew install --cask notion
+brew install --cask notion-calendar
+brew install --cask google-drive
 # brew install --cask dropbox
 # brew install --cask cleanmymac
 # brew install --cask github
