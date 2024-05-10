@@ -5,8 +5,6 @@ alias cddt="cd ~/Desktop"
 alias cdc="cd ~/Code"
 alias g="git "
 
-alias habits="code ~/Code/habits/building-habits/backend && code ~/Code/habits/building-habits/frontend"
-
 ### FILES ###########################
 
 # Easier navigation
@@ -15,9 +13,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# npm
-alias npmlg="npm list -g --depth=0"
-alias npmll="npm list --depth=0"
 
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
