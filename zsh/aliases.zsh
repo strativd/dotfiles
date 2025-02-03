@@ -1,7 +1,5 @@
 ### SHORTCUTS #######################
 
-alias cddl="cd ~/Downloads"
-alias cddt="cd ~/Desktop"
 alias cdc="cd ~/Code"
 alias g="git "
 
