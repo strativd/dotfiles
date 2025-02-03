@@ -49,6 +49,8 @@ pipx ensurepath
 pipx install pls
 
 brew install pnpm
+brew install yarn
+brew install pyenv
 brew install git-completion
 
 # Install Apps
