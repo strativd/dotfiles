@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# `git checkout` the main branch, regardless of what it's called.
+# Update the "branches" array with any other common main branch names.
+
+(
+  checkout_main_branch() {
+    local branches=("main" "master" "next" "development" "develop")
+
+    for branch in "${branches[@]}"; do
+      if git rev-parse --verify "$branch" &>/dev/null; then
+        git checkout "$branch"
+        return
+      fi
+    done
+    echo "No main branch found."
+  }
+
+  checkout_main_branch
+)

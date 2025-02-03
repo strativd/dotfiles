@@ -9,6 +9,7 @@
   promote = !$ZSH/bin/git-promote
   wtf     = !$ZSH/bin/git-wtf
   cob     = !$ZSH/bin/git-cob
+  com     = !$ZSH/bin/git-checkout-main-branch
 
 	## 🌟 = most used
 
@@ -563,18 +564,20 @@
 	# Reset and undo aliases are ways to move backwards on the commit chain.
 	# We find that novices prefer the wording "undo"; experts prefer "reset".
 	reset-commit       = reset --soft HEAD~1
+	reset-1            = reset --soft HEAD~1
 	reset-commit-hard  = reset --hard HEAD~1
 	reset-commit-clean = !git reset --hard HEAD~1 && git clean -fd
 	reset-stage        = reset --hard HEAD
-	reset-to-local  = !git reset --hard && git clean -ffdx
-	reset-to-origin  = !git reset --hard $(git upstream-name)
+	reset-to-local     = !git reset --hard && git clean -ffdx
+	reset-to-origin    = !git reset --hard $(git upstream-name)
 
 	# Undo is simply a synonym for "reset" because "undo" can help novices.
 	undo-commit        = reset --soft HEAD~1
 	undo-commit-hard   = reset --hard HEAD~1
 	undo-commit-clean  = !git reset --hard HEAD~1 && git clean -fd
-	undo-to-local   = !git reset --hard && git clean -ffdx
-	undo-to-origin   = !git reset --hard $(git upstream-name)
+  undo-staged        = reset --hard HEAD
+	undo-to-local      = !git reset --hard && git clean -ffdx
+	undo-to-origin     = !git reset --hard $(git upstream-name)
 
 	# Nicknames
 	uncommit = reset --soft HEAD~1
