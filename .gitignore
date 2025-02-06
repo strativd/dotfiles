@@ -2,6 +2,7 @@
 *.local.symlink
 *.local.zsh
 *.env
+*.venv
 
 # Folder view configuration files
 .DS_Store
