@@ -41,13 +41,6 @@ brew install tree
 # Install others for bin commands
 brew install fzf
 
-# Install pls (pretty-ls) — requires Python 3.8 + Nerd Fonts
-brew tap homebrew/cask-fonts
-brew install --cask font-hack-nerd-font
-brew install pipx
-pipx ensurepath
-pipx install pls
-
 brew install pnpm
 brew install yarn
 brew install pyenv
