@@ -405,11 +405,24 @@
 	# Summarize your own changes since yesterday, suitable for a daily standup meeting.
 	log-standup = !git log --since yesterday --author $(git config user.email) --pretty=short
 
+	# List all untracked JavaScript files in the working directory
+	log-js = !git ls-files --others --exclude-standard | grep -E '\\.js$'
+
+	# List all untracked files by extension in the working directory
+  # Example: git log-ext .js
+	log-ext = "!f() { git ls-files --others --exclude-standard | grep -E \"${1}\\$\"; }; f"
+
+	# Remove all untracked JavaScript files in the working directory (safe if none)
+  # Example: git rm-ext .js
+	# Uses a subshell to avoid GNU-specific xargs -r flag so it works on macOS BSD xargs.
+	rm-ext = "!f() { files=\"$(git ls-files --others --exclude-standard | grep -E \"${1}\\$\")\"; [ -n \"$files\" ] && echo \"$files\" | xargs rm; }; f"
+
 	# TODO
 	log-refs = log --all --graph --decorate --oneline --simplify-by-decoration --no-merges
 	log-timeline = log --format='%h %an %ar - %s'
 	log-local = log --oneline origin..HEAD
 	log-fetched = log --oneline HEAD..origin/master
+
 
 	# churn: show log of files that have many changes
 	#
