@@ -4,14 +4,9 @@
 >
 > _Your dotfiles are how you personalize your system. These are mine._
 >
-> _I was a little tired of having long alias files and everything strewn about_
-> _(which is extremely common on other dotfiles projects, too). That led to this_
-> _project being much more topic-centric. I realized I could split a lot of things_
-> _up into the main areas I used (Ruby, git, system libraries, and so on), so I_
-> _structured the project accordingly._
+> _I was a little tired of having long alias files and everything strewn about_ > _(which is extremely common on other dotfiles projects, too). That led to this_ > _project being much more topic-centric. I realized I could split a lot of things_ > _up into the main areas I used (Ruby, git, system libraries, and so on), so I_ > _structured the project accordingly._
 >
-> _If you're interested in the philosophy behind why projects like these are_
-> _awesome, you might want to [read my post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)._
+> _If you're interested in the philosophy behind why projects like these are_ > _awesome, you might want to [read my post on the subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)._
 
 ## Topical 🎩
 
@@ -56,6 +51,7 @@ git clone https://github.com/strativd/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
+
 <p align="center">
   <img width="750" alt="Screenshot of terminal window after running bootstrap script" src="https://user-images.githubusercontent.com/25858762/149021118-5eb98d94-6231-4055-aa81-32045709b2e0.png">
 </p>
@@ -66,10 +62,28 @@ Everything is configured and tweaked within `~/.dotfiles`.
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
 
-`dot` is a simple script that installs some dependencies, sets sane macOS
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
+`dot` is a simple script for managing your dotfiles and system setup. Run `dot` from time to time to keep your environment fresh and up-to-date. You can find this script in `bin/`.
+
+### `dot` commands
+
+```
+dot [options]
+
+Options:
+  -e, --edit       Open dotfiles directory for editing
+  -r, --reload     Reload the current terminal session
+  -h, --help       Show this help message and exit
+  -m, --macos      Set the defaults for macOS
+  -b, --brew       Install/update Homebrew on the system
+  -i, --install    Run all install scripts in dot repo
+  -B, --bootstrap  Sync dotfiles from dot repo to system
+  -S, --start      Start a new laptop setup (bootstrap + install)
+```
+
+Each option runs the corresponding setup or management script from your dotfiles repo. See the script for details.
 
 ## Thanks 🤍
 

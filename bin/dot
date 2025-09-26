@@ -2,8 +2,8 @@
 #
 # dot
 #
-# `dot` handles installation, updates, things like that. Run it periodically
-# to make sure you're on the latest and greatest.
+# `dot` handles installation, updates, things like that.
+# Run it periodically to make sure you're on the latest and greatest.
 
 set -e
 
@@ -16,8 +16,15 @@ displayUsageAndExit() {
 	echo "Usage: dot [options]"
 	echo ""
 	echo "Options:"
-	echo "  -e, --edit    Open dotfiles directory for editing"
-	echo "  -h, --help    Show this help message and exit"
+	echo "  -e, --edit       Open dotfiles directory for editing"
+	echo "  -h, --help       Show this help message and exit"
+	echo "  -r, --reload     Reload the current terminal session"
+	echo "  -n, --new        Open a new terminal window"
+	echo "  -m, --macos      Set the defaults for macOS"
+	echo "  -b, --brew       Install/update Homebrew on the system"
+	echo "  -i, --install    Run all install scripts in dot repo"
+	echo "  -D, --dotfiles    Sync dotfiles from dot repo to system"
+	echo "  -S, --start      Start a new laptop setup"
 	exit
 }
 
@@ -30,6 +37,46 @@ while test $# -gt 0; do
 			exec "$EDITOR" "$dotfilesDirectory"
 			exit
 			;;
+		"-r"|"--reload")
+      exec $SHELL
+			exit
+			;;
+		"-n"|"--new")
+      open -a iterm .
+			exit
+			;;
+		"-m"|"--macos")
+      echo "› $ZSH/macos/set-defaults.sh"
+			"$dotfilesDirectory/macos/set-defaults.sh"
+			exit
+			;;
+		"-b"|"--brew")
+      echo "› $ZSH/homebrew/install.sh"
+			"$dotfilesDirectory/homebrew/install.sh"
+      echo "› brew update"
+      brew update
+      echo "› $ZSH/homebrew/brew.sh"
+			"$dotfilesDirectory/homebrew/brew.sh"
+			exit
+			;;
+		"-i"|"--install")
+      echo "› $ZSH/script/install"
+			"$dotfilesDirectory/script/install"
+			exit
+			;;
+		"-D"|"--dotfiles")
+      echo "› $ZSH/script/bootstrap"
+			"$dotfilesDirectory/script/bootstrap"
+			exit
+			;;
+		"-S"|"--start")
+      # Start a new laptop setup with above commands
+		  "$0" --dotfiles
+      "$0" --install
+      "$0" --brew
+      "$0" --macos
+			exit
+			;;
 		*)
 			echo "Invalid option: $1"
 			displayUsageAndExit
@@ -38,18 +85,7 @@ while test $# -gt 0; do
 	shift
 done
 
-# export ZSH=$HOME/.dotfiles
-
-# Set macOS defaults
-# $ZSH/macos/set-defaults.sh
-
-# Install homebrew
-$ZSH/homebrew/install.sh 2>&1
-
-# Upgrade homebrew
-echo "› brew update"
-brew update
-
 # Install software
-echo "› $ZSH/script/install"
-$ZSH/script/install
+"$0" --install
+# Upgrade homebrew
+"$0" --brew
