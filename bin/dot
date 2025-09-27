@@ -23,7 +23,7 @@ displayUsageAndExit() {
 	echo "  -m, --macos      Set the defaults for macOS"
 	echo "  -b, --brew       Install/update Homebrew on the system"
 	echo "  -i, --install    Run all install scripts in dot repo"
-	echo "  -D, --dotfiles    Sync dotfiles from dot repo to system"
+	echo "  -s, --sync       Sync dotfiles from dot repo to system"
 	echo "  -S, --start      Start a new laptop setup"
 	exit
 }
@@ -64,7 +64,7 @@ while test $# -gt 0; do
 			"$dotfilesDirectory/script/install"
 			exit
 			;;
-		"-D"|"--dotfiles")
+		"-s"|"--sync")
       echo "› $ZSH/script/bootstrap"
 			"$dotfilesDirectory/script/bootstrap"
 			exit
