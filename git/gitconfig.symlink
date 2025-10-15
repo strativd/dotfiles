@@ -897,7 +897,7 @@
 
 [core]
 	# Make sure that interactive rebases open correctly with vs code
-	editor = code -n -w --new-window
+	editor = cursor -n -w --new-window
 
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
