@@ -41,6 +41,7 @@ brew install tree
 # Install others for bin commands
 brew install fzf
 
+brew install mise
 brew install pnpm
 brew install yarn
 brew install pyenv
