@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["oh-my-opencode@3.1.8"],
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "kimi-k2.5:cloud": { "name": "Kimi K2.5 Cloud (local) - primary" },
+        "qwen3:14b": { "name": "Qwen3 14B (local) - general tasks" },
+        "qwen3-coder": { "name": "Qwen3-Coder (local) - long-context coding" },
+        "deepseek-coder:33b-instruct": {
+          "name": "DeepSeek Coder 33B Instruct (local) - review/debug"
+        },
+        "codellama:7b": { "name": "Code Llama 7B (local) - fast fallback" }
+      }
+    }
+  },
+  "model": "ollama/kimi-k2.5:cloud",
+  "small_model": "ollama/codellama:7b",
+  "autoupdate": true,
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "tools": {
+    "read": true,
+    "edit": true,
+    "write": true,
+    "bash": true
+  },
+  "watcher": {
+    "ignore": ["node_modules/**", "dist/**", ".git/**", "**/*.log"]
+  }
+}
