@@ -19,6 +19,33 @@ olstart --warm
 opencode
 ```
 
+## Requirements
+
+- macOS (Apple Silicon optimized)
+- [Ollama](https://ollama.ai) installed
+- [OpenCode](https://opencode.ai) CLI installed
+- 32GB+ RAM recommended for larger models
+
+To install Ollama on macOS using Homebrew, run `brew install ollama` in your terminal. For a full application installation with a menu bar icon, use `brew install --cask ollama-app`. After installation, start the service with `brew services start ollama` and pull models using `ollama pull <model_name>`.
+
+### Manual Installation Steps
+
+- Command Line Tool: `brew install ollama`
+- Desktop Application (Cask): `brew install --cask ollama-app`
+- Verify Installation: `ollama --version`
+
+### Managing the Service
+
+- Start Ollama: `brew services start ollama`
+- Stop Ollama: `brew services stop ollama`
+- Check Status: `brew services list`
+
+### Running Models
+
+- Run a model (e.g., Llama 3): `ollama run llama3`
+- Download a model: `ollama pull <model_name>`
+- List local models: `ollama list`
+
 ## File Structure
 
 | File                  | Purpose                                                |
@@ -64,34 +91,11 @@ olstart --background --warm
 
 ## Helper Scripts
 
-All scripts support `--help` for usage details.
-
-### ollama-start.sh
-
-Starts Ollama server with proper context length and keepalive settings.
-
-### ollama-perf.sh
-
-System diagnostics showing GPU usage, memory consumption, and Ollama status.
-
-### ollama-update.sh
-
-Pulls latest model versions and updates OpenCode CLI.
-
-### install.sh
-
-Symlinks configuration files to `~/.config/opencode/`.
+See `scripts/` for helper scripts.
 
 ## Custom Commands
 
 Place `.md` files in `commands/` to create reusable prompts. Files are automatically available as `/<filename>` in OpenCode.
-
-## Requirements
-
-- macOS (Apple Silicon optimized)
-- [Ollama](https://ollama.ai) installed
-- [OpenCode](https://opencode.ai) CLI installed
-- 32GB+ RAM recommended for larger models
 
 ## Troubleshooting
 
