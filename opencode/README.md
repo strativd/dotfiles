@@ -30,133 +30,61 @@ opencode
 
 ## Configuration
 
-### opencode.json
+See the actual JSON files for current settings:
 
-Core OpenCode settings:
-
-- **Provider**: Ollama (local) at `http://localhost:11434/v1`
-- **Primary Model**: `kimi-k2.5:cloud` - 32B reasoning model (general tasks)
-- **Small Model**: `codellama:7b` - Fast responses for simple queries
-- **Available Models**:
-  - `qwen3:14b` - General tasks
-  - `qwen3-coder` - Long-context coding
-  - `deepseek-coder:33b-instruct` - Code review/debugging
-  - `codellama:7b` - Fast fallback
-
-Features enabled: file operations, bash execution, auto-compaction, file watching.
-
-### oh-my-opencode.json
-
-Agent and category routing:
-
-| Agent/Category       | Model             | Use Case                 |
-| -------------------- | ----------------- | ------------------------ |
-| `sisyphus`           | `kimi-k2.5:cloud` | Main orchestrator        |
-| `oracle`             | `kimi-k2.5:cloud` | Deep analysis, debugging |
-| `explore`            | `kimi-k2.5:cloud` | Codebase search          |
-| `librarian`          | `kimi-k2.5:cloud` | Documentation lookup     |
-| `multimodal-looker`  | `big-pickle`      | Image/document analysis  |
-| `quick`              | `codellama:7b`    | Fast responses           |
-| `visual-engineering` | `kimi-k2.5:cloud` | UI/frontend work         |
-| `ultrabrain`         | `kimi-k2.5:cloud` | Complex architecture     |
+- **`opencode.json`** - Provider configuration, model definitions, tool permissions, compaction settings
+- **`oh-my-opencode.json`** - Agent-to-model routing and category assignments
 
 ## Shell Aliases
 
-Add to your shell (already loaded via `aliases.zsh`):
+Source: `aliases.zsh` (automatically loaded)
 
-| Alias     | Command                                      | Description              |
-| --------- | -------------------------------------------- | ------------------------ |
-| `ol`      | `ollama`                                     | Shorthand for Ollama CLI |
-| `olstart` | `$DOTFILES/opencode/scripts/ollama-start.sh` | Start Ollama server      |
-| `olstop`  | `brew services stop ollama`                  | Stop Ollama service      |
+| Alias     | Description                                 |
+| --------- | ------------------------------------------- |
+| `ol`      | Shorthand for `ollama`                      |
+| `olstart` | Start Ollama server with optimized settings |
+| `olstop`  | Stop Ollama service                         |
 
 ### olstart Options
 
 ```bash
-# Foreground with defaults (64K context, 30m keepalive)
+# Foreground with defaults
 olstart
 
 # Background daemon + warmup primary model
 olstart --background --warm
-
-# Custom settings
-OLLAMA_CONTEXT_LENGTH=32768 OLLAMA_KEEP_ALIVE=1h olstart
 ```
+
+**Environment variables** (see script for defaults):
+
+- `OLLAMA_HOST` - Bind address
+- `OLLAMA_CONTEXT_LENGTH` - Context window size
+- `OLLAMA_KEEP_ALIVE` - Model cache duration
+- `OLLAMA_WARMUP_MODELS` - Models to preload
 
 ## Helper Scripts
 
-All scripts are in `scripts/`:
+All scripts support `--help` for usage details.
 
 ### ollama-start.sh
 
 Starts Ollama server with proper context length and keepalive settings.
 
-**Environment Variables:**
-
-- `OLLAMA_HOST` - Bind address (default: `127.0.0.1:11434`)
-- `OLLAMA_CONTEXT_LENGTH` - Token context window (default: `64000`)
-- `OLLAMA_KEEP_ALIVE` - Model unload timeout (default: `30m`)
-- `OLLAMA_WARMUP_MODELS` - Models to preload (default: `kimi-k2.5:cloud`)
-
 ### ollama-perf.sh
 
-System diagnostics for AI workloads:
-
-```bash
-# Show GPU usage, memory, and Ollama status
-./scripts/ollama-perf.sh
-```
-
-Displays:
-
-- GPU power metrics (macOS)
-- Top memory consumers
-- Installed Ollama models
-- Currently running models
-- OpenCode version
+System diagnostics showing GPU usage, memory consumption, and Ollama status.
 
 ### ollama-update.sh
 
-Update all models and OpenCode:
-
-```bash
-# Pull latest model versions and upgrade OpenCode
-./scripts/ollama-update.sh
-```
-
-Updates:
-
-- `qwen3:14b`
-- `qwen3-coder`
-- `deepseek-coder:33b-instruct`
-- `codellama:7b`
-- OpenCode CLI
+Pulls latest model versions and updates OpenCode CLI.
 
 ### install.sh
 
-Symlinks configuration to `~/.config/opencode/`:
-
-```bash
-# Run via dot command
-dot --install
-
-# Or directly
-./install.sh
-```
-
-Creates links:
-
-- `opencode.json` → `~/.config/opencode/opencode.json`
-- `oh-my-opencode.json` → `~/.config/opencode/oh-my-opencode.json`
-- `commands/` → `~/.config/opencode/commands/`
+Symlinks configuration files to `~/.config/opencode/`.
 
 ## Custom Commands
 
-Place `.md` files in `commands/` to create reusable prompts:
-
-- `review.md` - Commit/branch review prompt
-
-Commands appear in OpenCode as `/review` (based on filename).
+Place `.md` files in `commands/` to create reusable prompts. Files are automatically available as `/<filename>` in OpenCode.
 
 ## Requirements
 
@@ -164,24 +92,6 @@ Commands appear in OpenCode as `/review` (based on filename).
 - [Ollama](https://ollama.ai) installed
 - [OpenCode](https://opencode.ai) CLI installed
 - 32GB+ RAM recommended for larger models
-
-## Model Recommendations
-
-For M2 Pro with 32GB RAM:
-
-1. **Primary**: `kimi-k2.5:cloud` - Best balance of capability and speed
-2. **Coding**: `qwen3-coder` - Long context for large files
-3. **Review**: `deepseek-coder:33b-instruct` - Thorough code analysis
-4. **Quick**: `codellama:7b` - Fast responses, low memory
-
-Pull models:
-
-```bash
-ollama pull kimi-k2.5:cloud
-ollama pull qwen3-coder
-ollama pull deepseek-coder:33b-instruct
-ollama pull codellama:7b
-```
 
 ## Troubleshooting
 
@@ -191,11 +101,8 @@ ollama pull codellama:7b
 # Check if port 11434 is in use
 lsof -nP -iTCP:11434 -sTCP:LISTEN
 
-# Kill existing process
-kill $(lsof -t -i:11434)
-
-# Restart
-olstart
+# Kill existing process and restart
+kill $(lsof -t -i:11434) && olstart
 ```
 
 ### Models loading slowly
@@ -210,8 +117,8 @@ ollama ps
 
 ### OpenCode can't connect
 
-1. Verify Ollama is running: `curl http://localhost:11434/api/version`
-2. Check config is linked: `ls -la ~/.config/opencode/`
+1. Verify Ollama: `curl http://localhost:11434/api/version`
+2. Check config links: `ls -la ~/.config/opencode/`
 3. Restart OpenCode in new shell session
 
 ## See Also
