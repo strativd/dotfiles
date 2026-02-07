@@ -4,10 +4,9 @@ set -e
 
 echo "Updating Ollama models..."
 if command -v ollama >/dev/null 2>&1; then
-  ollama pull qwen3:14b || true
-  ollama pull qwen3-coder || true
-  ollama pull deepseek-coder:33b-instruct || true
-  ollama pull codellama:7b || true
+  ollama pull glm-4.7-flash:latest || true
+  ollama pull glm-ocr:latest || true
+  # Cloud-backed models (glm-4.7:cloud, kimi-k2.5:cloud) use upstream; no pull needed
 else
   echo "ollama not found; skipping model updates."
 fi

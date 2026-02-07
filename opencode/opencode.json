@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["oh-my-opencode@3.1.8"],
+  "plugin": ["oh-my-opencode@3.3.1"],
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -9,18 +9,15 @@
         "baseURL": "http://localhost:11434/v1"
       },
       "models": {
-        "kimi-k2.5:cloud": { "name": "Kimi K2.5 Cloud (local) - primary" },
-        "qwen3:14b": { "name": "Qwen3 14B (local) - general tasks" },
-        "qwen3-coder": { "name": "Qwen3-Coder (local) - long-context coding" },
-        "deepseek-coder:33b-instruct": {
-          "name": "DeepSeek Coder 33B Instruct (local) - review/debug"
-        },
-        "codellama:7b": { "name": "Code Llama 7B (local) - fast fallback" }
+        "kimi-k2.5:cloud": { "name": "Kimi K2.5 (Cloud) - primary" },
+        "glm-4.7:cloud": { "name": "GLM 4.7 (Cloud) - general" },
+        "glm-4.7-flash:latest": { "name": "GLM 4.7 Flash (latest) - fast" },
+        "glm-ocr:latest": { "name": "GLM OCR (latest) - OCR" }
       }
     }
   },
-  "model": "ollama/kimi-k2.5:cloud",
-  "small_model": "ollama/codellama:7b",
+  "model": "kimi-k2.5:cloud",
+  "small_model": "glm-4.7-flash:latest",
   "autoupdate": true,
   "compaction": {
     "auto": true,

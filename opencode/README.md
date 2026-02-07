@@ -62,6 +62,15 @@ See the actual JSON files for current settings:
 - **`opencode.json`** - Provider configuration, model definitions, tool permissions, compaction settings
 - **`oh-my-opencode.json`** - Agent-to-model routing and category assignments
 
+### Current models
+
+| Task                                                                  | Model                          |
+| --------------------------------------------------------------------- | ------------------------------ |
+| Orchestration, strategy, planning (sisyphus, atlas, prometheus, etc.) | `kimi-k2.5:cloud`              |
+| Deep/heavy execution (hephaestus)                                     | `glm-4.7:cloud`                |
+| Quick, explore, writing, unspecified-low                              | `glm-4.7-flash:latest` (local) |
+| PDF/image, visual-engineering, artistry                               | `glm-ocr:latest` (local)       |
+
 ## Shell Aliases
 
 Source: `aliases.zsh` (automatically loaded)

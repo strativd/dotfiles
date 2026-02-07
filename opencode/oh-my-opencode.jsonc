@@ -1,0 +1,41 @@
+/**
+ * OpenCode configuration for oh-my-opencode
+ * https://github.com/code-yeongyu/oh-my-opencode
+ * https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/configurations.md
+ */
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    // Primary orchestrator
+    "sisyphus": { "model": "ollama/kimi-k2.5:cloud" },
+    // Autonomous deep worker, "The Legitimate Craftsman"
+    "hephaestus": { "model": "ollama/glm-4.7:cloud" },
+    // Strategic planning
+    "prometheus": { "model": "ollama/kimi-k2.5:cloud" },
+    // Master orchestrator
+    "atlas": { "model": "ollama/kimi-k2.5:cloud" },
+    // Consultation, debugging
+    "oracle": { "model": "ollama/kimi-k2.5:cloud" },
+    // Docs, GitHub search
+    "librarian": { "model": "ollama/kimi-k2.5:cloud" },
+    // Fast contextual grep
+    "explore": { "model": "ollama/glm-4.7-flash:latest" },
+    // PDF/image analysis
+    "multimodal-looker": { "model": "ollama/glm-ocr:latest" },
+    // Pre-planning analysis
+    "metis": { "model": "ollama/kimi-k2.5:cloud" },
+    // Plan validation
+    "momus": { "model": "ollama/kimi-k2.5:cloud" },
+    // Category-spawned executor
+    "sisyphus-junior": { "model": "ollama/kimi-k2.5:cloud" }
+  },
+  "categories": {
+    "visual-engineering": { "model": "ollama/glm-ocr:latest" },
+    "ultrabrain": { "model": "ollama/kimi-k2.5:cloud" },
+    "artistry": { "model": "ollama/glm-ocr:latest" },
+    "quick": { "model": "ollama/glm-4.7-flash:latest" },
+    "unspecified-low": { "model": "ollama/glm-4.7-flash:latest" },
+    "unspecified-high": { "model": "ollama/glm-4.7:cloud" },
+    "writing": { "model": "ollama/glm-4.7-flash:latest" }
+  }
+}

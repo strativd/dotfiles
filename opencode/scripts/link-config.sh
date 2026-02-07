@@ -38,7 +38,7 @@ link_dir_if_missing() {
 
 echo "Installing OpenCode config..."
 link_if_missing "$SOURCE_DIR/opencode.json" "$TARGET_DIR/opencode.json"
-link_if_missing "$SOURCE_DIR/oh-my-opencode.json" "$TARGET_DIR/oh-my-opencode.json"
+link_if_missing "$SOURCE_DIR/oh-my-opencode.jsonc" "$TARGET_DIR/oh-my-opencode.jsonc"
 link_dir_if_missing "$SOURCE_DIR/commands" "$TARGET_DIR/commands"
 
 exit 0

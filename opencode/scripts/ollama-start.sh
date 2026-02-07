@@ -7,6 +7,10 @@ usage() {
 Usage:
   start-ollama.sh [--background] [--warm]
 
+Flags:
+  --background  Run in background
+  --warm        Warm up models (loads into memory)
+
 Environment:
   OLLAMA_KEEP_ALIVE       How long to keep models loaded (default: 30m)
   OLLAMA_CONTEXT_LENGTH   Default context length for served models (default: 32768)
@@ -17,7 +21,7 @@ Examples:
   # Foreground server with keepalive + 32K context
   OLLAMA_KEEP_ALIVE=30m OLLAMA_CONTEXT_LENGTH=32768 ./start-ollama.sh
 
-  # Background server + warm kimi-k2.5:cloud
+  # Background server + warm primary + fast + OCR models
   ./start-ollama.sh --background --warm
 EOF
 }
@@ -49,7 +53,7 @@ done
 KEEP_ALIVE="${OLLAMA_KEEP_ALIVE:-30m}"
 CONTEXT_LENGTH="${OLLAMA_CONTEXT_LENGTH:-64000}"
 HOST="${OLLAMA_HOST:-127.0.0.1:11434}"
-WARMUP_MODELS="${OLLAMA_WARMUP_MODELS:-kimi-k2.5:cloud}"
+WARMUP_MODELS="${OLLAMA_WARMUP_MODELS:-kimi-k2.5:cloud glm-4.7-flash:latest glm-ocr:latest}"
 PORT="${HOST##*:}"
 
 ollama_up() {
