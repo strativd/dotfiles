@@ -8,5 +8,5 @@ Desktop.ini
 ._*
 Thumbs.db
 
-*~
-*.swp
+# AI development artifacts
+.sisyphus/
