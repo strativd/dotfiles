@@ -137,8 +137,26 @@ install_dotfiles () {
   done
 }
 
+install_agents_dir () {
+  if [ -d "$DOTFILES_ROOT/agents" ]
+  then
+    info 'linking agents directory'
+    local overwrite_all=false backup_all=false skip_all=false
+    link_file "$DOTFILES_ROOT/agents" "$HOME/.agents"
+  fi
+  if [ -d "$HOME/.cursor" ]
+  then
+    info 'linking cursor directory'
+    local overwrite_all=false backup_all=false skip_all=false
+    link_file "$DOTFILES_ROOT/agents/skills" "$HOME/.cursor/skills"
+    link_file "$DOTFILES_ROOT/agents/prompts" "$HOME/.cursor/prompts"
+    link_file "$DOTFILES_ROOT/agents/commands" "$HOME/.cursor/commands"
+  fi
+}
+
 setup_gitconfig
 install_dotfiles
+install_agents_dir
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
