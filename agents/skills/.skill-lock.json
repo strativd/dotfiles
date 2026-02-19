@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "skills": {
+    "test-coverage": {
+      "source": "luongnv89/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/luongnv89/skills.git",
+      "skillPath": "skills/test-coverage/SKILL.md",
+      "skillFolderHash": "c7642a44dee463f7de33a62a7c351fc370d074d4",
+      "installedAt": "2026-02-17T18:30:44.860Z",
+      "updatedAt": "2026-02-17T18:30:44.860Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-02-17T18:30:54.039Z",
+      "updatedAt": "2026-02-17T18:30:54.039Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "codex",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode"
+  ]
+}

@@ -38,6 +38,7 @@ script/install      # Run all install.sh scripts in topics
 ### Directory Structure
 
 ```bash
+agents/       # Agent content (symlinked to ~/.agents and ~/.cursor)
 bin/           # Executable utilities (added to PATH)
 script/        # Installation and management scripts
 zsh/           # Zsh configurations (aliases, prompt, completion)
@@ -56,6 +57,7 @@ system/        # Cross-platform utilities
 ### Special File Types
 
 - `*.symlink` - Files symlinked to $HOME (extension removed)
+- `agents/` - Directory symlinked to ~/.agents (skills, prompts, commands)
 - `*.zsh` - Zsh configuration files automatically loaded
 - `path.zsh` - Loaded first for PATH setup
 - `completion.zsh` - Loaded last for autocomplete setup
