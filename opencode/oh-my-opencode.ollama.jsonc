@@ -27,7 +27,7 @@
     // Plan validation
     "momus": { "model": "ollama/kimi-k2.5:cloud" },
     // Category-spawned executor
-    "sisyphus-junior": { "model": "ollama/kimi-k2.5:cloud" }
+    "sisyphus-junior": { "model": "ollama/kimi-k2.5:cloud" },
   },
   "categories": {
     "visual-engineering": { "model": "ollama/glm-ocr:latest" },
@@ -36,6 +36,6 @@
     "quick": { "model": "ollama/glm-4.7-flash:latest" },
     "unspecified-low": { "model": "ollama/glm-4.7-flash:latest" },
     "unspecified-high": { "model": "ollama/glm-4.7:cloud" },
-    "writing": { "model": "ollama/glm-4.7-flash:latest" }
-  }
+    "writing": { "model": "ollama/glm-4.7-flash:latest" },
+  },
 }

@@ -1,23 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["oh-my-opencode@3.3.1"],
-  "provider": {
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "kimi-k2.5:cloud": { "name": "Kimi K2.5 (Cloud) - primary" },
-        "glm-4.7:cloud": { "name": "GLM 4.7 (Cloud) - general" },
-        "glm-4.7-flash:latest": { "name": "GLM 4.7 Flash (latest) - fast" },
-        "glm-ocr:latest": { "name": "GLM OCR (latest) - OCR" }
-      }
-    }
-  },
-  "model": "kimi-k2.5:cloud",
-  "small_model": "glm-4.7-flash:latest",
+  "plugin": ["oh-my-opencode@3.8.0"],
+  "model": "opencode/glm-5-free",
+  "small_model": "opencode/glm-5-free",
   "autoupdate": true,
   "compaction": {
     "auto": true,
