@@ -1,0 +1,50 @@
+{
+  "configUrl": "https://gist.githubusercontent.com/bai/d5a4a92350e67af8aba1b9db33d5f077/raw/config.json",
+  "defaultOrg": "flywheelsoftware",
+  "logLevel": "debug",
+  "defaultProvider": "github",
+  "baseSearchPath": "~/src",
+  "orgToProvider": {
+    "flywheelsoftware": "gitlab"
+  },
+  "telemetry": {
+    "mode": "disabled"
+  },
+  "miseGlobalConfig": {
+    "tools": {
+      "sops": "latest",
+      "age": "latest",
+      "bun": "latest",
+      "rust": "latest",
+      "aws-cli": "latest",
+      "fd": "latest",
+      "fzf": "latest",
+      "gcloud": "latest",
+      "go": "latest",
+      "golangci-lint": "latest",
+      "jq": "latest",
+      "node": ["latest", "lts"],
+      "python": ["3.12", "latest"],
+      "ruby": "latest",
+      "terraform": "latest",
+      "terragrunt": "latest",
+      "uv": "latest"
+    },
+    "settings": {
+      "trusted_config_paths": [
+        "~/.dev",
+        "~/src/gitlab.com/bai",
+        "~/src/gitlab.com/flywheelsoftware",
+        "~/src/github.com/growthloop",
+        "~/src/github.com/GrowthLoop"
+      ],
+      "experimental": true,
+      "idiomatic_version_file_enable_tools": []
+    }
+  },
+  "miseRepoConfig": {
+    "tools": {
+      "python": ["3.12", "latest"]
+    }
+  }
+}
