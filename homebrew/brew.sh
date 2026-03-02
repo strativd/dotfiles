@@ -43,7 +43,7 @@ brew install fzf
 brew install mise
 brew install pnpm
 brew install yarn
-brew install pyenv
+brew install uv
 brew install git-completion
 
 # Install opencode

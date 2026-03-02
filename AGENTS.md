@@ -45,7 +45,7 @@ zsh/           # Zsh configurations (aliases, prompt, completion)
 git/           # Git configuration and templates
 homebrew/      # Homebrew setup and package lists
 macos/         # macOS system preferences and defaults
-python/        # Python development (pyenv, poetry)
+python/        # Python development (uv)
 node/          # Node.js development (nvm)
 ruby/          # Ruby development setup
 vim/           # Vim configuration
