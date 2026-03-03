@@ -154,9 +154,25 @@ install_agents_dir () {
   fi
 }
 
+link_my_skills () {
+  if [ -d "$DOTFILES_ROOT/agents/my-skills" ]
+  then
+    info 'linking own skills into agents/skills'
+    local overwrite_all=false backup_all=false skip_all=false
+    for skill_dir in "$DOTFILES_ROOT/agents/my-skills"/*/
+    do
+      [ -d "$skill_dir" ] || continue
+      local skill_name
+      skill_name="$(basename "$skill_dir")"
+      link_file "$skill_dir" "$DOTFILES_ROOT/agents/skills/$skill_name"
+    done
+  fi
+}
+
 setup_gitconfig
 install_dotfiles
 install_agents_dir
+link_my_skills
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]

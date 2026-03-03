@@ -38,7 +38,11 @@ script/install      # Run all install.sh scripts in topics
 ### Directory Structure
 
 ```bash
-agents/       # Agent content (symlinked to ~/.agents and ~/.cursor)
+agents/            # Agent content (symlinked to ~/.agents and ~/.cursor)
+  commands/        # Agent commands (symlinked to ~/.cursor/commands)
+  my-skills/       # Own skills — tracked in git, symlinked into skills/ by bootstrap
+  prompts/         # Agent prompts (symlinked to ~/.cursor/prompts)
+  skills/          # Runtime skills dir (symlinked to ~/.cursor/skills) — mostly gitignored
 bin/           # Executable utilities (added to PATH)
 script/        # Installation and management scripts
 zsh/           # Zsh configurations (aliases, prompt, completion)
@@ -58,6 +62,9 @@ system/        # Cross-platform utilities
 
 - `*.symlink` - Files symlinked to $HOME (extension removed)
 - `agents/` - Directory symlinked to ~/.agents (skills, prompts, commands)
+- `agents/my-skills/` - Own authored skills; tracked in git and symlinked into `agents/skills/` by bootstrap
+- `agents/skills/` - Runtime skills directory; gitignored except `.skill-lock.json` and `README.md`
+- `agents/skills/.skill-lock.json` - Tracks externally-installed skills (source, URL, hash); restore with `skills experimental_install`
 - `*.zsh` - Zsh configuration files automatically loaded
 - `path.zsh` - Loaded first for PATH setup
 - `completion.zsh` - Loaded last for autocomplete setup
@@ -238,6 +245,24 @@ custom_function() {
 # Node.js packages: add to node/install.sh
 # Python packages: add to python/install.sh
 # Ruby gems: add to ruby/install.sh
+```
+
+### Managing Agent Skills
+
+Own skills (authored by you) live in `agents/my-skills/` and are tracked in git.
+Externally-installed skills are gitignored; only `.skill-lock.json` is committed.
+
+```bash
+# Author a new skill
+mkdir agents/my-skills/my-skill
+# write agents/my-skills/my-skill/SKILL.md
+dot --bootstrap              # symlinks it into agents/skills/
+
+# Install an external skill (recorded in .skill-lock.json)
+skills install <source>/<name>
+
+# Restore all external skills on a new machine
+skills experimental_install
 ```
 
 ## Important Notes

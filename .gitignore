@@ -7,3 +7,6 @@
 # Folder view configuration files
 .DS_Store
 Desktop.ini
+
+# Do not track agent skills via CLI (skills.sh)
+agents/skills/*
