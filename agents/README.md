@@ -36,3 +36,13 @@ To restore all externally-installed skills on a new machine:
 ```bash
 skills experimental_install
 ```
+
+## Cursor skills
+
+Recommended [plugins](https://cursor.com/marketplace) for Cursor:
+
+- [Cursor Team Kit](https://cursor.com/marketplace/cursor/cursor-team-kit)
+- [Context7](https://cursor.com/marketplace/upstash)
+- [Superpowers](https://cursor.com/marketplace/superpowers)
+- [Notion Skills](https://cursor.com/marketplace/notion)
+- [Vercel](https://cursor.com/marketplace/vercel)
