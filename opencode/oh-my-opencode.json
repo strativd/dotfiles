@@ -2,10 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "opencode/glm-5-free"
+      "model": "opencode/claude-sonnet-4-6"
     },
     "oracle": {
-      "model": "opencode/kimi-k2.5-free",
+      "model": "opencode/glm-5-free",
       "variant": "high"
     },
     "librarian": {
@@ -18,15 +18,15 @@
       "model": "opencode/glm-5-free"
     },
     "prometheus": {
-      "model": "opencode/kimi-k2.5-free",
+      "model": "opencode/glm-5-free",
       "variant": "max"
     },
     "metis": {
-      "model": "opencode/kimi-k2.5-free",
+      "model": "opencode/glm-5-free",
       "variant": "max"
     },
     "momus": {
-      "model": "opencode/kimi-k2.5-free",
+      "model": "opencode/glm-5-free",
       "variant": "medium"
     },
     "atlas": {
@@ -38,7 +38,7 @@
       "model": "opencode/gemini-3-flash"
     },
     "ultrabrain": {
-      "model": "opencode/gpt-5.1-codex-mini",
+      "model": "opencode/gpt-5.1-codex",
       "variant": "high"
     },
     "artistry": {
@@ -52,7 +52,7 @@
       "model": "opencode/glm-5-free"
     },
     "unspecified-high": {
-      "model": "opencode/kimi-k2.5-free"
+      "model": "opencode/glm-5-free"
     },
     "writing": {
       "model": "opencode/glm-5-free"
