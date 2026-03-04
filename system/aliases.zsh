@@ -8,3 +8,12 @@ then
   alias ll="gls -l --color"
   alias la='gls -A --color'
 fi
+
+# Copy previous input/command to clipboard
+alias copy-input="fc -ln -1 | pbcopy"
+
+# Re-run the last command and copy its output to clipboard
+copy-output() {
+  local last_cmd=$(fc -ln -1)
+  eval "$last_cmd" 2>/dev/null | pbcopy
+}
