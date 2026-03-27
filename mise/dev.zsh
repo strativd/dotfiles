@@ -1,2 +1,1 @@
-# dev tool — https://github.com/bai/dev
-source $HOME/.dev/hack/zshrc.sh
+[[ -f $HOME/.dev/hack/zshrc.sh ]] && source $HOME/.dev/hack/zshrc.sh
