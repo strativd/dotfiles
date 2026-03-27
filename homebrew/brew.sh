@@ -31,10 +31,14 @@ brew install gnu-sed
 brew install bash
 brew install bash-completion2
 
+# Install Git and related tools.
+brew install git
+brew install git-completion
+brew install withgraphite/tap/graphite # gt (git with Graphite)
+
 # Install other useful binaries.
 brew install bat
 brew install dark-mode
-brew install git
 brew install tree
 
 # Install others for bin commands
@@ -44,7 +48,6 @@ brew install mise
 brew install pnpm
 brew install yarn
 brew install uv
-brew install git-completion
 
 # Install opencode
 brew install opencode

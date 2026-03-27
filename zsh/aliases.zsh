@@ -1,7 +1,8 @@
 ### SHORTCUTS #######################
 
-alias cdc="cd ~/Code"
-alias g="git "
+# `g` is an alias for `gt` (and `git` commands passthrough)
+# with unified completions. See [/git/completion.zsh](./completion.zsh)
+g() { gt "$@"; }
 
 ### FILES ###########################
 
