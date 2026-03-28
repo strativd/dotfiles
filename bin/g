@@ -1,0 +1,54 @@
+#!/bin/bash
+# bin/g - Smart wrapper for gt (Graphite) + git with aliases support
+#
+# - gt-native commands → gt
+# - everything else → git (so git aliases from ~/.gitconfig work)
+# - provides --gt-cache for zsh completion (shared cache)
+
+set -e
+
+# Cache file for gt commands (per-shell session)
+CACHE_FILE="/tmp/gt_commands_cache_$$"
+
+# Get gt commands (with caching) - used by both runtime and completion
+get_gt_commands() {
+  if [ ! -f "$CACHE_FILE" ]; then
+    # Get completions and extract just the command names
+    gt --get-yargs-completions gt 2>/dev/null | cut -d':' -f1 > "$CACHE_FILE" || true
+  fi
+  cat "$CACHE_FILE" 2>/dev/null || echo ""
+}
+
+# Handle special flags for completion system
+if [ "$1" = "--gt-cache" ]; then
+  get_gt_commands
+  exit 0
+fi
+
+# Check if first argument is a gt native command
+is_gt_command() {
+  local cmd="$1"
+  [ -n "$cmd" ] && get_gt_commands | grep -q "^$cmd$"
+}
+
+# Show help if no arguments
+if [ $# -eq 0 ]; then
+  echo ""
+  echo "Usage: g <command>"
+  echo ""
+  echo "This is a smart wrapper that routes:"
+  echo "  - gt commands (create, sync, etc.) → gt"
+  echo "  - everything else → git (including git aliases)"
+  echo ""
+  echo "Flags:"
+  echo "  --gt-cache  - Used by zsh completion to get the list of gt commands"
+  echo ""
+  echo "Use: g <tab> to autocomplete all commands"
+  exit 1
+fi
+
+if is_gt_command "$1"; then
+  exec gt "$@"
+else
+  exec git "$@"
+fi

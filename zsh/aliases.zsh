@@ -1,23 +1,8 @@
 ### SHORTCUTS #######################
 
-# `g` is a smart wrapper for `gt` (Graphite CLI) + git (with aliases).
-# gt-native commands are passed to gt; everything else falls through to `git`
-# so git aliases from ~/.gitconfig are properly expanded.
-# See git/completion.zsh for the unified tab completion (which shares the cache).
-g() {
-  # Lazy-load gt command names (cached once per shell session, shared with completion)
-  if (( ${#_g_gt_native_commands:-0} == 0 )); then
-    local -a raw=(${(f)"$(gt --get-yargs-completions gt 2>/dev/null || echo '')"})
-    _g_gt_native_commands=(${raw%%:*})
-  fi
-
-  local cmd="${1:-}"
-  if [[ -n "$cmd" ]] && (( ${_g_gt_native_commands[(Ie)$cmd]} )); then
-    gt "$@"
-  else
-    git "$@"
-  fi
-}
+# `g` calls the smart wrapper in bin/g
+# See bin/g for the full logic (gt routing + git aliases support + caching)
+g() { "$ZSH/bin/g" "$@"; }
 
 ### FILES ###########################
 
