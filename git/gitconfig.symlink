@@ -148,6 +148,9 @@
 	# log latest - show the 10 most recent lines using `lk`
 	ll = log -n 10 --graph --topo-order --abbrev-commit --date=short --decorate --all --boundary --pretty=format:'%Cgreen%ad'
 
+	# log last 15 commit messages only
+	lc = log -n 15 --pretty=format:%B
+
 	## ls-files ##
 
 	# ls-files - show information about files in the index and the working tree; like Unix "ls" command.
