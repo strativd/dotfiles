@@ -26,6 +26,7 @@ compdef _gt_yargs_completions gt
 # Unified completion for `g` (gt + git passthrough).
 # gt-native commands use yargs completions; everything else falls through to _git.
 # Command list is populated dynamically from gt on first tab-press, then cached.
+# The array _g_gt_native_commands is declared here and shared with the g() function in aliases.zsh.
 typeset -ga _g_gt_native_commands
 
 _g()
