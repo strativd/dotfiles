@@ -2,60 +2,69 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "opencode/claude-sonnet-4-6"
+      "__ROLE__": "Primary orchestrator",
+      "model": "opencode/qwen3.6-plus-free"
     },
     "oracle": {
-      "model": "opencode/glm-5-free",
+      "__ROLE__": "Consultation, debugging",
+      "model": "opencode/qwen3.6-plus-free",
       "variant": "high"
     },
     "librarian": {
-      "model": "opencode/glm-5-free"
+      "__ROLE__": "Docs, GitHub search",
+      "model": "opencode/qwen3.6-plus-free"
     },
     "explore": {
-      "model": "opencode/glm-5-free"
+      "__ROLE__": "Fast contextual grep",
+      "model": "opencode/qwen3.6-plus-free"
     },
     "multimodal-looker": {
-      "model": "opencode/glm-5-free"
+      "__ROLE__": "PDF/image analysis",
+      "model": "opencode/qwen3.6-plus-free"
     },
     "prometheus": {
-      "model": "opencode/glm-5-free",
+      "__ROLE__": "Strategic planning",
+      "model": "opencode/qwen3.6-plus-free",
       "variant": "max"
     },
     "metis": {
-      "model": "opencode/glm-5-free",
+      "__ROLE__": "Pre-planning analysis",
+      "model": "opencode/qwen3.6-plus-free",
       "variant": "max"
     },
     "momus": {
-      "model": "opencode/glm-5-free",
+      "__ROLE__": "Plan validation",
+      "model": "opencode/qwen3.6-plus-free",
       "variant": "medium"
     },
     "atlas": {
-      "model": "opencode/glm-5-free"
+      "__ROLE__": "Master orchestrator",
+      "model": "opencode/qwen3.6-plus-free"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode/gemini-3-flash"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "ultrabrain": {
-      "model": "opencode/gpt-5.1-codex",
-      "variant": "high"
+      "model": "opencode/qwen3.6-plus-free",
+      "variant": "xhigh"
     },
     "artistry": {
-      "model": "opencode/gemini-3-flash",
+      "model": "opencode/qwen3.6-plus-free",
       "variant": "max"
     },
     "quick": {
-      "model": "opencode/glm-5-free"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "unspecified-low": {
-      "model": "opencode/glm-5-free"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "unspecified-high": {
-      "model": "opencode/glm-5-free"
+      "model": "opencode/qwen3.6-plus-free"
     },
     "writing": {
-      "model": "opencode/glm-5-free"
+      "model": "opencode/qwen3.6-plus-free"
     }
   }
 }

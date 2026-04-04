@@ -52,6 +52,7 @@ brew install uv
 # Install opencode
 brew install opencode
 brew install ollama
+brew install ast-grep
 
 # Install Apps
 brew install --cask raycast
