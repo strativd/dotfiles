@@ -32,7 +32,7 @@
 	p = pull
 	r = remote
 	s = status
-	w = whatchanged
+	w = worktree
 
 	##
 	# Short aliases for our frequent commands.
@@ -100,6 +100,26 @@
 
 	# cherry-pick without making a commit, and when when recording the commit, append a line that says "(cherry picked from commit ...)"
 	cp-nx = cherry-pick --no-commit -x
+
+  ### worktrees ###
+
+  wt = worktree
+
+  # list
+  wts = worktree list
+  trees = worktree list
+
+  # add
+  wta = worktree add
+  atree = worktree add
+
+  # remove
+  wtrm = worktree remove
+  rmtree = worktree remove
+
+  # prune
+  wtp = worktree prune
+  ptree = worktree prune
 
 	### diff ###
 
