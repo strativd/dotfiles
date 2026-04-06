@@ -111,15 +111,15 @@
 
   # add
   wta = worktree add
-  atree = worktree add
+  tree-add = worktree add
 
   # remove
   wtrm = worktree remove
-  rmtree = worktree remove
+  tree-rm = worktree remove
 
   # prune
   wtp = worktree prune
-  ptree = worktree prune
+  tree-prune = worktree prune
 
 	### diff ###
 
