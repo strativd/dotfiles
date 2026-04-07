@@ -103,6 +103,9 @@
 
   ### worktrees ###
 
+  # fuzzy pick worktree; prints path on stdout (use: cd "$(git cow)") — see $ZSH/bin/git-cow
+  cow = !$ZSH/bin/git-cow
+
   wt = worktree
 
   # list

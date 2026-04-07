@@ -15,9 +15,9 @@ _git_checkout_worktree_row() {
   print -r -- "$epoch"$'\t'"$wt_path"$'\t'"$display"
 }
 
-# Fuzzy-pick a linked worktree and cd into it (must run as shell command `git-cow`;
-# `git cow` cannot change the current directory because git runs a subprocess.)
-git-cow() {
+# Print chosen worktree path to stdout (stderr for errors). Empty stdout + exit 0 = user cancelled fzf.
+# Used by `git cow` ($ZSH/bin/git-cow) and by git-cow().
+git_checkout_worktree() {
   if ! git rev-parse --show-toplevel &>/dev/null; then
     print -u2 "git-cow: not inside a git repository"
     return 1
@@ -65,6 +65,14 @@ git-cow() {
     print -u2 "git-cow: not a directory: $dest"
     return 1
   fi
+  print -r -- "$dest"
+}
+
+# cd into fuzzy-picked worktree (current shell). With the git alias: cd "$(git cow)".
+git-cow() {
+  local dest
+  _dest=$(git_checkout_worktree) || return 1
+  [[ -z "$dest" ]] && return 0
   cd "$dest" || return 1
 }
 
