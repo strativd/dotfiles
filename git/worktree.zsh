@@ -1,5 +1,73 @@
 # Git worktree helpers — work from any directory inside a repository.
 
+# One porcelain worktree block -> sort key, path, fzf display line (internal).
+_git_checkout_worktree_row() {
+  local wt_path="$1" branch_label="${2:-}"
+  local y=$'\e[33m' g=$'\e[32m' b=$'\e[1m' r=$'\e[0m'
+  local epoch reldate subject shortpath display
+
+  [[ -z "$branch_label" ]] && branch_label="(no branch)"
+  epoch=$(git -C "$wt_path" log -1 --format=%ct 2>/dev/null) || epoch=0
+  reldate=$(git -C "$wt_path" log -1 --format=%cr 2>/dev/null) || reldate="?"
+  subject=$(git -C "$wt_path" log -1 --format=%s 2>/dev/null) || subject="?"
+  shortpath="${wt_path/#$HOME/~}"
+  display="${y}${shortpath}${r} | (${g}${reldate}${r}) ${b}${branch_label}${r} - ${subject}"
+  print -r -- "$epoch"$'\t'"$wt_path"$'\t'"$display"
+}
+
+# Fuzzy-pick a linked worktree and cd into it (must run as shell command `git-cow`;
+# `git cow` cannot change the current directory because git runs a subprocess.)
+git-cow() {
+  if ! git rev-parse --show-toplevel &>/dev/null; then
+    print -u2 "git-cow: not inside a git repository"
+    return 1
+  fi
+  if (( ! $+commands[fzf] )); then
+    print -u2 "git-cow: fzf not found"
+    return 1
+  fi
+
+  local line wt_path="" branch_label="" ref
+  local -a rows
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ -z "$line" ]]; then
+      [[ -n "$wt_path" ]] && rows+=("$(_git_checkout_worktree_row "$wt_path" "$branch_label")")
+      wt_path="" branch_label=""
+      continue
+    fi
+    case "$line" in
+      worktree\ *) wt_path="${line#worktree }" ;;
+      branch\ *)
+        ref="${line#branch }"
+        branch_label="${ref#refs/heads/}"
+        [[ "$branch_label" == "$ref" ]] && branch_label="${ref#refs/remotes/}"
+        ;;
+      detached) branch_label="(detached)" ;;
+    esac
+  done < <(git worktree list --porcelain 2>/dev/null)
+
+  [[ -n "$wt_path" ]] && rows+=("$(_git_checkout_worktree_row "$wt_path" "$branch_label")")
+
+  if (( ${#rows} == 0 )); then
+    print -u2 "git-cow: no worktrees found"
+    return 1
+  fi
+
+  local selected dest
+  selected=$(print -l "${rows[@]}" | LC_ALL=C sort -t$'\t' -k1,1nr | while IFS=$'\t' read -r epoch p d; do
+    printf '%s\t%s\n' "$p" "$d"
+  done | fzf --ansi --delimiter=$'\t' --with-nth=2)
+
+  [[ -z "$selected" ]] && return 0
+  dest="${selected%%$'\t'*}"
+  if [[ ! -d "$dest" ]]; then
+    print -u2 "git-cow: not a directory: $dest"
+    return 1
+  fi
+  cd "$dest" || return 1
+}
+
 # Parse user arg into "remote branch" (stdout: two words).
 # - origin/feature/foo -> origin + feature/foo
 # - feature/foo -> origin + feature/foo unless "feature" is a configured remote
