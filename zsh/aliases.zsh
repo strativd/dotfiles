@@ -3,6 +3,7 @@
 # `g` calls the smart wrapper in bin/g
 # See bin/g for the full logic (gt routing + git aliases support + caching)
 g() { "$ZSH/bin/g" "$@"; }
+gwork() { git-cow "$@"; }
 
 ### FILES ###########################
 

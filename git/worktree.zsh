@@ -71,7 +71,7 @@ git_checkout_worktree() {
 # cd into fuzzy-picked worktree (current shell). With the git alias: cd "$(git cow)".
 git-cow() {
   local dest
-  _dest=$(git_checkout_worktree) || return 1
+  dest=$(git_checkout_worktree) || return 1
   [[ -z "$dest" ]] && return 0
   cd "$dest" || return 1
 }
