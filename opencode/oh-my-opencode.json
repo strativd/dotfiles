@@ -3,68 +3,68 @@
   "agents": {
     "sisyphus": {
       "__ROLE__": "Primary orchestrator",
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "oracle": {
       "__ROLE__": "Consultation, debugging",
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "high"
     },
     "librarian": {
       "__ROLE__": "Docs, GitHub search",
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "explore": {
       "__ROLE__": "Fast contextual grep",
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "multimodal-looker": {
       "__ROLE__": "PDF/image analysis",
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "prometheus": {
       "__ROLE__": "Strategic planning",
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "max"
     },
     "metis": {
       "__ROLE__": "Pre-planning analysis",
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "max"
     },
     "momus": {
       "__ROLE__": "Plan validation",
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "medium"
     },
     "atlas": {
       "__ROLE__": "Master orchestrator",
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "ultrabrain": {
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "xhigh"
     },
     "artistry": {
-      "model": "opencode/qwen3.6-plus-free",
+      "model": "opencode/kimi-k2.5",
       "variant": "max"
     },
     "quick": {
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "unspecified-low": {
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "unspecified-high": {
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     },
     "writing": {
-      "model": "opencode/qwen3.6-plus-free"
+      "model": "opencode/kimi-k2.5"
     }
   }
 }
