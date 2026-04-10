@@ -32,6 +32,7 @@ fi
 printf 'Starting ngrok tunnel on port 11434...\n'
 ngrok http 11434 --host-header="localhost:11434" --log=stdout >/dev/null 2>&1 &
 NGROK_PID=$!
+disown
 
 # Wait for ngrok API to become available
 for i in $(seq 1 15); do
