@@ -4,7 +4,7 @@ description: Behavioral guidelines to reduce common LLM coding mistakes. Use whe
 license: MIT
 ---
 
-# Karpathy Guidelines
+# Guidelines for Coding
 
 Behavioral guidelines to reduce common LLM coding mistakes,
 derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876)
