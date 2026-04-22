@@ -45,6 +45,15 @@
       "skillFolderHash": "b16fcda0660491a139a2537c6fa46433eecf640f",
       "installedAt": "2026-03-18T21:06:39.162Z",
       "updatedAt": "2026-03-18T21:06:39.162Z"
+    },
+    "tailwind-theme-builder": {
+      "source": "jezweb/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jezweb/claude-skills.git",
+      "skillPath": "plugins/frontend/skills/tailwind-theme-builder/SKILL.md",
+      "skillFolderHash": "262c2df1bfebed8fff2582ab818ab65647d2ea1d",
+      "installedAt": "2026-04-12T08:58:23.104Z",
+      "updatedAt": "2026-04-12T09:03:24.515Z"
     }
   },
   "dismissed": {
@@ -57,6 +66,7 @@
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
-    "opencode"
+    "opencode",
+    "claude-code"
   ]
 }
