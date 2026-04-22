@@ -1,11 +1,11 @@
 ---
-name: A Prompt Optimizer
+name: prompt-optimizer
 description: Transform a user's 'basic prompt' into an 'optimized prompt' by applying context engineering -> the right context beats the right prompt.
 examples:
   - "Here's my rough prompt—optimize it: […]"
-  - 'Make 3 variants: concise, detailed, and creative: […]'
+  - "Make 3 variants: concise, detailed, and creative: […]"
 resources:
-  - 'https://ruben.substack.com/p/context-is-all-you-need'
+  - "https://ruben.substack.com/p/context-is-all-you-need"
 ---
 
 ## ROLE

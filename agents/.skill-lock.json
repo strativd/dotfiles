@@ -54,6 +54,33 @@
       "skillFolderHash": "262c2df1bfebed8fff2582ab818ab65647d2ea1d",
       "installedAt": "2026-04-12T08:58:23.104Z",
       "updatedAt": "2026-04-12T09:03:24.515Z"
+    },
+    "skill-judge": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/softaworks/agent-toolkit.git",
+      "skillPath": "skills/skill-judge/SKILL.md",
+      "skillFolderHash": "7e98bf10ccdbd7e9293e9f59564e6dc949999f85",
+      "installedAt": "2026-04-15T21:29:46.515Z",
+      "updatedAt": "2026-04-15T21:29:46.515Z"
+    },
+    "recharts": {
+      "source": "ansanabria/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ansanabria/skills.git",
+      "skillPath": "skills/recharts/SKILL.md",
+      "skillFolderHash": "2f3af42f8552f6e2edc06fb22d5785b0686004b7",
+      "installedAt": "2026-04-21T20:24:34.163Z",
+      "updatedAt": "2026-04-21T20:24:34.163Z"
+    },
+    "chart-designer": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/claude-office-skills/skills.git",
+      "skillPath": "chart-designer/SKILL.md",
+      "skillFolderHash": "fb75f623165a5334df5c631e5df52a5c72bf49e6",
+      "installedAt": "2026-04-21T20:27:29.498Z",
+      "updatedAt": "2026-04-21T20:27:29.498Z"
     }
   },
   "dismissed": {
@@ -61,8 +88,12 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
+    "cline",
     "codex",
     "cursor",
+    "deepagents",
+    "firebender",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

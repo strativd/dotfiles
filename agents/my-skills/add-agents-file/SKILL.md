@@ -1,5 +1,5 @@
 ---
-name: Add AGENTS.md Within Directory
+name: add-agents-file
 description: Generate an optimized AGENTS.md file after analyzing the directory/codebase for context.
 ---
 
