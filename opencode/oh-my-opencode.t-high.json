@@ -3,7 +3,7 @@
   "agents": {
     "sisyphus": {
       "__ROLE__": "Primary orchestrator",
-      "model": "opencode/claude-sonnet-4-6"
+      "model": "opencode/claude-opus-4-6"
     },
     "hephaestus": {
       "__ROLE__": "Autonomous deep worker, The Legitimate Craftsman",
@@ -11,7 +11,7 @@
     },
     "oracle": {
       "__ROLE__": "Consultation, debugging",
-      "model": "opencode/claude-sonnet-4-6",
+      "model": "opencode/gpt-5.4",
       "variant": "high"
     },
     "librarian": {
@@ -28,22 +28,22 @@
     },
     "prometheus": {
       "__ROLE__": "Strategic planning",
-      "model": "opencode/kimi-k2.6",
+      "model": "opencode/claude-opus-4-6",
       "variant": "max"
     },
     "metis": {
       "__ROLE__": "Pre-planning analysis",
-      "model": "opencode/claude-sonnet-4-6",
-      "variant": "high"
+      "model": "opencode/claude-opus-4-6",
+      "variant": "max"
     },
     "momus": {
       "__ROLE__": "Plan validation",
-      "model": "opencode/gpt-5.3-codex",
-      "variant": "high"
+      "model": "opencode/gpt-5.4",
+      "variant": "xhigh"
     },
     "atlas": {
       "__ROLE__": "Master orchestrator",
-      "model": "opencode/claude-sonnet-4-6"
+      "model": "opencode/claude-opus-4-6"
     }
   },
   "categories": {
@@ -52,20 +52,21 @@
     },
     "ultrabrain": {
       "model": "opencode/gpt-5.4",
-      "variant": "high"
+      "variant": "xhigh"
     },
     "artistry": {
       "model": "opencode/gemini-3.1-pro",
-      "variant": "high"
+      "variant": "max"
     },
     "quick": {
-      "model": "opencode/gemini-3-flash"
+      "model": "opencode/gpt-5-nano"
     },
     "unspecified-low": {
       "model": "opencode/gpt-5.3-codex-spark"
     },
     "unspecified-high": {
-      "model": "opencode/claude-opus-4-6"
+      "model": "opencode/claude-opus-4-6",
+      "variant": "max"
     },
     "writing": {
       "model": "opencode/gemini-3-flash"

@@ -9,14 +9,14 @@
         "baseURL": "http://localhost:11434/v1"
       },
       "models": {
-        "kimi-k2.5:cloud": { "name": "Kimi K2.5 (Cloud) - primary" },
+        "kimi-k2.6:cloud": { "name": "Kimi K2.5 (Cloud) - primary" },
         "glm-4.7:cloud": { "name": "GLM 4.7 (Cloud) - general" },
         "glm-4.7-flash:latest": { "name": "GLM 4.7 Flash (latest) - fast" },
         "glm-ocr:latest": { "name": "GLM OCR (latest) - OCR" }
       }
     }
   },
-  "model": "kimi-k2.5:cloud",
+  "model": "kimi-k2.6:cloud",
   "small_model": "glm-4.7-flash:latest",
   "autoupdate": true,
   "compaction": {

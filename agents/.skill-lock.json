@@ -5,10 +5,11 @@
       "source": "luongnv89/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/luongnv89/skills.git",
+      "ref": "main",
       "skillPath": "skills/test-coverage/SKILL.md",
-      "skillFolderHash": "f1650851b456ba467c1d60271f28af9f5b42d1ef",
+      "skillFolderHash": "77176b18fa914e6b2a93928091eb5385834c2ed6",
       "installedAt": "2026-02-17T18:30:44.860Z",
-      "updatedAt": "2026-03-18T21:23:49.505Z"
+      "updatedAt": "2026-04-23T22:13:47.938Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -23,10 +24,11 @@
       "source": "microsoft/playwright-cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/microsoft/playwright-cli.git",
+      "ref": "main",
       "skillPath": "skills/playwright-cli/SKILL.md",
-      "skillFolderHash": "a5a8823e403adc13b2488aae9968d6d92adbd2d7",
+      "skillFolderHash": "b901dcc64256dbb1b32744975a0bafaeb4478da5",
       "installedAt": "2026-03-03T18:00:37.297Z",
-      "updatedAt": "2026-03-03T18:00:37.297Z"
+      "updatedAt": "2026-04-23T22:13:50.156Z"
     },
     "deslop": {
       "source": "cursor/plugins",

@@ -53,7 +53,7 @@ done
 KEEP_ALIVE="${OLLAMA_KEEP_ALIVE:-30m}"
 CONTEXT_LENGTH="${OLLAMA_CONTEXT_LENGTH:-64000}"
 HOST="${OLLAMA_HOST:-127.0.0.1:11434}"
-WARMUP_MODELS="${OLLAMA_WARMUP_MODELS:-kimi-k2.5:cloud glm-4.7-flash:latest glm-ocr:latest}"
+WARMUP_MODELS="${OLLAMA_WARMUP_MODELS:-kimi-k2.6:cloud glm-4.7-flash:latest glm-ocr:latest}"
 PORT="${HOST##*:}"
 
 ollama_up() {

@@ -6,7 +6,7 @@ echo "Updating Ollama models..."
 if command -v ollama >/dev/null 2>&1; then
   ollama pull glm-4.7-flash:latest || true
   ollama pull glm-ocr:latest || true
-  # Cloud-backed models (glm-4.7:cloud, kimi-k2.5:cloud) use upstream; no pull needed
+  # Cloud-backed models (glm-4.7:cloud, kimi-k2.6:cloud) use upstream; no pull needed
 else
   echo "ollama not found; skipping model updates."
 fi

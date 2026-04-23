@@ -3,28 +3,28 @@
   "agents": {
     "sisyphus": {
       "__ROLE__": "Primary orchestrator",
-      "model": "opencode/claude-sonnet-4-6"
+      "model": "opencode/glm-5.1"
     },
     "hephaestus": {
       "__ROLE__": "Autonomous deep worker, The Legitimate Craftsman",
-      "model": "opencode/gpt-5.4"
+      "model": "opencode/gpt"
     },
     "oracle": {
       "__ROLE__": "Consultation, debugging",
-      "model": "opencode/claude-sonnet-4-6",
+      "model": "opencode/glm-5.1",
       "variant": "high"
     },
     "librarian": {
       "__ROLE__": "Docs, GitHub search",
-      "model": "opencode/gpt-5.3-codex-spark"
+      "model": "opencode/gpt-5-nano"
     },
     "explore": {
       "__ROLE__": "Fast contextual grep",
-      "model": "opencode/gpt-5.3-codex-spark"
+      "model": "opencode/gpt-5-nano"
     },
     "multimodal-looker": {
       "__ROLE__": "PDF/image analysis",
-      "model": "opencode/gemini-3.1-pro"
+      "model": "opencode/gemini-3-flash"
     },
     "prometheus": {
       "__ROLE__": "Strategic planning",
@@ -33,39 +33,40 @@
     },
     "metis": {
       "__ROLE__": "Pre-planning analysis",
-      "model": "opencode/claude-sonnet-4-6",
-      "variant": "high"
+      "model": "opencode/kimi-k2.6",
+      "variant": "max"
     },
     "momus": {
       "__ROLE__": "Plan validation",
-      "model": "opencode/gpt-5.3-codex",
-      "variant": "high"
+      "model": "opencode/gpt-5-nano",
+      "variant": "medium"
     },
     "atlas": {
       "__ROLE__": "Master orchestrator",
-      "model": "opencode/claude-sonnet-4-6"
+      "model": "opencode/kimi-k2.6"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode/gemini-3.1-pro"
+      "model": "opencode/gemini-3-flash"
     },
     "ultrabrain": {
-      "model": "opencode/gpt-5.4",
+      "model": "opencode/kimi-k2.6",
       "variant": "high"
     },
     "artistry": {
-      "model": "opencode/gemini-3.1-pro",
-      "variant": "high"
+      "model": "opencode/gemini-3-flash",
+      "variant": "max"
     },
     "quick": {
-      "model": "opencode/gemini-3-flash"
+      "model": "opencode/kimi-k2.6"
     },
     "unspecified-low": {
-      "model": "opencode/gpt-5.3-codex-spark"
+      "model": "opencode/kimi-k2.6"
     },
     "unspecified-high": {
-      "model": "opencode/claude-opus-4-6"
+      "model": "opencode/kimi-k2.6",
+      "variant": "high"
     },
     "writing": {
       "model": "opencode/gemini-3-flash"
