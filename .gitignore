@@ -4,6 +4,8 @@
 *.env
 *.venv
 
+.worktrees
+
 # Folder view configuration files
 .DS_Store
 Desktop.ini

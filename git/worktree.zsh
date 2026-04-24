@@ -56,13 +56,14 @@ _gtree_pick() {
   printf '%s' "${selected%%$'\t'*}"
 }
 
-# Internal: resolve git root or error
+# Internal: resolve main worktree root (always the primary repo, not a linked worktree)
 _gtree_top() {
   local top
-  top=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  top=$(git worktree list --porcelain 2>/dev/null | awk '/^worktree / { print substr($0, 10); exit }')
+  if [[ -z "$top" ]]; then
     print -u2 "gtree: not inside a git repository"
     return 1
-  }
+  fi
   print -r -- "$top"
 }
 
