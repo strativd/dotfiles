@@ -71,7 +71,7 @@ while test $# -gt 0; do
 			;;
 		"-S"|"--start")
       # Start a new laptop setup with above commands
-		  "$0" --dotfiles
+		  "$0" --sync
       "$0" --install
       "$0" --brew
       "$0" --macos

@@ -166,6 +166,12 @@ link_my_skills () {
       skill_name="$(basename "$skill_dir")"
       link_file "$skill_dir" "$DOTFILES_ROOT/agents/skills/$skill_name"
     done
+
+    for link in "$DOTFILES_ROOT/agents/skills"/*/
+    do
+      link="${link%/}"
+      [ -L "$link" ] && [ ! -e "$link" ] && rm "$link" && success "pruned stale skill symlink $link"
+    done
   fi
 }
 

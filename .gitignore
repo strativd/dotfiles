@@ -11,6 +11,9 @@ Desktop.ini
 # Do not track agent skills via CLI (skills.sh)
 agents/skills/*
 
+# Opencode backup files created by omod() on profile switch
+opencode/*.backup.*
+
 # ── GSD baseline (auto-generated) ──
 .gsd
 .gsd-id
@@ -40,3 +43,15 @@ vendor/
 coverage/
 .cache/
 tmp/
+
+# Secrets and ephemeral files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+.npmrc
+credentials*
+*secret*
+*.token

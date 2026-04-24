@@ -18,7 +18,7 @@
   },
   "model": "kimi-k2.6:cloud",
   "small_model": "glm-4.7-flash:latest",
-  "autoupdate": true,
+  "autoupdate": false,
   "compaction": {
     "auto": true,
     "prune": true
