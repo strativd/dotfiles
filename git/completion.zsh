@@ -22,6 +22,39 @@ _gt_yargs_completions()
 }
 compdef _gt_yargs_completions gt
 
+### GTREE COMPLETIONS ###
+
+_gtree() {
+  local -a subcommands=(
+    'switch:cd into a worktree (fzf or branch name)'
+    'add:add a worktree (fzf branch or new name)'
+    'remove:remove a worktree (fzf or path)'
+    'lock:lock a worktree (fzf or path)'
+    'unlock:unlock a worktree (fzf or path)'
+    'prune:prune stale worktree admin files'
+    'list:list all worktrees'
+    'move:move a worktree to a new path'
+  )
+  if (( CURRENT == 2 )); then
+    _describe 'subcommand' subcommands
+  elif (( CURRENT == 3 )); then
+    case "${words[2]}" in
+      switch|remove|lock|unlock)
+        local -a wts
+        wts=("${(@f)$(git worktree list --porcelain 2>/dev/null \
+          | awk '/^branch / { sub(/^refs\/heads\//, "", $2); print $2 }')}")
+        _describe 'worktree' wts
+        ;;
+      add)
+        local -a branches
+        branches=("${(@f)$(git branch -a --format='%(refname:short)' 2>/dev/null | grep -v HEAD)}")
+        _describe 'branch' branches
+        ;;
+    esac
+  fi
+}
+compdef _gtree gtree
+
 ### G COMPLETIONS ###
 # Unified completion for `g` (gt + git fallback and alias support).
 # Uses `bin/g --gt-cache` for shared caching of all gt commands.
