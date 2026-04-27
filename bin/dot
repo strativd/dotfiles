@@ -17,6 +17,7 @@ displayUsageAndExit() {
 	echo ""
 	echo "Options:"
 	echo "  -e, --edit       Open dotfiles directory for editing"
+	echo "  -o, --open       Open dotfiles directory in Finder"
 	echo "  -h, --help       Show this help message and exit"
 	echo "  -r, --reload     Reload the current terminal session"
 	echo "  -n, --new        Open a new terminal window"
@@ -35,6 +36,10 @@ while test $# -gt 0; do
 			;;
 		"-e"|"--edit")
 			exec e "$dotfilesDirectory"
+			exit
+			;;
+		"-o"|"--open")
+			open "$dotfilesDirectory"
 			exit
 			;;
 		"-r"|"--reload")
