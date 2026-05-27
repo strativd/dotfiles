@@ -47,7 +47,7 @@ while test $# -gt 0; do
 			exit
 			;;
 		"-n"|"--new")
-      open -a iterm .
+			exec t
 			exit
 			;;
 		"-m"|"--macos")

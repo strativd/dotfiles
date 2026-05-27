@@ -56,7 +56,7 @@ brew install ast-grep
 
 # Install Apps
 brew install --cask raycast
-brew install --cask iterm2
+brew install --cask warp
 brew install --cask cursor
 brew install --cask visual-studio-code
 brew install --cask google-chrome
