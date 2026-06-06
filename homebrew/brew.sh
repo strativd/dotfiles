@@ -46,7 +46,6 @@ brew install fzf
 
 brew install mise
 brew install pnpm
-brew install yarn
 brew install uv
 
 # Install opencode

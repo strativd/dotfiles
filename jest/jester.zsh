@@ -1,7 +1,7 @@
 # Jester: running jest testing library
 #
-#     "yarn jest <optional/file/path>"
-# -c  "yarn jest --coverage --coverageDirectory='coverage' "
+#     "pnpm jest <optional/file/path>"
+# -c  "pnpm jest --coverage --coverageDirectory='coverage' "
 # -o  "open coverage/index.html"
 #
 # https://stackoverflow.com/a/45598695/6586407
@@ -31,8 +31,8 @@ function jester {
     -c) # run test --coverage within directory
       shift
       DIR_NAME=${1:-$DEFAULT_DIR}
-      logGrey "yarn jest --coverage --coverageDirectory='$DIR_NAME'"
-      $(yarn jest --coverage --coverageDirectory='$DIR_NAME')
+      logGrey "pnpm jest --coverage --coverageDirectory='$DIR_NAME'"
+      $(pnpm jest --coverage --coverageDirectory='$DIR_NAME')
       return 1
       ;;
     *)
@@ -42,6 +42,6 @@ function jester {
   done
 
   # no flags? run tests (on file if it's provided)
-  logGrey "yarn jest $1"
-  yarn jest $1
+  logGrey "pnpm jest $1"
+  pnpm jest $1
 }
