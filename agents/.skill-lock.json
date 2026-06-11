@@ -249,6 +249,16 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-05-06T17:25:33.717Z",
       "updatedAt": "2026-05-06T17:25:33.717Z"
+    },
+    "skill-deslop": {
+      "source": "stephenturner/skill-deslop",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stephenturner/skill-deslop.git",
+      "ref": "main",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "54a5b09389ce89fba14a1475d10f35cf48bc8e2f",
+      "installedAt": "2026-06-10T16:05:00.000Z",
+      "updatedAt": "2026-06-10T16:05:00.000Z"
     }
   },
   "dismissed": {
