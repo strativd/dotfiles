@@ -1,0 +1,23 @@
+#!/bin/zsh
+#
+# Start (or reuse) a 30-minute 1Password CLI session in the current
+# shell so repeated `op` commands stop prompting individually.
+#
+# Usage: op-session [account-shorthand]   # default: my
+#
+# You type the account password once; the session token lives only in
+# this shell's env (OP_SESSION_<account>) and expires after 30 min of
+# inactivity. Nothing is written to disk. Child processes inherit it,
+# so run `op-session` before `claude` (or anything that shells out to
+# `op`) and those op calls reuse the session too.
+#
+# OP_BIOMETRIC_UNLOCK_ENABLED=false makes op use the session token:
+# with 1Password desktop-app integration enabled, op otherwise ignores
+# OP_SESSION_* and asks the app (Touch ID prompt per caller). Only this
+# shell is affected.
+
+local account="${1:-my}"
+export OP_BIOMETRIC_UNLOCK_ENABLED=false
+if ! op whoami --account "$account" >/dev/null 2>&1; then
+  eval "$(op signin --account "$account")"
+fi
