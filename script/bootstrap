@@ -175,10 +175,49 @@ link_my_skills () {
   fi
 }
 
+install_pi_dir () {
+  if [ -d "$DOTFILES_ROOT/pi" ]
+  then
+    info 'linking pi config'
+    local overwrite_all=false backup_all=false skip_all=false
+    local pi_agent="$HOME/.pi/agent"
+    mkdir -p "$pi_agent/extensions" "$pi_agent/skills"
+
+    link_file "$DOTFILES_ROOT/pi/agent/settings.json" "$pi_agent/settings.json"
+    link_file "$DOTFILES_ROOT/pi/agent/mcp.json" "$pi_agent/mcp.json"
+    link_file "$DOTFILES_ROOT/pi/agent/prompts" "$pi_agent/prompts"
+    link_file "$DOTFILES_ROOT/pi/agent/themes" "$pi_agent/themes"
+    link_file "$DOTFILES_ROOT/pi/agent/extensions/rtk.ts" "$pi_agent/extensions/rtk.ts"
+
+    for skill_dir in "$DOTFILES_ROOT/pi/agent/skills"/*/
+    do
+      [ -d "$skill_dir" ] || continue
+      skill_dir="${skill_dir%/}"   # trailing slash breaks readlink comparison in link_file
+      link_file "$skill_dir" "$pi_agent/skills/$(basename "$skill_dir")"
+    done
+
+    # prune stale symlinks that pointed into this repo's pi skills
+    for link in "$pi_agent/skills"/*
+    do
+      [ -L "$link" ] || continue
+      case "$(readlink "$link")" in
+        "$DOTFILES_ROOT"/pi/agent/skills/*)
+          if [ ! -e "$link" ]
+          then
+            rm "$link"
+            success "pruned stale pi skill symlink $link"
+          fi
+          ;;
+      esac
+    done
+  fi
+}
+
 setup_gitconfig
 install_dotfiles
 install_agents_dir
 link_my_skills
+install_pi_dir
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]

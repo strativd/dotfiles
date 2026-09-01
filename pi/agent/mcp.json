@@ -1,0 +1,24 @@
+{
+  "imports": [
+    "cursor",
+    "claude-code",
+    "codex",
+    "opencode"
+  ],
+  "mcpServers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "auth": "oauth"
+    },
+    "slack": {
+      "url": "https://mcp.slack.com/mcp",
+      "auth": "oauth",
+      "oauth": {
+        "clientId": "456559155524.11777484334849",
+        "clientSecret": "!op read op://Employee/hwsjh3to43whice27a4t2s2bgy/client_secret",
+        "redirectUri": "http://localhost:3118/callback",
+        "scope": "search:read.public search:read.private search:read.mpim search:read.im search:read.files search:read.users channels:history groups:history mpim:history im:history channels:read groups:read mpim:read im:read files:read users:read users:read.email"
+      }
+    }
+  }
+}

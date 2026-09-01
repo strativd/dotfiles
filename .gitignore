@@ -4,7 +4,9 @@
 *.env
 *.venv
 
+# Work
 .worktrees
+/growthloop/*
 
 # Folder view configuration files
 .DS_Store
@@ -45,6 +47,14 @@ vendor/
 coverage/
 .cache/
 tmp/
+
+# Pi — secrets & runtime state are never tracked; config lives in pi/ and is symlinked
+pi/agent/auth.json
+pi/agent/run-history.jsonl
+pi/agent/sessions/
+pi/agent/models-store.json
+pi/agent/mcp-cache.json
+pi/agent/mcp-npx-cache.json
 
 # Secrets and ephemeral files
 *.pem

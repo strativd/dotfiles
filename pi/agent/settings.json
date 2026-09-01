@@ -1,0 +1,25 @@
+{
+  "lastChangelogVersion": "0.84.4",
+  "defaultProvider": "openrouter",
+  "defaultModel": "z-ai/glm-5.3-flash",
+  "defaultThinkingLevel": "high",
+  "showHardwareCursor": false,
+  "editorPaddingX": 0,
+  "doubleEscapeAction": "tree",
+  "theme": "space",
+  "packages": [
+    "npm:context-mode",
+    "https://github.com/nicobailon/pi-subagents",
+    "https://github.com/nicobailon/pi-web-access",
+    "https://github.com/nicobailon/pi-mcp-adapter",
+    "npm:@upstash/context7-pi",
+    "npm:pi-qq",
+    "npm:pi-bar",
+    "npm:pi-warp",
+    "git:github.com/GrowthLoop/pi-nitro@v0.1.0"
+  ],
+  "piWarp": {
+    "dynamicTitles": true
+  },
+  "hideThinkingBlock": false
+}
