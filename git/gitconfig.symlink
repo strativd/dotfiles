@@ -569,6 +569,10 @@
 	pullon = !git pull origin $(git branch-name)
 
 	# 🌟
+  # Do a pull for just one branch and stash any changes if there are any
+	pulls = "!f() { STASHED=0; [ -n \"$(git status --porcelain)\" ] && git stash push -u -m \"pulls: before pull\" && STASHED=1; git pullon || { [ \"$STASHED\" = 1 ] && git stash pop; return 1; }; [ \"$STASHED\" = 1 ] && git stash pop; }; f"
+
+	# 🌟
 	# Do a force push of current branch
 	push-f = !git push -f origin $(git branch-name) --force-with-lease
 
