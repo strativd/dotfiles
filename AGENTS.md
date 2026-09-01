@@ -1,6 +1,7 @@
 # AGENTS.md - Dotfiles Repository Guide
 
-This is a personal dotfiles management system forked from holman/dotfiles, designed for macOS development environments with a modular, topical structure.
+This is a personal dotfiles management system forked from holman/dotfiles,
+designed for macOS development environments with a modular, topical structure.
 
 ## Project Overview
 
@@ -62,9 +63,12 @@ system/        # Cross-platform utilities
 
 - `*.symlink` - Files symlinked to $HOME (extension removed)
 - `agents/` - Directory symlinked to ~/.agents (skills, prompts, commands)
-- `agents/my-skills/` - Own authored skills; tracked in git and symlinked into `agents/skills/` by bootstrap
-- `agents/skills/` - Runtime skills directory; gitignored except `.skill-lock.json` and `README.md`
-- `agents/skills/.skill-lock.json` - Tracks externally-installed skills (source, URL, hash); restore with `skills experimental_install`
+- `agents/my-skills/` - Own authored skills; tracked in git and symlinked into
+  `agents/skills/` by bootstrap
+- `agents/skills/` - Runtime skills directory; gitignored except
+  `.skill-lock.json` and `README.md`
+- `agents/skills/.skill-lock.json` - Tracks externally-installed skills (source,
+  URL, hash); restore with `skills experimental_install`
 - `*.zsh` - Zsh configuration files automatically loaded
 - `path.zsh` - Loaded first for PATH setup
 - `completion.zsh` - Loaded last for autocomplete setup
@@ -96,7 +100,8 @@ fi
   - Single letters: `g=git`, `l=ls`
   - Compounds: `cm=commit --message`, `co=checkout`
   - Descriptive: `pushon=push origin $(git branch-name)`
-- **Functions**: Clear, action-oriented names (`git_branch()`, `StripWhitespace()`)
+- **Functions**: Clear, action-oriented names (`git_branch()`,
+  `StripWhitespace()`)
 - **Variables**: Uppercase exports (`EDITOR`, `ZSH`), lowercase locals
 - **Files**: Descriptive, category-specific names
 
@@ -250,7 +255,8 @@ custom_function() {
 ### Managing Agent Skills
 
 Own skills (authored by you) live in `agents/my-skills/` and are tracked in git.
-Externally-installed skills are gitignored; only `.skill-lock.json` is committed.
+Externally-installed skills are gitignored; only `.skill-lock.json` is
+committed.
 
 ```bash
 # Author a new skill
