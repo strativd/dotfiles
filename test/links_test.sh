@@ -299,6 +299,68 @@ test_link_children_preserves_externally_installed_siblings () {
   assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
 }
 
+### Rule 4: *.link declaration files ##################################
+
+test_rule4_expands_home_variable () {
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
+  echo '$HOME/.agents/skills' \
+    > "$FIXTURE_DOTFILES/cursor/cursor.symlink/skills.link"
+  mkdir -p "$FIXTURE_HOME/.agents/skills"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.cursor/skills" \
+    "$FIXTURE_HOME/.agents/skills"
+  assert_absent "$FIXTURE_HOME/.cursor/skills.link"
+}
+
+test_rule4_expands_dotfiles_variable () {
+  mkdir -p "$FIXTURE_DOTFILES/pi/config.symlink/mcp"
+  mkdir -p "$FIXTURE_DOTFILES/pi/pi.symlink/agent"
+  echo "{}" > "$FIXTURE_DOTFILES/pi/pi.symlink/agent/mcp.local.json"
+  echo '$DOTFILES/pi/pi.symlink/agent/mcp.local.json' \
+    > "$FIXTURE_DOTFILES/pi/config.symlink/mcp/mcp.json.link"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.config/mcp/mcp.json" \
+    "$FIXTURE_DOTFILES/pi/pi.symlink/agent/mcp.local.json"
+}
+
+test_rule4_accepts_absolute_path () {
+  mkdir -p "$FIXTURE_DOTFILES/topic/root.symlink"
+  echo "$FIXTURE_ROOT/elsewhere" \
+    > "$FIXTURE_DOTFILES/topic/root.symlink/thing.link"
+  mkdir -p "$FIXTURE_ROOT/elsewhere"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.root/thing" "$FIXTURE_ROOT/elsewhere"
+}
+
+test_rule4_rejects_relative_path () {
+  mkdir -p "$FIXTURE_DOTFILES/topic/root.symlink"
+  echo '../sneaky' > "$FIXTURE_DOTFILES/topic/root.symlink/thing.link"
+
+  TESTS_RUN=$((TESTS_RUN + 1))
+  if run_links > /dev/null 2>&1; then
+    report_failure "relative *.link target was accepted, want failure"
+  fi
+  assert_absent "$FIXTURE_HOME/.root/thing"
+}
+
+test_rule4_creates_dangling_link_for_missing_referent () {
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
+  echo '$HOME/.agents/skills' \
+    > "$FIXTURE_DOTFILES/cursor/cursor.symlink/skills.link"
+
+  run_links > /dev/null
+
+  # Referent does not exist; the link is still created and Task 6 prunes it.
+  assert_symlink "$FIXTURE_HOME/.cursor/skills" \
+    "$FIXTURE_HOME/.agents/skills"
+}
+
 ### Runner ############################################################
 
 main () {

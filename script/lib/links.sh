@@ -15,6 +15,9 @@
 #                                       to a directory is also linked whole
 #   .link-children sentinel         ->  link each child of this directory
 #                                       whole; the directory itself stays real
+#   Rule 4  nested NAME.link file   ->  symlink NAME to the path named on the
+#                                       first line of the file; $HOME and
+#                                       $DOTFILES are expanded
 #
 # Only the link root gains a leading dot; nested paths map verbatim.
 
@@ -115,6 +118,32 @@ link_file () {
   success "linked $dst to $src"
 }
 
+# Rule 4: NAME.link is a regular file whose first line is the link target.
+# Rules 1-3 can only name paths inside the repo; this reaches $HOME paths (for
+# a runtime directory shared between tools) and expresses renames.
+link_declared () {
+  local decl=$1 dst=$2 target=
+
+  IFS= read -r target < "$decl" || true
+  target="${target%$'\r'}"
+
+  case "$target" in
+    '$HOME'/*)
+      target="$HOME/${target#\$HOME/}"
+      ;;
+    '$DOTFILES'/*)
+      target="$DOTFILES_ROOT/${target#\$DOTFILES/}"
+      ;;
+    /*)
+      ;;
+    *)
+      fail "$decl: target must be absolute or start with \$HOME or \$DOTFILES (got '$target')"
+      ;;
+  esac
+
+  link_file "$target" "$dst"
+}
+
 # Walk a *.symlink directory. Intermediate directories are created real so the
 # target can be co-owned with the tool that writes there; only leaves are
 # linked.
@@ -132,6 +161,14 @@ link_tree () {
       if link_ignored "$name"; then
         continue
       fi
+      case "$name" in
+        *.link)
+          if [ -f "$entry" ] && [ ! -L "$entry" ]; then
+            link_declared "$entry" "$dst_dir/${name%.link}"
+            continue
+          fi
+          ;;
+      esac
       link_file "$(link_physical "$entry")" "$dst_dir/$name"
     done
     return 0
@@ -148,6 +185,12 @@ link_tree () {
     fi
 
     case "$name" in
+      *.link)
+        if [ -f "$entry" ] && [ ! -L "$entry" ]; then
+          link_declared "$entry" "$dst_dir/${name%.link}"
+          continue
+        fi
+        ;;
       *.symlink)
         link_file "$(link_physical "$entry")" "$dst_dir/${name%.symlink}"
         continue

@@ -929,7 +929,7 @@ git commit -m "feat: .link-children sentinel links directory children whole"
   `DECL_FILE`, expands a leading `$HOME` or `$DOTFILES`, rejects relative
   paths via `fail`, and links `DST` to the result.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add to `test/links_test.sh` before `### Runner`:
 
@@ -997,7 +997,7 @@ test_rule4_creates_dangling_link_for_missing_referent () {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `test/links_test.sh`
 
@@ -1005,7 +1005,7 @@ Expected: FAIL. `*.link` files are currently treated as ordinary leaves, so the
 engine creates `~/.cursor/skills.link` pointing at the declaration file instead
 of `~/.cursor/skills` pointing at the declared target.
 
-- [ ] **Step 3: Add `link_declared` to `script/lib/links.sh`**
+- [x] **Step 3: Add `link_declared` to `script/lib/links.sh`**
 
 Insert after `link_file` and before `link_tree`:
 
@@ -1037,7 +1037,7 @@ link_declared () {
 }
 ```
 
-- [ ] **Step 4: Add the `*.link` case to `link_tree`**
+- [x] **Step 4: Add the `*.link` case to `link_tree`**
 
 Extend the `case "$name"` block added in Task 3 so it reads:
 
@@ -1080,13 +1080,13 @@ Extend the header comment block:
 #                                       $DOTFILES are expanded
 ```
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [x] **Step 5: Run tests to verify they pass**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 22 tests ok.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/lib/links.sh test/links_test.sh
