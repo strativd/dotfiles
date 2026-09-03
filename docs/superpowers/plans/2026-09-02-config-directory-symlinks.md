@@ -559,7 +559,7 @@ test_rule2_merges_two_topics_into_one_target () {
 
 test_rule2_preserves_foreign_content_in_target () {
   mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
-  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/mcp.json"
+  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
   mkdir -p "$FIXTURE_HOME/.cursor/plugins"
   echo "cache" > "$FIXTURE_HOME/.cursor/plugins/keep.txt"
 
@@ -568,8 +568,8 @@ test_rule2_preserves_foreign_content_in_target () {
   assert_real_dir "$FIXTURE_HOME/.cursor"
   assert_real_dir "$FIXTURE_HOME/.cursor/plugins"
   assert_file_contains "$FIXTURE_HOME/.cursor/plugins/keep.txt" "cache"
-  assert_symlink "$FIXTURE_HOME/.cursor/mcp.json" \
-    "$FIXTURE_DOTFILES/cursor/cursor.symlink/mcp.json"
+  assert_symlink "$FIXTURE_HOME/.cursor/hooks.json" \
+    "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
 }
 
 test_rule2_links_dot_prefixed_files_but_not_ignore_list () {
@@ -1163,9 +1163,9 @@ test_prune_keeps_live_owned_link () {
 
 test_drift_is_reported_when_managed_path_is_a_regular_file () {
   mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
-  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/mcp.json"
+  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
   mkdir -p "$FIXTURE_HOME/.cursor"
-  echo "written by the app" > "$FIXTURE_HOME/.cursor/mcp.json"
+  echo "written by the app" > "$FIXTURE_HOME/.cursor/hooks.json"
 
   local output
   output="$(run_links 2>&1)"
@@ -1176,7 +1176,7 @@ test_drift_is_reported_when_managed_path_is_a_regular_file () {
     *) report_failure "drift was not reported; output: $output" ;;
   esac
   # Default test policy is skip, so the app's file is left alone.
-  assert_file_contains "$FIXTURE_HOME/.cursor/mcp.json" "written by the app"
+  assert_file_contains "$FIXTURE_HOME/.cursor/hooks.json" "written by the app"
 }
 ```
 
@@ -1461,7 +1461,6 @@ rm -rf /tmp/skills-rescue
 
 **Files:**
 
-- Create: `cursor/cursor.symlink/mcp.json` (from `~/.cursor/mcp.json`)
 - Create: `cursor/cursor.symlink/hooks.json` (from `~/.cursor/hooks.json`)
 - Create: `cursor/cursor.symlink/skills.link`
 - Create: `cursor/cursor.symlink/prompts.symlink` (repo symlink)
@@ -1473,26 +1472,29 @@ rm -rf /tmp/skills-rescue
 - Consumes: `$HOME/.agents/skills` from Task 7; `install_dotfiles` from Task 6.
 - Produces: nothing consumed by later tasks.
 
-- [ ] **Step 1: Import the two untracked Cursor configs**
+- [ ] **Step 1: Import the untracked Cursor config**
 
-`~/.cursor/mcp.json` and `hooks.json` are real files today, tracked nowhere.
+`~/.cursor/hooks.json` is a real file today, tracked nowhere.
 
 ```bash
 cd ~/.dotfiles
 mkdir -p cursor/cursor.symlink
-cp ~/.cursor/mcp.json cursor/cursor.symlink/mcp.json
 cp ~/.cursor/hooks.json cursor/cursor.symlink/hooks.json
 ```
 
-Inspect both for secrets before staging — `mcp.json` commonly holds API keys:
+`~/.cursor/mcp.json` is deliberately **not** tracked. It holds MCP server
+credentials, and Cursor rewrites it in place, which would replace the symlink
+with a regular file. Leave it alone.
+
+Confirm nothing sensitive came across:
 
 ```bash
-rg -i 'key|token|secret|password' cursor/cursor.symlink/mcp.json || echo "clean"
+rg -i 'key|token|secret|password' cursor/cursor.symlink/hooks.json \
+  || echo "clean"
 ```
 
-If any credential appears, move it to `~/.cursor/mcp.local.json` if Cursor
-supports one, or leave `mcp.json` out of this task entirely and track only
-`hooks.json`. Do not commit secrets.
+Expected: `clean`. If anything matches, stop and move the value into a
+machine-local file rather than committing it.
 
 - [ ] **Step 2: Declare the shared skills runtime and the repo-owned content**
 
@@ -1531,18 +1533,20 @@ Cursor configuration, linked into `~/.cursor` by `script/bootstrap`.
 
 | Repo path | Target | Rule |
 | --- | --- | --- |
-| `cursor.symlink/mcp.json` | `~/.cursor/mcp.json` | leaf link |
 | `cursor.symlink/hooks.json` | `~/.cursor/hooks.json` | leaf link |
-| `cursor.symlink/prompts.symlink` | `~/.cursor/prompts` | whole dir, into the repo |
-| `cursor.symlink/commands.symlink` | `~/.cursor/commands` | whole dir, into the repo |
-| `cursor.symlink/skills.link` | `~/.cursor/skills` | whole dir, into `~/.agents/skills` |
+| `cursor.symlink/prompts.symlink` | `~/.cursor/prompts` | whole dir, repo |
+| `cursor.symlink/commands.symlink` | `~/.cursor/commands` | whole dir, repo |
+| `cursor.symlink/skills.link` | `~/.cursor/skills` | whole dir, `~/.agents` |
 
 `skills` points at the `$HOME` runtime directory rather than the repo because
 Cursor's skill installer writes into it. Prompts and commands point into the
 repo, because nothing but you writes there.
 
-Cursor may rewrite `mcp.json` in place, replacing the symlink with a regular
-file. `script/bootstrap` reports any managed path that is no longer a symlink.
+`mcp.json` is intentionally not managed: it holds credentials, and Cursor
+rewrites it in place, which would replace the symlink with a regular file.
+
+`script/bootstrap` reports any managed path that has stopped being a symlink,
+which is how in-place rewrites become visible.
 ```
 
 - [ ] **Step 5: Verify**
@@ -1550,8 +1554,8 @@ file. `script/bootstrap` reports any managed path that is no longer a symlink.
 Run: `ls -la ~/.cursor`
 
 Expected: `plugins`, `projects`, `extensions`, `skills-cursor` are real
-directories; `skills`, `prompts`, `commands` are symlinks; `mcp.json` and
-`hooks.json` are symlinks into the repo.
+directories; `skills`, `prompts`, `commands`, and `hooks.json` are symlinks;
+`mcp.json` is still a plain untracked file.
 
 Run: `readlink ~/.cursor/skills`
 
@@ -1567,9 +1571,9 @@ Expected: skill names resolve through to `~/.agents/skills`.
 git add cursor
 git commit -m "feat: track cursor config as a topic
 
-mcp.json and hooks.json were untracked. skills points at the shared
-~/.agents/skills runtime rather than the repo, so Cursor's installer writes
-outside git."
+hooks.json was untracked. skills points at the shared ~/.agents/skills runtime
+rather than the repo, so Cursor's installer writes outside git. mcp.json stays
+unmanaged: it holds credentials and Cursor rewrites it in place."
 ```
 
 ---

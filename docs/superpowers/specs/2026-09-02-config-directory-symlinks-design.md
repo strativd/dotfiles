@@ -281,7 +281,6 @@ agents/                                # content library
 
 cursor/                                # adapter
   cursor.symlink/
-    mcp.json                           → ~/.cursor/mcp.json     (newly tracked)
     hooks.json                         → ~/.cursor/hooks.json   (newly tracked)
     skills.link                        → ~/.cursor/skills  -> ~/.agents/skills
     prompts.symlink  -> ../../agents/agents.symlink/prompts
@@ -367,15 +366,16 @@ Migration is done topic by topic; each topic is independently bootstrappable, so
 - **Atomic saves replace symlinks.** Tools that write config by creating a
   temp file and renaming over the original will replace a leaf symlink with a
   regular file, silently detaching it from the repo. This affects every
-  symlink-based approach. It is a new exposure for `~/.cursor/mcp.json` and
-  `hooks.json`, which are not tracked today. Mitigation: bootstrap reports
-  managed paths that are no longer symlinks, so the drift is visible.
+  symlink-based approach. It is a new exposure for `~/.cursor/hooks.json`,
+  which is not tracked today. Mitigation: bootstrap reports managed paths that
+  are no longer symlinks, so the drift is visible. `~/.cursor/mcp.json` is
+  excluded from management for this reason plus the credentials it holds.
 - **`~/.claude/skills` may hold real content.** Replacing it with a whole-dir
   link will hide anything not already linked. The `link_file` backup prompt
   covers this, but the directory should be inspected before migrating.
 - **Suffix highlighting.** `*.symlink` still breaks syntax highlighting, but
   only for the marker itself. Files *inside* a Rule 2 tree keep their real
-  extensions, so all newly tracked configs (`mcp.json`, `settings.json`) are
+  extensions, so all newly tracked configs (`hooks.json`, `settings.json`) are
   highlighted correctly. This is a net improvement over adding a suffix per
   file.
 - **Foreign trees.** Rules 3 and 4 parse filenames, so a vendored tree
@@ -406,8 +406,8 @@ The repo has no automated test suite; verification is manual.
 2. Idempotency: run `script/bootstrap` twice; the second run reports only
    skips and creates no new links.
 3. `ls -la ~/.cursor` shows `plugins/`, `projects/`, and `extensions/` as real
-   directories, with `skills`, `prompts`, `commands`, `mcp.json`, and
-   `hooks.json` as symlinks.
+   directories, with `skills`, `prompts`, `commands`, and `hooks.json` as
+   symlinks, and `mcp.json` still an untracked plain file.
 4. `~/.agents/skills` is a real directory; authored skills are symlinks into
    the repo and external skills are real directories in `$HOME`.
 5. `git status` is clean after installing an external skill.
