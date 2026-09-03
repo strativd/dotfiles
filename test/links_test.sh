@@ -253,6 +253,52 @@ test_rule3_does_not_follow_bare_symlink_to_directory () {
   assert_symlink "$FIXTURE_HOME/.root/stuff" "$FIXTURE_DOTFILES/shared/stuff"
 }
 
+### .link-children sentinel ###########################################
+
+test_link_children_links_each_child_whole () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/coding-guidelines" "$skills/refactor-with-a-kiss"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/coding-guidelines/SKILL.md"
+  echo "s" > "$skills/refactor-with-a-kiss/SKILL.md"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.agents/skills"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/coding-guidelines" \
+    "$skills/coding-guidelines"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/refactor-with-a-kiss" \
+    "$skills/refactor-with-a-kiss"
+  assert_absent "$FIXTURE_HOME/.agents/skills/.link-children"
+}
+
+test_link_children_does_not_recurse_into_children () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/tdd/references"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/tdd/references/tests.md"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/tdd" "$skills/tdd"
+}
+
+test_link_children_preserves_externally_installed_siblings () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/mine"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/mine/SKILL.md"
+  mkdir -p "$FIXTURE_HOME/.agents/skills/installed-externally"
+  echo "e" > "$FIXTURE_HOME/.agents/skills/installed-externally/SKILL.md"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.agents/skills/installed-externally"
+  assert_file_contains \
+    "$FIXTURE_HOME/.agents/skills/installed-externally/SKILL.md" "e"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
+}
+
 ### Runner ############################################################
 
 main () {

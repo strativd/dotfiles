@@ -13,6 +13,8 @@
 #   Rule 3  nested *.symlink entry  ->  linked whole, suffix stripped, no
 #                                       recursion; a nested symlink resolving
 #                                       to a directory is also linked whole
+#   .link-children sentinel         ->  link each child of this directory
+#                                       whole; the directory itself stays real
 #
 # Only the link root gains a leading dot; nested paths map verbatim.
 
@@ -120,6 +122,20 @@ link_tree () {
   local src_dir=$1 dst_dir=$2 entry name
 
   mkdir -p "$dst_dir"
+
+  if [ -f "$src_dir/.link-children" ]; then
+    for entry in "$src_dir"/* "$src_dir"/.[!.]*; do
+      if [ ! -e "$entry" ] && [ ! -L "$entry" ]; then
+        continue
+      fi
+      name="$(basename "$entry")"
+      if link_ignored "$name"; then
+        continue
+      fi
+      link_file "$(link_physical "$entry")" "$dst_dir/$name"
+    done
+    return 0
+  fi
 
   for entry in "$src_dir"/* "$src_dir"/.[!.]*; do
     if [ ! -e "$entry" ] && [ ! -L "$entry" ]; then

@@ -811,7 +811,7 @@ git commit -m "feat: nested *.symlink entries link whole without recursion"
 - Produces: no new functions. A `.link-children` file in a source directory
   makes `link_tree` stop recursing and link each child whole.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add to `test/links_test.sh` before `### Runner`:
 
@@ -863,7 +863,7 @@ test_link_children_preserves_externally_installed_siblings () {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `test/links_test.sh`
 
@@ -871,7 +871,7 @@ Expected: FAIL. Without the sentinel branch, `link_tree` recurses into each
 skill, so `~/.agents/skills/coding-guidelines` is a real directory rather than
 a symlink.
 
-- [ ] **Step 3: Add the sentinel branch to `link_tree`**
+- [x] **Step 3: Add the sentinel branch to `link_tree`**
 
 Insert immediately after `mkdir -p "$dst_dir"`:
 
@@ -899,13 +899,13 @@ Extend the header comment block:
 #                                       whole; the directory itself stays real
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 17 tests ok.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add script/lib/links.sh test/links_test.sh
