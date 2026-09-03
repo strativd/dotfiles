@@ -17,7 +17,7 @@ designed for macOS development environments with a modular, topical structure.
 ```bash
 # Main dotfiles management script (in bin/dot)
 dot --help        # Show all available commands
-dot --bootstrap   # Sync dotfiles to system via symlinks
+dot --sync       # Sync dotfiles to system via symlinks
 dot --install     # Run all topic install.sh scripts
 dot --brew        # Install/update Homebrew and packages
 dot --macos       # Set macOS system defaults
@@ -39,11 +39,17 @@ script/install      # Run all install.sh scripts in topics
 ### Directory Structure
 
 ```bash
-agents/            # Agent content (symlinked to ~/.agents and ~/.cursor)
-  commands/        # Agent commands (symlinked to ~/.cursor/commands)
-  my-skills/       # Own skills — tracked in git, symlinked into skills/ by bootstrap
-  prompts/         # Agent prompts (symlinked to ~/.cursor/prompts)
-  skills/          # Runtime skills dir (symlinked to ~/.cursor/skills) — mostly gitignored
+agents/                  # Shared agent content library
+  agents.symlink/        # Linked into ~/.agents
+    prompts/             # Leaf-linked into ~/.agents/prompts
+    commands/            # Leaf-linked into ~/.agents/commands
+    skills/              # Authored skills; .link-children makes
+                         # ~/.agents/skills a real dir
+cursor/                  # Cursor adapter -> ~/.cursor
+claude/                  # Claude adapter -> ~/.claude
+pi/                      # pi adapter -> ~/.pi/agent
+opencode/                # opencode adapter -> ~/.config/opencode
+test/                    # Tests for the symlink engine
 bin/           # Executable utilities (added to PATH)
 script/        # Installation and management scripts
 zsh/           # Zsh configurations (aliases, prompt, completion)
@@ -61,14 +67,15 @@ system/        # Cross-platform utilities
 
 ### Special File Types
 
-- `*.symlink` - Files symlinked to $HOME (extension removed)
-- `agents/` - Directory symlinked to ~/.agents (skills, prompts, commands)
-- `agents/my-skills/` - Own authored skills; tracked in git and symlinked into
-  `agents/skills/` by bootstrap
-- `agents/skills/` - Runtime skills directory; gitignored except
-  `.skill-lock.json` and `README.md`
-- `agents/skills/.skill-lock.json` - Tracks externally-installed skills (source,
-  URL, hash); restore with `skills experimental_install`
+- `*.symlink` - Files and directories linked into `$HOME` (extension removed,
+  leading dot added). Directories are recursed into; see `README.md`.
+- `*.link` - A file whose first line is the symlink target. Used for targets
+  outside the repo and for renames.
+- `.link-children` - Sentinel; links each child of its directory whole.
+- `agents/agents.symlink/skills/` - Authored skills, tracked in git
+- `~/.agents/skills/` - The shared skills runtime directory. Real directory in
+  `$HOME`; authored skills are symlinks into the repo, external installs are
+  real directories. Nothing external is stored in the repo.
 - `*.zsh` - Zsh configuration files automatically loaded
 - `path.zsh` - Loaded first for PATH setup
 - `completion.zsh` - Loaded last for autocomplete setup
@@ -127,7 +134,7 @@ fi
 1. Edit files in topical directories
 2. Test changes in current shell session
 3. Run `dot --reload` to reload configuration
-4. For symlinks: use `dot --bootstrap` after adding new `.symlink` files
+4. For symlinks: use `dot --sync` after adding new `.symlink` files
 
 ### Adding New Topics
 
@@ -254,15 +261,16 @@ custom_function() {
 
 ### Managing Agent Skills
 
-Own skills (authored by you) live in `agents/my-skills/` and are tracked in git.
-Externally-installed skills are gitignored; only `.skill-lock.json` is
-committed.
+Authored skills live in `agents/agents.symlink/skills/` and are tracked in git.
+The runtime directory is `~/.agents/skills`, a real directory in `$HOME` that
+Cursor, Claude, and pi all point at. External installs land there, not in the
+repo; only `.skill-lock.json` is committed.
 
 ```bash
 # Author a new skill
-mkdir agents/my-skills/my-skill
-# write agents/my-skills/my-skill/SKILL.md
-dot --bootstrap              # symlinks it into agents/skills/
+mkdir agents/agents.symlink/skills/my-skill
+# write agents/agents.symlink/skills/my-skill/SKILL.md
+dot --sync                      # links it into ~/.agents/skills/
 
 # Install an external skill (recorded in .skill-lock.json)
 skills install <source>/<name>

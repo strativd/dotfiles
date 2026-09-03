@@ -1,48 +1,43 @@
-# Agent Skills
+# agents
 
-This directory is the **runtime skills directory** — it is what CLIs and AI tools read from.
-It is **not** where you author or store skills.
+Shared agent content: prompts, commands, and authored skills. Cursor, Claude,
+and pi all consume this directory, each through its own topic.
 
-## What lives here
+## Layout
 
-| Item                                 | Tracked in git  | Purpose                                             |
-| ------------------------------------ | --------------- | --------------------------------------------------- |
-| `.skill-lock.json`                   | Yes             | Source of truth for externally-installed skills     |
-| `README.md`                          | Yes             | This file                                           |
-| `<skill>/` (symlinks)                | No (gitignored) | Own skills linked from `../my-skills/` by bootstrap |
-| `<skill>/` (installed)               | No (gitignored) | Skills installed by CLIs (e.g. `skills install`)    |
-| `<skill>/` (symlinks to other repos) | No (gitignored) | Skills from other local repos                       |
+| Path | Tracked | Target |
+| --- | --- | --- |
+| `agents.symlink/prompts/` | yes | `~/.agents/prompts/*` (leaf links) |
+| `agents.symlink/commands/` | yes | `~/.agents/commands/*` (leaf links) |
+| `agents.symlink/skills/` | yes | one whole-dir link per skill |
+| `agents.symlink/skills/.link-children` | yes | makes `~/.agents/skills` real |
+| `agents.symlink/.skill-lock.json` | yes | `~/.agents/.skill-lock.json` |
+| `README.md` | yes | not linked (outside the tree) |
 
-## Authoring your own skills
+## The runtime directory is not in this repo
 
-Add skills to `agents/my-skills/` — they are tracked in git and symlinked here by `script/bootstrap`.
+`~/.agents/skills` is a real directory in `$HOME`. Skills you author are
+symlinks from it into `agents.symlink/skills/`; skills installed by any tool
+are real directories in `$HOME`. Nothing external is stored in the repo, so
+`git status` stays quiet.
 
-```bash
-mkdir agents/my-skills/my-new-skill
-# write agents/my-skills/my-new-skill/SKILL.md
-dot --bootstrap   # creates agents/skills/my-new-skill -> ../my-skills/my-new-skill
-```
+`.skill-lock.json` is linked rather than copied, so the skills CLI's writes
+land in git and external skills can be restored on a new machine with
+`skills experimental_install`.
 
-## Installing external skills
-
-Use the skills CLI. The install is recorded in `.skill-lock.json` (tracked) but the files are gitignored:
-
-```bash
-skills install <source>/<skill-name>
-```
-
-To restore all externally-installed skills on a new machine:
+## Adding a skill
 
 ```bash
-skills experimental_install
+mkdir agents/agents.symlink/skills/my-skill
+# write SKILL.md
+dot --sync
 ```
 
-## Cursor skills
+## Who consumes this
 
-Recommended [plugins](https://cursor.com/marketplace) for Cursor:
-
-- [Cursor Team Kit](https://cursor.com/marketplace/cursor/cursor-team-kit)
-- [Context7](https://cursor.com/marketplace/upstash)
-- [Superpowers](https://cursor.com/marketplace/superpowers)
-- [Notion Skills](https://cursor.com/marketplace/notion)
-- [Vercel](https://cursor.com/marketplace/vercel)
+| Consumer | Mechanism |
+| --- | --- |
+| `~/.agents` | this topic |
+| `~/.cursor` | `cursor/cursor.symlink/` — `skills.link`, `prompts.symlink` |
+| `~/.claude` | `claude/claude.symlink/` — `skills.link` |
+| `~/.pi/agent` | `pi/pi.symlink/agent/` — its own skills, plus pi's own links |

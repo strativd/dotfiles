@@ -13,8 +13,24 @@
 Everything's built around topic areas. If you're adding a new area to your
 forked dotfiles — say, "Java" — you can simply add a `java` directory and put
 files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+included into your shell. Anything named `*.symlink` is linked into `$HOME`
+without the extension and with a leading dot when you run `script/bootstrap`.
+
+- A **file** named `gitconfig.symlink` becomes `~/.gitconfig`.
+- A **directory** named `cursor.symlink` targets `~/.cursor`, and bootstrap
+  recurses into it: intermediate directories are created as real directories
+  and leaf files are linked individually. This keeps directories that a tool
+  also writes to — `~/.cursor/plugins`, `~/.config` — out of the repo.
+- Inside such a tree, a nested entry ending in `.symlink` is linked whole
+  without recursion, and a file named `X.link` creates a symlink at `X`
+  pointing to the path on its first line (`$HOME` and `$DOTFILES` are
+  expanded).
+- A `.link-children` file in a directory links each of that directory's
+  children whole, leaving the directory itself real.
+
+Only the link root gains a leading dot; nested paths map verbatim, so
+`config.symlink/opencode/opencode.json` becomes
+`~/.config/opencode/opencode.json`.
 
 ## What's inside? 👀
 

@@ -1803,7 +1803,7 @@ pi/agent/extensions/rtk.ts."
 - Consumes: `install_dotfiles` from Task 6.
 - Produces: nothing.
 
-- [ ] **Step 1: Move the configs under a link root**
+- [x] **Step 1: Move the configs under a link root**
 
 ```bash
 cd ~/.dotfiles
@@ -1813,7 +1813,7 @@ git mv opencode/oh-my-opencode.json \
   opencode/config.symlink/opencode/oh-my-opencode.json
 ```
 
-- [ ] **Step 2: Delete the unwired script**
+- [x] **Step 2: Delete the unwired script**
 
 `opencode/scripts/link-config.sh` is not called by `script/install` (which only
 runs `install.sh` files) or by `script/bootstrap`. The live links were made by
@@ -1825,7 +1825,7 @@ git rm opencode/scripts/link-config.sh
 rmdir opencode/scripts 2>/dev/null || true
 ```
 
-- [ ] **Step 3: Replace the hand-made links**
+- [x] **Step 3: Replace the hand-made links**
 
 ```bash
 rm -f ~/.config/opencode/opencode.json ~/.config/opencode/oh-my-opencode.json
@@ -1833,7 +1833,7 @@ cd ~/.dotfiles
 LINK_CONFLICT_POLICY=backup script/bootstrap
 ```
 
-- [ ] **Step 4: Fix the README's install instruction**
+- [x] **Step 4: Fix the README's install instruction**
 
 `opencode/README.md` currently claims the configuration is installed by
 `dot --install`, which never ran `link-config.sh`. Replace this block:
@@ -1860,7 +1860,7 @@ dot --sync
 | `config.symlink/opencode/oh-my-opencode.json` | `~/.config/opencode/oh-my-opencode.json` |
 ````
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run: `ls -la ~/.config/opencode`
 
@@ -1899,7 +1899,7 @@ entry point."
 - Consumes: the finished convention from Tasks 1-11.
 - Produces: nothing.
 
-- [ ] **Step 1: Update `README.md`**
+- [x] **Step 1: Update `README.md`**
 
 Replace the sentence "Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run `script/bootstrap`" with:
@@ -1925,7 +1925,7 @@ Only the link root gains a leading dot; nested paths map verbatim, so
 `~/.config/opencode/opencode.json`.
 ```
 
-- [ ] **Step 2: Update `AGENTS.md`**
+- [x] **Step 2: Update `AGENTS.md`**
 
 Three edits.
 
@@ -1985,7 +1985,7 @@ Finally, fix the command list: every `dot --bootstrap` in `AGENTS.md` should be
 `dot --sync`. `bin/dot` accepts `-s` and `--sync`; `--bootstrap` has never been
 a valid flag and exits with "Invalid option".
 
-- [ ] **Step 3: Rewrite `agents/README.md`**
+- [x] **Step 3: Rewrite `agents/README.md`**
 
 ````markdown
 # agents
@@ -2033,7 +2033,7 @@ dot --sync
 | `~/.pi/agent` | `pi/pi.symlink/agent/` — its own skills, plus pi's own links |
 ````
 
-- [ ] **Step 4: Write `test/README.md`**
+- [x] **Step 4: Write `test/README.md`**
 
 ````markdown
 # test
@@ -2056,7 +2056,7 @@ Add a test by defining a function named `test_*`; the runner discovers them
 with `declare -F`.
 ````
 
-- [ ] **Step 5: Verify the docs match reality**
+- [x] **Step 5: Verify the docs match reality**
 
 Run: `test/links_test.sh`
 
@@ -2070,7 +2070,7 @@ Run: `rg -n 'my-skills|agents/skills' AGENTS.md agents/README.md README.md`
 
 Expected: no matches except the `~/.agents/skills` runtime references.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add README.md AGENTS.md agents/README.md test/README.md
