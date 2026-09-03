@@ -86,7 +86,7 @@ engine with no behavior change, so every later rule lands on tested ground.
     them.
   - `LINK_CONFLICT_POLICY` env var, read by `link_file`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `test/links_test.sh`:
 
@@ -263,7 +263,7 @@ main "$@"
 
 Then `chmod +x test/links_test.sh`.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `test/links_test.sh`
 
@@ -271,7 +271,7 @@ Expected: FAIL. Every test reports failure because
 `script/lib/output.sh` and `script/lib/links.sh` do not exist, so
 `source` errors and no links are created.
 
-- [ ] **Step 3: Write `script/lib/output.sh`**
+- [x] **Step 3: Write `script/lib/output.sh`**
 
 ```bash
 #
@@ -303,7 +303,7 @@ a path can no longer corrupt output; and `fail` exits 1 rather than bare `exit`,
 which inherited the status of the preceding `echo` and therefore always exited
 **0**.
 
-- [ ] **Step 4: Write `script/lib/links.sh` with Rule 1**
+- [x] **Step 4: Write `script/lib/links.sh` with Rule 1**
 
 ```bash
 #
@@ -435,13 +435,13 @@ install_dotfiles () {
 Note the quoting fix in `link_file`: the original compared
 `"$(readlink $dst)"` unquoted, which word-split on paths containing spaces.
 
-- [ ] **Step 5: Run test to verify it passes**
+- [x] **Step 5: Run test to verify it passes**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 5 tests ok.
 
-- [ ] **Step 6: Rewire `script/bootstrap`**
+- [x] **Step 6: Rewire `script/bootstrap`**
 
 Replace lines 1-138 of `script/bootstrap` (everything from the shebang through
 the end of the old `install_dotfiles`) with:
@@ -489,7 +489,7 @@ Leave `install_agents_dir`, `link_my_skills`, and `install_pi_dir` in place for
 now — they are removed in Tasks 7-10 as each topic migrates, so bootstrap keeps
 working throughout.
 
-- [ ] **Step 7: Verify bootstrap still works end to end**
+- [x] **Step 7: Verify bootstrap still works end to end**
 
 Run: `script/bootstrap`
 
@@ -500,7 +500,7 @@ Run: `ls -la ~/.gitconfig ~/.zshrc ~/.agents`
 
 Expected: all three are still symlinks into `~/.dotfiles`.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add script/lib/output.sh script/lib/links.sh test/links_test.sh script/bootstrap
