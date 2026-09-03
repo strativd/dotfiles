@@ -9,15 +9,23 @@ This directory contains configuration files and helper scripts for running OpenC
 ## Quick Start
 
 ```bash
-# Install configuration (symlinks to ~/.config/opencode/)
-dot --install
-
 # Start Ollama server
 olstart --warm
 
 # Launch OpenCode
 opencode
 ```
+
+Configuration is linked into `~/.config/opencode/` by `script/bootstrap`:
+
+```bash
+dot --sync
+```
+
+| Repo path | Target |
+| --- | --- |
+| `config.symlink/opencode/opencode.json` | `~/.config/opencode/opencode.json` |
+| `config.symlink/opencode/oh-my-opencode.json` | `~/.config/opencode/oh-my-opencode.json` |
 
 ## Requirements
 
