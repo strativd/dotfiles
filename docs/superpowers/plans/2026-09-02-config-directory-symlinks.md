@@ -1472,7 +1472,7 @@ rm -rf /tmp/skills-rescue
 - Consumes: `$HOME/.agents/skills` from Task 7; `install_dotfiles` from Task 6.
 - Produces: nothing consumed by later tasks.
 
-- [ ] **Step 1: Import the untracked Cursor config**
+- [x] **Step 1: Import the untracked Cursor config**
 
 `~/.cursor/hooks.json` is a real file today, tracked nowhere.
 
@@ -1496,7 +1496,7 @@ rg -i 'key|token|secret|password' cursor/cursor.symlink/hooks.json \
 Expected: `clean`. If anything matches, stop and move the value into a
 machine-local file rather than committing it.
 
-- [ ] **Step 2: Declare the shared skills runtime and the repo-owned content**
+- [x] **Step 2: Declare the shared skills runtime and the repo-owned content**
 
 ```bash
 cd ~/.dotfiles/cursor/cursor.symlink
@@ -1510,7 +1510,7 @@ the link must point at the `$HOME` runtime directory rather than the repo.
 `prompts` and `commands` use Rule 3 and point into the repo, because only you
 write there.
 
-- [ ] **Step 3: Replace the old hand-made Cursor links**
+- [x] **Step 3: Replace the old hand-made Cursor links**
 
 The three existing links were made by the now-deleted `install_agents_dir` and
 point at the old `agents/skills`, `agents/prompts`, `agents/commands` paths.
@@ -1521,7 +1521,7 @@ cd ~/.dotfiles
 LINK_CONFLICT_POLICY=backup script/bootstrap
 ```
 
-- [ ] **Step 4: Write `cursor/README.md`**
+- [x] **Step 4: Write `cursor/README.md`**
 
 ```markdown
 # cursor
@@ -1549,7 +1549,7 @@ rewrites it in place, which would replace the symlink with a regular file.
 which is how in-place rewrites become visible.
 ```
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run: `ls -la ~/.cursor`
 
@@ -1565,7 +1565,7 @@ Run: `ls ~/.cursor/skills | head -5`
 
 Expected: skill names resolve through to `~/.agents/skills`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add cursor
