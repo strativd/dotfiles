@@ -1114,7 +1114,7 @@ git commit -m "feat: *.link files declare targets outside the repo"
   - `LINK_MANAGED_DIRS` array, appended by `link_tree`.
   - `LINK_DRIFT` array, appended by `link_file`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add to `test/links_test.sh` before `### Runner`:
 
@@ -1180,7 +1180,7 @@ test_drift_is_reported_when_managed_path_is_a_regular_file () {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `test/links_test.sh`
 
@@ -1189,7 +1189,7 @@ survives) and on `test_drift_is_reported_when_managed_path_is_a_regular_file`
 (no "no longer a symlink" text in the output). The other two pass already and
 are regression cover.
 
-- [ ] **Step 3: Add pruning and drift bookkeeping**
+- [x] **Step 3: Add pruning and drift bookkeeping**
 
 Add near the top of `script/lib/links.sh`, beside the other state:
 
@@ -1288,13 +1288,13 @@ install_dotfiles () {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 26 tests ok.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add script/lib/links.sh test/links_test.sh

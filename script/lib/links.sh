@@ -24,6 +24,9 @@
 LINK_IGNORE=(".DS_Store" ".git" ".link-children")
 : "${LINK_CONFLICT_POLICY:=prompt}"
 
+LINK_MANAGED_DIRS=()
+LINK_DRIFT=()
+
 overwrite_all=false
 backup_all=false
 skip_all=false
@@ -70,6 +73,9 @@ link_file () {
   local overwrite= backup= skip= action=
 
   if [ -e "$dst" ] || [ -L "$dst" ]; then
+    if [ -f "$dst" ] && [ ! -L "$dst" ]; then
+      LINK_DRIFT+=("$dst")
+    fi
     if [ "$(readlink "$dst")" = "$src" ]; then
       skip=true
     elif [ "$overwrite_all" = false ] && [ "$backup_all" = false ] \
@@ -144,6 +150,42 @@ link_declared () {
   link_file "$target" "$dst"
 }
 
+# A link is ours if it resolves under $DOTFILES_ROOT. Remove ours when the
+# referent is gone; leave everything else alone.
+prune_links () {
+  local dst_dir=$1 link resolved
+
+  if [ ! -d "$dst_dir" ]; then
+    return 0
+  fi
+
+  for link in "$dst_dir"/* "$dst_dir"/.[!.]*; do
+    if [ ! -L "$link" ]; then
+      continue
+    fi
+    resolved="$(readlink "$link")"
+    case "$resolved" in
+      "$DOTFILES_ROOT"/*) ;;
+      *) continue ;;
+    esac
+    if [ ! -e "$link" ]; then
+      rm "$link"
+      success "pruned stale symlink $link"
+    fi
+  done
+}
+
+link_report_drift () {
+  local path
+  if [ "${#LINK_DRIFT[@]}" -eq 0 ]; then
+    return 0
+  fi
+  info 'managed paths that are no longer a symlink (config was rewritten in place):'
+  for path in "${LINK_DRIFT[@]}"; do
+    info "  $path"
+  done
+}
+
 # Walk a *.symlink directory. Intermediate directories are created real so the
 # target can be co-owned with the tool that writes there; only leaves are
 # linked.
@@ -151,6 +193,8 @@ link_tree () {
   local src_dir=$1 dst_dir=$2 entry name
 
   mkdir -p "$dst_dir"
+
+  LINK_MANAGED_DIRS+=("$dst_dir")
 
   if [ -f "$src_dir/.link-children" ]; then
     for entry in "$src_dir"/* "$src_dir"/.[!.]*; do
@@ -211,8 +255,10 @@ install_dotfiles () {
   overwrite_all=false
   backup_all=false
   skip_all=false
+  LINK_MANAGED_DIRS=()
+  LINK_DRIFT=()
 
-  local src name dst
+  local src name dst dir
   while IFS= read -r -d '' src; do
     name="$(basename "$src")"
     dst="$HOME/.${name%.symlink}"
@@ -223,4 +269,12 @@ install_dotfiles () {
     fi
   done < <(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' \
     -not -path '*/.git/*' -print0)
+
+  if [ "${#LINK_MANAGED_DIRS[@]}" -gt 0 ]; then
+    for dir in "${LINK_MANAGED_DIRS[@]}"; do
+      prune_links "$dir"
+    done
+  fi
+
+  link_report_drift
 }

@@ -361,6 +361,66 @@ test_rule4_creates_dangling_link_for_missing_referent () {
     "$FIXTURE_HOME/.agents/skills"
 }
 
+### Pruning and drift #################################################
+
+test_prune_removes_dangling_owned_link () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/mine"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/mine/SKILL.md"
+  mkdir -p "$FIXTURE_HOME/.agents/skills"
+  ln -s "$skills/deleted-skill" "$FIXTURE_HOME/.agents/skills/deleted-skill"
+
+  run_links > /dev/null
+
+  assert_absent "$FIXTURE_HOME/.agents/skills/deleted-skill"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
+}
+
+test_prune_keeps_dangling_foreign_link () {
+  mkdir -p "$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  touch "$FIXTURE_DOTFILES/agents/agents.symlink/skills/.link-children"
+  mkdir -p "$FIXTURE_HOME/.agents/skills"
+  ln -s "/nonexistent/elsewhere" "$FIXTURE_HOME/.agents/skills/foreign"
+
+  run_links > /dev/null
+
+  TESTS_RUN=$((TESTS_RUN + 1))
+  if [ ! -L "$FIXTURE_HOME/.agents/skills/foreign" ]; then
+    report_failure "foreign dangling link was pruned, want it kept"
+  fi
+}
+
+test_prune_keeps_live_owned_link () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/mine"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/mine/SKILL.md"
+
+  run_links > /dev/null
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
+}
+
+test_drift_is_reported_when_managed_path_is_a_regular_file () {
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
+  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
+  mkdir -p "$FIXTURE_HOME/.cursor"
+  echo "written by the app" > "$FIXTURE_HOME/.cursor/hooks.json"
+
+  local output
+  output="$(run_links 2>&1)"
+
+  TESTS_RUN=$((TESTS_RUN + 1))
+  case "$output" in
+    *"no longer a symlink"*) ;;
+    *) report_failure "drift was not reported; output: $output" ;;
+  esac
+  # Default test policy is skip, so the app's file is left alone.
+  assert_file_contains "$FIXTURE_HOME/.cursor/hooks.json" "written by the app"
+}
+
 ### Runner ############################################################
 
 main () {
