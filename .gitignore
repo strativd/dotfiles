@@ -14,9 +14,6 @@
 .DS_Store
 Desktop.ini
 
-# Do not track agent skills via CLI (skills.sh)
-agents/skills/*
-
 # Opencode backup files created by omod() on profile switch
 opencode/*.backup.*
 

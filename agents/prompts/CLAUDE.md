@@ -1,1 +1,0 @@
-/Users/stratbarrett/.dotfiles/claude/CLAUDE.md

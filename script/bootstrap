@@ -35,49 +35,6 @@ setup_gitconfig () {
   fi
 }
 
-install_agents_dir () {
-  if [ -d "$DOTFILES_ROOT/agents" ]
-  then
-    info 'linking agents directory'
-    local overwrite_all=false backup_all=false skip_all=false
-    link_file "$DOTFILES_ROOT/agents" "$HOME/.agents"
-  fi
-  if [ -d "$HOME/.cursor" ]
-  then
-    info 'linking cursor directory'
-    local overwrite_all=false backup_all=false skip_all=false
-    link_file "$DOTFILES_ROOT/agents/skills" "$HOME/.cursor/skills"
-    link_file "$DOTFILES_ROOT/agents/prompts" "$HOME/.cursor/prompts"
-    link_file "$DOTFILES_ROOT/agents/commands" "$HOME/.cursor/commands"
-  fi
-}
-
-link_my_skills () {
-  if [ -d "$DOTFILES_ROOT/agents/my-skills" ]
-  then
-    info 'linking own skills into agents/skills'
-    local overwrite_all=false backup_all=false skip_all=false
-    for skill_dir in "$DOTFILES_ROOT/agents/my-skills"/*/
-    do
-      [ -d "$skill_dir" ] || continue
-      local skill_name
-      skill_name="$(basename "$skill_dir")"
-      link_file "$skill_dir" "$DOTFILES_ROOT/agents/skills/$skill_name"
-    done
-
-    for link in "$DOTFILES_ROOT/agents/skills"/*/
-    do
-      link="${link%/}"
-      [ -L "$link" ] || continue
-      if [ ! -e "$link" ]
-      then
-        rm "$link"
-        success "pruned stale skill symlink $link"
-      fi
-    done
-  fi
-}
-
 install_pi_dir () {
   if [ -d "$DOTFILES_ROOT/pi" ]
   then
@@ -129,8 +86,6 @@ install_pi_dir () {
 
 setup_gitconfig
 install_dotfiles
-install_agents_dir
-link_my_skills
 install_pi_dir
 
 # If we're on a Mac, let's install and setup homebrew.

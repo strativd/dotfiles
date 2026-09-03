@@ -1324,7 +1324,7 @@ runtime directory has to be relocated out of the repo.
 - Produces: `$HOME/.agents/skills` as a real directory — the shared skills
   runtime that Tasks 8-10 point `*.link` files at.
 
-- [ ] **Step 1: Preserve the externally installed skills**
+- [x] **Step 1: Preserve the externally installed skills**
 
 The 37 external skill directories currently live inside the repo. Copy them
 somewhere safe before anything moves, so they can be restored into the new
@@ -1342,7 +1342,7 @@ ls /tmp/skills-rescue | wc -l
 
 Expected: 37.
 
-- [ ] **Step 2: Move the tracked content into the new layout**
+- [x] **Step 2: Move the tracked content into the new layout**
 
 ```bash
 cd ~/.dotfiles
@@ -1362,7 +1362,7 @@ rmdir agents/my-skills
 `agents/README.md` stays at the topic root, outside the linked tree, so it is
 not linked into `$HOME`.
 
-- [ ] **Step 3: Make the `CLAUDE.md` prompt symlink relative**
+- [x] **Step 3: Make the `CLAUDE.md` prompt symlink relative**
 
 It is currently an absolute link into
 `/Users/stratbarrett/.dotfiles/claude/CLAUDE.md`, which breaks on any machine
@@ -1380,7 +1380,7 @@ readlink agents/agents.symlink/prompts/CLAUDE.md
 Expected: `../../../claude/CLAUDE.md`. Task 9 repoints this when `CLAUDE.md`
 moves into `claude/claude.symlink/`.
 
-- [ ] **Step 4: Remove the bespoke bootstrap functions**
+- [x] **Step 4: Remove the bespoke bootstrap functions**
 
 In `script/bootstrap`, delete `install_agents_dir` and `link_my_skills`
 entirely, and delete these two lines from the call sequence at the bottom:
@@ -1390,7 +1390,7 @@ install_agents_dir
 link_my_skills
 ```
 
-- [ ] **Step 5: Drop the gitignore rule and the in-repo runtime directory**
+- [x] **Step 5: Drop the gitignore rule and the in-repo runtime directory**
 
 Remove line 18 of `.gitignore`:
 
@@ -1407,7 +1407,7 @@ rm ~/.agents
 rm -rf agents/skills
 ```
 
-- [ ] **Step 6: Bootstrap and restore the external skills**
+- [x] **Step 6: Bootstrap and restore the external skills**
 
 ```bash
 cd ~/.dotfiles
@@ -1415,7 +1415,7 @@ LINK_CONFLICT_POLICY=backup script/bootstrap
 cp -R /tmp/skills-rescue/* ~/.agents/skills/
 ```
 
-- [ ] **Step 7: Verify the new layout**
+- [x] **Step 7: Verify the new layout**
 
 Run: `ls -la ~/.agents ~/.agents/skills | head -30`
 
@@ -1441,7 +1441,7 @@ Run: `test/links_test.sh`
 
 Expected: PASS, 26 tests ok.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 cd ~/.dotfiles
