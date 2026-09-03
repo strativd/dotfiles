@@ -140,6 +140,70 @@ test_fail_exits_nonzero () {
   fi
 }
 
+### Rule 2: *.symlink directories #####################################
+
+test_rule2_links_leaves_into_real_dirs () {
+  mkdir -p "$FIXTURE_DOTFILES/opencode/config.symlink/opencode"
+  echo "{}" > "$FIXTURE_DOTFILES/opencode/config.symlink/opencode/opencode.json"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.config"
+  assert_real_dir "$FIXTURE_HOME/.config/opencode"
+  assert_symlink "$FIXTURE_HOME/.config/opencode/opencode.json" \
+    "$FIXTURE_DOTFILES/opencode/config.symlink/opencode/opencode.json"
+}
+
+test_rule2_merges_two_topics_into_one_target () {
+  mkdir -p "$FIXTURE_DOTFILES/opencode/config.symlink/opencode"
+  mkdir -p "$FIXTURE_DOTFILES/pi/config.symlink/mcp"
+  echo "{}" > "$FIXTURE_DOTFILES/opencode/config.symlink/opencode/a.json"
+  echo "{}" > "$FIXTURE_DOTFILES/pi/config.symlink/mcp/b.json"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.config"
+  assert_symlink "$FIXTURE_HOME/.config/opencode/a.json" \
+    "$FIXTURE_DOTFILES/opencode/config.symlink/opencode/a.json"
+  assert_symlink "$FIXTURE_HOME/.config/mcp/b.json" \
+    "$FIXTURE_DOTFILES/pi/config.symlink/mcp/b.json"
+}
+
+test_rule2_preserves_foreign_content_in_target () {
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
+  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
+  mkdir -p "$FIXTURE_HOME/.cursor/plugins"
+  echo "cache" > "$FIXTURE_HOME/.cursor/plugins/keep.txt"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.cursor"
+  assert_real_dir "$FIXTURE_HOME/.cursor/plugins"
+  assert_file_contains "$FIXTURE_HOME/.cursor/plugins/keep.txt" "cache"
+  assert_symlink "$FIXTURE_HOME/.cursor/hooks.json" \
+    "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
+}
+
+test_rule2_links_dot_prefixed_files_but_not_ignore_list () {
+  mkdir -p "$FIXTURE_DOTFILES/agents/agents.symlink"
+  echo "{}" > "$FIXTURE_DOTFILES/agents/agents.symlink/.skill-lock.json"
+  echo "junk" > "$FIXTURE_DOTFILES/agents/agents.symlink/.DS_Store"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/.skill-lock.json" \
+    "$FIXTURE_DOTFILES/agents/agents.symlink/.skill-lock.json"
+  assert_absent "$FIXTURE_HOME/.agents/.DS_Store"
+}
+
+test_rule2_walks_empty_dir_without_error () {
+  mkdir -p "$FIXTURE_DOTFILES/topic/empty.symlink"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.empty"
+}
+
 ### Runner ############################################################
 
 main () {

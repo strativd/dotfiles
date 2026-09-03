@@ -523,7 +523,7 @@ git commit -m "refactor: extract tested symlink engine from bootstrap"
   directory, recurses into subdirectories creating real directories, and
   symlinks leaf files individually.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add to `test/links_test.sh` immediately before the `### Runner` section:
 
@@ -593,7 +593,7 @@ test_rule2_walks_empty_dir_without_error () {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `test/links_test.sh`
 
@@ -602,7 +602,7 @@ Expected: FAIL on the five new tests. `install_dotfiles` still calls
 `config.symlink` and `assert_real_dir` reports "is a symlink, want a real
 directory".
 
-- [ ] **Step 3: Add `link_tree` to `script/lib/links.sh`**
+- [x] **Step 3: Add `link_tree` to `script/lib/links.sh`**
 
 Insert after `link_file` and before `install_dotfiles`:
 
@@ -637,7 +637,7 @@ link_tree () {
 The unmatched-glob guard is required because bash 3.2 has no `nullglob` here;
 `"$src_dir"/.[!.]*` stays literal when a directory has no dot-entries.
 
-- [ ] **Step 4: Branch on directory roots in `install_dotfiles`**
+- [x] **Step 4: Branch on directory roots in `install_dotfiles`**
 
 Replace the body of the `while` loop in `install_dotfiles` with:
 
@@ -662,13 +662,13 @@ Also extend the header comment block:
 #                                       linked individually
 ```
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [x] **Step 5: Run tests to verify they pass**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 10 tests ok.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add script/lib/links.sh test/links_test.sh
