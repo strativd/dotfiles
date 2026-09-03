@@ -204,6 +204,55 @@ test_rule2_walks_empty_dir_without_error () {
   assert_real_dir "$FIXTURE_HOME/.empty"
 }
 
+### Rule 3: nested *.symlink entries link whole ########################
+
+test_rule3_nested_dir_links_whole () {
+  mkdir -p "$FIXTURE_DOTFILES/pi/pi.symlink/agent/themes.symlink"
+  echo "{}" > "$FIXTURE_DOTFILES/pi/pi.symlink/agent/themes.symlink/space.json"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.pi/agent"
+  assert_symlink "$FIXTURE_HOME/.pi/agent/themes" \
+    "$FIXTURE_DOTFILES/pi/pi.symlink/agent/themes.symlink"
+  assert_absent "$FIXTURE_HOME/.pi/agent/themes.symlink"
+}
+
+test_rule3_nested_file_strips_suffix_without_adding_dot () {
+  mkdir -p "$FIXTURE_DOTFILES/topic/root.symlink"
+  echo "x" > "$FIXTURE_DOTFILES/topic/root.symlink/inner.symlink"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.root/inner" \
+    "$FIXTURE_DOTFILES/topic/root.symlink/inner.symlink"
+}
+
+test_rule3_resolves_repo_symlink_to_physical_path () {
+  mkdir -p "$FIXTURE_DOTFILES/agents/agents.symlink/prompts"
+  echo "p" > "$FIXTURE_DOTFILES/agents/agents.symlink/prompts/general.md"
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink"
+  ln -s "../../agents/agents.symlink/prompts" \
+    "$FIXTURE_DOTFILES/cursor/cursor.symlink/prompts.symlink"
+
+  run_links > /dev/null
+
+  # One hop, not two: the $HOME link points at the real directory.
+  assert_symlink "$FIXTURE_HOME/.cursor/prompts" \
+    "$FIXTURE_DOTFILES/agents/agents.symlink/prompts"
+}
+
+test_rule3_does_not_follow_bare_symlink_to_directory () {
+  mkdir -p "$FIXTURE_DOTFILES/topic/root.symlink"
+  mkdir -p "$FIXTURE_DOTFILES/shared/stuff"
+  echo "x" > "$FIXTURE_DOTFILES/shared/stuff/a.txt"
+  ln -s "../../shared/stuff" "$FIXTURE_DOTFILES/topic/root.symlink/stuff"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.root/stuff" "$FIXTURE_DOTFILES/shared/stuff"
+}
+
 ### Runner ############################################################
 
 main () {

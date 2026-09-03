@@ -691,7 +691,7 @@ git commit -m "feat: recurse into *.symlink directories, linking leaves"
   entry named `X.symlink` is linked whole at `X` with no recursion, as is any
   nested symlink resolving to a directory.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add to `test/links_test.sh` before `### Runner`:
 
@@ -746,7 +746,7 @@ test_rule3_does_not_follow_bare_symlink_to_directory () {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `test/links_test.sh`
 
@@ -756,7 +756,7 @@ absent) and on `test_rule3_nested_file_strips_suffix_without_adding_dot`
 (currently links to `~/.root/inner.symlink`). The two symlink-resolution tests
 may already pass via `link_physical`; they are regression cover.
 
-- [ ] **Step 3: Add the `*.symlink` case to `link_tree`**
+- [x] **Step 3: Add the `*.symlink` case to `link_tree`**
 
 In `link_tree`, insert between the `link_ignored` guard and the
 `[ -d "$entry" ]` branch:
@@ -783,13 +783,13 @@ second half of that rule: a bare symlink pointing at a directory falls to
 `link_file` rather than being recursed into. This matches homeshick, which
 documents that "Symlinks in the castle are not followed."
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `test/links_test.sh`
 
 Expected: PASS, 14 tests ok.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add script/lib/links.sh test/links_test.sh

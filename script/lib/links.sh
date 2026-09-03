@@ -10,6 +10,9 @@
 #   Rule 2  dir  NAME.symlink       ->  walk into $HOME/.NAME; intermediate
 #                                       directories are real, leaf files are
 #                                       linked individually
+#   Rule 3  nested *.symlink entry  ->  linked whole, suffix stripped, no
+#                                       recursion; a nested symlink resolving
+#                                       to a directory is also linked whole
 #
 # Only the link root gains a leading dot; nested paths map verbatim.
 
@@ -127,6 +130,13 @@ link_tree () {
     if link_ignored "$name"; then
       continue
     fi
+
+    case "$name" in
+      *.symlink)
+        link_file "$(link_physical "$entry")" "$dst_dir/${name%.symlink}"
+        continue
+        ;;
+    esac
 
     if [ -d "$entry" ] && [ ! -L "$entry" ]; then
       link_tree "$entry" "$dst_dir/$name"
