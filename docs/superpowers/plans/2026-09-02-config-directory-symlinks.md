@@ -1592,7 +1592,7 @@ unmanaged: it holds credentials and Cursor rewrites it in place."
 - Consumes: `$HOME/.agents/skills` from Task 7.
 - Produces: nothing consumed by later tasks.
 
-- [ ] **Step 1: Move `CLAUDE.md` into the linked tree**
+- [x] **Step 1: Move `CLAUDE.md` into the linked tree**
 
 ```bash
 cd ~/.dotfiles
@@ -1600,7 +1600,7 @@ mkdir -p claude/claude.symlink
 git mv claude/CLAUDE.md claude/claude.symlink/CLAUDE.md
 ```
 
-- [ ] **Step 2: Repoint the agents prompt symlink**
+- [x] **Step 2: Repoint the agents prompt symlink**
 
 Task 7 left it at `../../../claude/CLAUDE.md`, which is now one level short.
 
@@ -1615,14 +1615,14 @@ cat agents/agents.symlink/prompts/CLAUDE.md > /dev/null && echo "resolves"
 
 Expected: `resolves`.
 
-- [ ] **Step 3: Declare the shared skills runtime**
+- [x] **Step 3: Declare the shared skills runtime**
 
 ```bash
 cd ~/.dotfiles/claude/claude.symlink
 printf '$HOME/.agents/skills\n' > skills.link
 ```
 
-- [ ] **Step 4: Inspect the existing `~/.claude/skills` before replacing it**
+- [x] **Step 4: Inspect the existing `~/.claude/skills` before replacing it**
 
 It is a real directory of 38 relative symlinks into `~/.agents/skills`, so
 nothing of substance is lost — but confirm there is no real content first.
@@ -1639,7 +1639,7 @@ rm -rf ~/.claude/skills
 rm ~/.claude/CLAUDE.md
 ```
 
-- [ ] **Step 5: Delete the unwired sync script and bootstrap**
+- [x] **Step 5: Delete the unwired sync script and bootstrap**
 
 `claude/sync.sh` was never called by `script/install` or `script/bootstrap`,
 which is why `~/.claude/CLAUDE.md` was a stale copy rather than a link.
@@ -1650,7 +1650,7 @@ git rm claude/sync.sh
 LINK_CONFLICT_POLICY=backup script/bootstrap
 ```
 
-- [ ] **Step 6: Verify**
+- [x] **Step 6: Verify**
 
 Run: `ls -la ~/.claude/CLAUDE.md ~/.claude/skills`
 
@@ -1661,7 +1661,7 @@ Run: `readlink ~/.claude/skills && ls ~/.claude/skills | wc -l`
 
 Expected: `/Users/<you>/.agents/skills` and a count of 44.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A claude agents

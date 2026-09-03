@@ -1,1 +1,1 @@
-../../../claude/CLAUDE.md
+../../../claude/claude.symlink/CLAUDE.md

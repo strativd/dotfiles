@@ -13,7 +13,8 @@
 
 ## Rules for multi-agent systems
 
-The following profile is best for: automation pipelines, multi-agent systems, bots, scheduled tasks
+The following profile is best for: automation pipelines, multi-agent
+systems, bots, scheduled tasks
 
 ### Output
 
@@ -31,7 +32,8 @@ The following profile is best for: automation pipelines, multi-agent systems, bo
 ### Simple Formatting and Encoding
 
 - No decorative Unicode: no smart quotes, em dashes, or ellipsis characters.
-- Natural language characters (accented letters, CJK, etc.) are fine when the content requires them.
+- Natural language characters (accented letters, CJK, etc.) are fine when
+  the content requires them.
 - All strings must be safe for JSON serialization.
 
 ### Hallucination Prevention (Critical for Pipelines)
@@ -49,7 +51,8 @@ The following profile is best for: automation pipelines, multi-agent systems, bo
 
 ## Rules for coding agents
 
-The following profile is best for: dev projects, code review, debugging, refactoring
+The following profile is best for: dev projects, code review, debugging,
+refactoring
 
 ### Coding Output
 
@@ -83,14 +86,17 @@ The following profile is best for: dev projects, code review, debugging, refacto
 
 - No em dashes, smart quotes, or decorative Unicode symbols.
 - Plain hyphens and straight quotes only.
-- Natural language characters (accented letters, CJK, etc.) are fine when the content requires them.
+- Natural language characters (accented letters, CJK, etc.) are fine when
+  the content requires them.
 - Code output must be copy-paste safe.
 
 ## Rules for coding
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with
+project-specific instructions as needed.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial
+tasks, use judgment.
 
 ## 1. Think Before Coding
 
@@ -113,7 +119,8 @@ Before implementing:
 - No error handling for impossible scenarios.
 - If you write 200 lines and it could be 50, rewrite it.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+Ask yourself: "Would a senior engineer say this is overcomplicated?"
+If yes, simplify.
 
 ## 3. Surgical Changes
 
@@ -151,4 +158,5 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+Strong success criteria let you loop independently. Weak criteria ("make it
+work") require constant clarification.
