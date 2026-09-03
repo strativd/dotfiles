@@ -1687,7 +1687,7 @@ drifted into a plain copy. Replaced by the *.symlink convention."
 - Consumes: `install_dotfiles` from Task 6.
 - Produces: nothing consumed by later tasks.
 
-- [ ] **Step 1: Move the tracked pi content**
+- [x] **Step 1: Move the tracked pi content**
 
 ```bash
 cd ~/.dotfiles
@@ -1706,7 +1706,7 @@ does.
 Note that `pi/pi.symlink/agent/mcp.local.json` moved along with the rest and is
 still ignored by the `*.local.json` rule in `.gitignore`.
 
-- [ ] **Step 2: Declare the renamed MCP config**
+- [x] **Step 2: Declare the renamed MCP config**
 
 `~/.config/mcp/mcp.json` is sourced from `mcp.local.json`, so the basenames
 differ and no name-based rule can express it.
@@ -1718,7 +1718,7 @@ printf '$DOTFILES/pi/pi.symlink/agent/mcp.local.json\n' \
   > pi/config.symlink/mcp/mcp.json.link
 ```
 
-- [ ] **Step 3: Drop the dead `rtk.ts` reference**
+- [x] **Step 3: Drop the dead `rtk.ts` reference**
 
 `install_pi_dir` linked `pi/agent/extensions/rtk.ts`, which does not exist in
 the repo. Nothing to move; the reference disappears with the function.
@@ -1749,7 +1749,7 @@ then
 fi
 ```
 
-- [ ] **Step 4: Clear the old pi links and bootstrap**
+- [x] **Step 4: Clear the old pi links and bootstrap**
 
 ```bash
 rm -rf ~/.pi/agent/prompts ~/.pi/agent/themes ~/.pi/agent/extensions
@@ -1761,7 +1761,7 @@ LINK_CONFLICT_POLICY=backup script/bootstrap
 `~/.pi/agent/skills` holds symlinks into `~/.agents/skills` that pi created
 itself; leave them, they are foreign and pruning will not touch them.
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run: `ls -la ~/.pi/agent`
 
@@ -1777,7 +1777,7 @@ Run: `ls -la ~/.pi/agent/skills | head`
 Expected: 4 symlinks into `pi/pi.symlink/agent/skills/*` alongside pi's own
 links into `~/.agents/skills`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A pi script/bootstrap
