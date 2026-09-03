@@ -1872,7 +1872,7 @@ Run: `test/links_test.sh`
 
 Expected: PASS, 26 tests ok.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A opencode
