@@ -15,13 +15,15 @@
 #                                       to a directory is also linked whole
 #   .link-children sentinel         ->  link each child of this directory
 #                                       whole; the directory itself stays real
+#   .local overlay directory        ->  merge children into the parent dest;
+#                                       the overlay itself is never created
 #   Rule 4  nested NAME.link file   ->  symlink NAME to the path named on the
 #                                       first line of the file; $HOME and
 #                                       $DOTFILES are expanded
 #
 # Only the link root gains a leading dot; nested paths map verbatim.
 
-LINK_IGNORE=(".DS_Store" ".git" ".link-children")
+LINK_IGNORE=(".DS_Store" ".git" ".link-children" ".local")
 : "${LINK_CONFLICT_POLICY:=prompt}"
 
 LINK_MANAGED_DIRS=()
@@ -71,6 +73,15 @@ link_physical () {
 link_file () {
   local src=$1 dst=$2
   local overwrite= backup= skip= action=
+
+  if [ -L "$dst" ] && [ ! -e "$dst" ]; then
+    case "$(readlink "$dst")" in
+      "$DOTFILES_ROOT"/*)
+        rm "$dst"
+        success "removed dangling $dst"
+        ;;
+    esac
+  fi
 
   if [ -e "$dst" ] || [ -L "$dst" ]; then
     if [ -f "$dst" ] && [ ! -L "$dst" ]; then
@@ -189,6 +200,46 @@ link_report_drift () {
 # Walk a *.symlink directory. Intermediate directories are created real so the
 # target can be co-owned with the tool that writes there; only leaves are
 # linked.
+link_children_whole () {
+  local src_dir=$1 dst_dir=$2 entry name
+
+  for entry in "$src_dir"/* "$src_dir"/.[!.]*; do
+    if [ ! -e "$entry" ] && [ ! -L "$entry" ]; then
+      continue
+    fi
+    name="$(basename "$entry")"
+    if link_ignored "$name"; then
+      continue
+    fi
+    case "$name" in
+      *.link)
+        if [ -f "$entry" ] && [ ! -L "$entry" ]; then
+          link_declared "$entry" "$dst_dir/${name%.link}"
+          continue
+        fi
+        ;;
+    esac
+    link_file "$(link_physical "$entry")" "$dst_dir/$name"
+  done
+}
+
+# Merge $src_dir/.local into $dst_dir. The overlay directory itself is never
+# created at the target. Inherits the parent's .link-children vs recurse mode.
+link_local_overlay () {
+  local src_dir=$1 dst_dir=$2
+  local overlay="$src_dir/.local"
+
+  if [ ! -d "$overlay" ] || [ -L "$overlay" ]; then
+    return 0
+  fi
+
+  if [ -f "$src_dir/.link-children" ]; then
+    link_children_whole "$overlay" "$dst_dir"
+  else
+    link_tree "$overlay" "$dst_dir"
+  fi
+}
+
 link_tree () {
   local src_dir=$1 dst_dir=$2 entry name
 
@@ -197,24 +248,8 @@ link_tree () {
   LINK_MANAGED_DIRS+=("$dst_dir")
 
   if [ -f "$src_dir/.link-children" ]; then
-    for entry in "$src_dir"/* "$src_dir"/.[!.]*; do
-      if [ ! -e "$entry" ] && [ ! -L "$entry" ]; then
-        continue
-      fi
-      name="$(basename "$entry")"
-      if link_ignored "$name"; then
-        continue
-      fi
-      case "$name" in
-        *.link)
-          if [ -f "$entry" ] && [ ! -L "$entry" ]; then
-            link_declared "$entry" "$dst_dir/${name%.link}"
-            continue
-          fi
-          ;;
-      esac
-      link_file "$(link_physical "$entry")" "$dst_dir/$name"
-    done
+    link_children_whole "$src_dir" "$dst_dir"
+    link_local_overlay "$src_dir" "$dst_dir"
     return 0
   fi
 
@@ -247,6 +282,8 @@ link_tree () {
       link_file "$(link_physical "$entry")" "$dst_dir/$name"
     fi
   done
+
+  link_local_overlay "$src_dir" "$dst_dir"
 }
 
 install_dotfiles () {
