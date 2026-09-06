@@ -1,8 +1,10 @@
-# Use *.local.* extensions for machine-specific config
+# Use *.local.* extensions for machine-specific files. A .local/ directory
+# inside a *.symlink tree is a bootstrap overlay and is never tracked.
 *.local.symlink
 *.local.zsh
 *.local.json
 *.local.*
+**/.local/
 *.env
 *.venv
 
