@@ -197,9 +197,8 @@ link_report_drift () {
   done
 }
 
-# Walk a *.symlink directory. Intermediate directories are created real so the
-# target can be co-owned with the tool that writes there; only leaves are
-# linked.
+# Link each child of $src_dir whole into $dst_dir. Skip LINK_IGNORE; honor
+# *.link declarations.
 link_children_whole () {
   local src_dir=$1 dst_dir=$2 entry name
 
@@ -240,6 +239,9 @@ link_local_overlay () {
   fi
 }
 
+# Walk a *.symlink directory. Intermediate directories are created real so the
+# target can be co-owned with the tool that writes there; only leaves are
+# linked.
 link_tree () {
   local src_dir=$1 dst_dir=$2 entry name
 
