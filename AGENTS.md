@@ -302,3 +302,20 @@ skills experimental_install
 - **Backup existing configs** before running bootstrap on new systems
 - The `dot` command is the primary interface for all operations
 - Symlink conflicts are handled interactively during bootstrap
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked on GitHub (`strativd/dotfiles`) via the `gh` CLI; PRs are not
+a triage surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles use their default label strings (e.g.
+`needs-triage`, `ready-for-agent`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: one `CONTEXT.md` + `docs/adr/` at the repo root, created
+lazily. See `docs/agents/domain.md`.
