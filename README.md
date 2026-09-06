@@ -27,6 +27,10 @@ without the extension and with a leading dot when you run `script/bootstrap`.
   expanded).
 - A `.link-children` file in a directory links each of that directory's
   children whole, leaving the directory itself real.
+- A `.local/` directory inside a `*.symlink` tree is merged into the same
+  target as its parent and is gitignored. The target never contains a
+  `.local` path. Use this for directory-shaped content that must stay in
+  the working tree but must not be committed.
 
 Only the link root gains a leading dot; nested paths map verbatim, so
 `config.symlink/opencode/opencode.json` becomes

@@ -10,16 +10,18 @@ and pi all consume this directory, each through its own topic.
 | `agents.symlink/prompts/` | yes | `~/.agents/prompts/*` (leaf links) |
 | `agents.symlink/commands/` | yes | `~/.agents/commands/*` (leaf links) |
 | `agents.symlink/skills/` | yes | one whole-dir link per skill |
+| `agents.symlink/skills/.local/` | no | one whole-dir link per skill |
 | `agents.symlink/skills/.link-children` | yes | makes `~/.agents/skills` real |
 | `agents.symlink/.skill-lock.json` | yes | `~/.agents/.skill-lock.json` |
 | `README.md` | yes | not linked (outside the tree) |
 
 ## The runtime directory is not in this repo
 
-`~/.agents/skills` is a real directory in `$HOME`. Skills you author are
-symlinks from it into `agents.symlink/skills/`; skills installed by any tool
-are real directories in `$HOME`. Nothing external is stored in the repo, so
-`git status` stays quiet.
+`~/.agents/skills` is a real directory in `$HOME`. Tracked authored skills
+are symlinks into the tracked tree; overlay authored skills are
+symlinks into `.local/`; installer-written skills stay real
+directories in `$HOME`; Gaia skills stay linked from `~/.gaia`.
+Nothing in `.local/` is committed, so `git status` stays quiet.
 
 `.skill-lock.json` is linked rather than copied, so the skills CLI's writes
 land in git and external skills can be restored on a new machine with
@@ -29,6 +31,12 @@ land in git and external skills can be restored on a new machine with
 
 ```bash
 mkdir agents/agents.symlink/skills/my-skill
+# write SKILL.md
+dot --sync
+```
+
+```bash
+mkdir agents/agents.symlink/skills/.local/unsafe-skill
 # write SKILL.md
 dot --sync
 ```

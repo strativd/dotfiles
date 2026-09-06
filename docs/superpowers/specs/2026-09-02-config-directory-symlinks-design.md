@@ -206,6 +206,7 @@ walk(src, dst):
   if src contains .link-children:
     for each child C of src, excluding the ignore list and .link-children:
       link C -> dst/<basename C>     # whole, no recursion
+    overlay(src, dst)
     return
   for each entry E in src, excluding the ignore list:
     name = basename E
@@ -217,6 +218,14 @@ walk(src, dst):
       walk(E, dst/name)
     else:
       link E -> dst/name
+  overlay(src, dst)
+
+overlay(src, dst):
+  if src/.local is a real directory (not a symlink):
+    if src contains .link-children:
+      link each child of src/.local into dst whole
+    else:
+      walk(src/.local, dst)
 
 prune(dst):
   for each symlink L directly in a managed target directory dst:
@@ -224,9 +233,10 @@ prune(dst):
       remove L
 ```
 
-Ignore list: `.DS_Store`, `.git`, `.link-children`. Dot-prefixed entries are
-otherwise linked normally — `agents/.skill-lock.json` depends on this, and it
-must remain a link into the repo so the skills CLI's writes are captured by git.
+Ignore list: `.DS_Store`, `.git`, `.link-children`, `.local`. Dot-prefixed
+entries are otherwise linked normally - `agents/.skill-lock.json` depends
+on this, and it must remain a link into the repo so the skills CLI's writes
+are captured by git.
 
 Symlinks committed in the repo are resolved to their physical path before
 linking, so `$HOME` links point at the real file rather than forming a two-hop
@@ -419,3 +429,20 @@ The repo has no automated test suite; verification is manual.
    resolve to `~/.agents/skills`.
 9. A path containing a space links correctly (regression test for the
    `find` word-splitting fix).
+
+## P4 - local directory overlay
+
+Machine-local *files* stay gitignored at the real target basename
+(`*.local.json`) or renamed with Rule 4. Machine-local *directories*
+cannot use that pattern: `cursor.local.symlink` would become
+`~/.cursor.local`.
+
+A real subdirectory named `.local` inside a Rule 2 or `.link-children`
+tree is a second source for the same destination. It is in `LINK_IGNORE`
+and in `.gitignore` as `**/.local/`. Bootstrap merges it after the
+parent's own children, inheriting the parent's whole-child vs recurse
+mode. The target never contains a `.local` path.
+
+Choose this when content must live in the working tree for bootstrap and
+backups, and must not enter git. Keep pointing at `$HOME` (Rule 4) when
+the canonical copy already lives outside this repo (Gaia skills).

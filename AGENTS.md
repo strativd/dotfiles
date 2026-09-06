@@ -45,6 +45,7 @@ agents/                  # Shared agent content library
     commands/            # Leaf-linked into ~/.agents/commands
     skills/              # Authored skills; .link-children makes
                          # ~/.agents/skills a real dir
+      .local/            # Untracked overlay skills; not committed
 cursor/                  # Cursor adapter -> ~/.cursor
 claude/                  # Claude adapter -> ~/.claude
 pi/                      # pi adapter -> ~/.pi/agent
@@ -72,10 +73,17 @@ system/        # Cross-platform utilities
 - `*.link` - A file whose first line is the symlink target. Used for targets
   outside the repo and for renames.
 - `.link-children` - Sentinel; links each child of its directory whole.
-- `agents/agents.symlink/skills/` - Authored skills, tracked in git
-- `~/.agents/skills/` - The shared skills runtime directory. Real directory in
-  `$HOME`; authored skills are symlinks into the repo, external installs are
-  real directories. Nothing external is stored in the repo.
+- `.local/` - Untracked overlay; bootstrap merges its children into the
+  parent's target. Unsafe or machine-local directories go here, not in
+  the tracked sibling list.
+- `agents/agents.symlink/skills/` - Authored skills that are safe to
+  publish; tracked in git
+- `agents/agents.symlink/skills/.local/` - Authored skills that must not
+  be committed; linked the same way, gitignored
+- `~/.agents/skills/` - The shared skills runtime directory. Real
+  directory in `$HOME`; authored skills (tracked and overlay) are
+  symlinks into the repo, external installs and Gaia skills are real
+  directories or links outside this repo.
 - `*.zsh` - Zsh configuration files automatically loaded
 - `path.zsh` - Loaded first for PATH setup
 - `completion.zsh` - Loaded last for autocomplete setup
@@ -261,16 +269,22 @@ custom_function() {
 
 ### Managing Agent Skills
 
-Authored skills live in `agents/agents.symlink/skills/` and are tracked in git.
-The runtime directory is `~/.agents/skills`, a real directory in `$HOME` that
+Authored skills live in `agents/agents.symlink/skills/` (tracked) or
+`agents/agents.symlink/skills/.local/` (gitignored). The runtime
+directory is `~/.agents/skills`, a real directory in `$HOME` that
 Cursor, Claude, and pi all point at. External installs land there, not in the
 repo; only `.skill-lock.json` is committed.
 
 ```bash
-# Author a new skill
+# Author a skill that is safe to publish
 mkdir agents/agents.symlink/skills/my-skill
 # write agents/agents.symlink/skills/my-skill/SKILL.md
-dot --sync                      # links it into ~/.agents/skills/
+dot --sync
+
+# Author a skill that must stay untracked (company IP, cookie forges, …)
+mkdir agents/agents.symlink/skills/.local/my-private-skill
+# write SKILL.md inside that directory
+dot --sync
 
 # Install an external skill (recorded in .skill-lock.json)
 skills install <source>/<name>
