@@ -361,6 +361,104 @@ test_rule4_creates_dangling_link_for_missing_referent () {
     "$FIXTURE_HOME/.agents/skills"
 }
 
+### .local overlay ####################################################
+
+test_local_overlay_link_children_links_each_child_whole () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/tracked" "$skills/.local/unsafe"
+  touch "$skills/.link-children"
+  echo "t" > "$skills/tracked/SKILL.md"
+  echo "u" > "$skills/.local/unsafe/SKILL.md"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.agents/skills"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/tracked" "$skills/tracked"
+  assert_symlink "$FIXTURE_HOME/.agents/skills/unsafe" \
+    "$skills/.local/unsafe"
+  assert_absent "$FIXTURE_HOME/.agents/skills/.local"
+}
+
+test_local_overlay_does_not_recurse_into_overlay_children () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/.local/unsafe/references"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/.local/unsafe/references/notes.md"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/unsafe" \
+    "$skills/.local/unsafe"
+}
+
+test_local_overlay_rule2_leaf_links_into_same_destination () {
+  mkdir -p "$FIXTURE_DOTFILES/cursor/cursor.symlink/.local"
+  echo "{}" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
+  echo "secret" > "$FIXTURE_DOTFILES/cursor/cursor.symlink/.local/mcp.json"
+
+  run_links > /dev/null
+
+  assert_real_dir "$FIXTURE_HOME/.cursor"
+  assert_symlink "$FIXTURE_HOME/.cursor/hooks.json" \
+    "$FIXTURE_DOTFILES/cursor/cursor.symlink/hooks.json"
+  assert_symlink "$FIXTURE_HOME/.cursor/mcp.json" \
+    "$FIXTURE_DOTFILES/cursor/cursor.symlink/.local/mcp.json"
+  assert_absent "$FIXTURE_HOME/.cursor/.local"
+}
+
+test_local_overlay_absent_is_noop () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/mine"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/mine/SKILL.md"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
+  assert_absent "$FIXTURE_HOME/.agents/skills/.local"
+}
+
+test_local_overlay_skip_keeps_tracked_sibling_on_name_clash () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/mine" "$skills/.local/mine"
+  touch "$skills/.link-children"
+  echo "tracked" > "$skills/mine/SKILL.md"
+  echo "local" > "$skills/.local/mine/SKILL.md"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/mine" "$skills/mine"
+}
+
+test_local_overlay_link_declaration_inside_overlay () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/.local" "$FIXTURE_HOME/.gaia/src/agents/skills/from-gaia"
+  touch "$skills/.link-children"
+  echo "g" > "$FIXTURE_HOME/.gaia/src/agents/skills/from-gaia/SKILL.md"
+  printf '%s\n' '$HOME/.gaia/src/agents/skills/from-gaia' \
+    > "$skills/.local/from-gaia.link"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/from-gaia" \
+    "$FIXTURE_HOME/.gaia/src/agents/skills/from-gaia"
+  assert_absent "$FIXTURE_HOME/.agents/skills/from-gaia.link"
+}
+
+test_dangling_owned_link_is_replaced_in_one_pass () {
+  local skills="$FIXTURE_DOTFILES/agents/agents.symlink/skills"
+  mkdir -p "$skills/.local/moved"
+  touch "$skills/.link-children"
+  echo "s" > "$skills/.local/moved/SKILL.md"
+  mkdir -p "$FIXTURE_HOME/.agents/skills"
+  ln -s "$skills/moved" "$FIXTURE_HOME/.agents/skills/moved"
+
+  run_links > /dev/null
+
+  assert_symlink "$FIXTURE_HOME/.agents/skills/moved" \
+    "$skills/.local/moved"
+}
+
 ### Pruning and drift #################################################
 
 test_prune_removes_dangling_owned_link () {
