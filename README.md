@@ -115,7 +115,3 @@ Each option runs the corresponding setup or management script from your dotfiles
 > inspired from Ryan's original project._
 >
 > – [Holman](https://github.com/holman/dotfiles) 🙏
-
-## Bugs 🐛
-
-https://github.com/holman/dotfiles#bugs
