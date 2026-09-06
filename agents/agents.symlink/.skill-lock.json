@@ -321,14 +321,13 @@
       "updatedAt": "2026-07-07T23:03:48.019Z"
     },
     "handoff": {
-      "source": "mattpocock/skills",
+      "source": "rohitg00/agentmemory",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/handoff/SKILL.md",
-      "skillFolderHash": "184d485ae68a2132893a94239b2b85d253e6152b",
-      "pluginName": "mattpocock-skills",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/handoff/SKILL.md",
+      "skillFolderHash": "7c1accbc291b0692d3d6e536d90502c5873401f4",
       "installedAt": "2026-07-07T23:03:48.020Z",
-      "updatedAt": "2026-08-05T20:10:57.809Z"
+      "updatedAt": "2026-09-06T18:29:46.461Z"
     },
     "implement": {
       "source": "mattpocock/skills",
@@ -433,6 +432,150 @@
       "skillFolderHash": "320672d06e899682d8923286d864efe3719d9c77",
       "installedAt": "2026-08-28T02:38:35.225Z",
       "updatedAt": "2026-08-28T02:38:35.225Z"
+    },
+    "agentmemory-agents": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-agents/SKILL.md",
+      "skillFolderHash": "4691560c0f2bd59ec43149ec73f681ba4437e56a",
+      "installedAt": "2026-09-06T18:29:46.457Z",
+      "updatedAt": "2026-09-06T18:29:46.457Z"
+    },
+    "agentmemory-architecture": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-architecture/SKILL.md",
+      "skillFolderHash": "368b75b1a2f58c9743267100c08889941ed6f4b6",
+      "installedAt": "2026-09-06T18:29:46.458Z",
+      "updatedAt": "2026-09-06T18:29:46.458Z"
+    },
+    "agentmemory-config": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-config/SKILL.md",
+      "skillFolderHash": "6d0fa03d77e6114522f90883b4ad9911eb555d99",
+      "installedAt": "2026-09-06T18:29:46.459Z",
+      "updatedAt": "2026-09-06T18:29:46.459Z"
+    },
+    "agentmemory-hooks": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-hooks/SKILL.md",
+      "skillFolderHash": "eb7992fd9ad368f05e7400e16efd1344af168ef8",
+      "installedAt": "2026-09-06T18:29:46.459Z",
+      "updatedAt": "2026-09-06T18:29:46.459Z"
+    },
+    "agentmemory-mcp-tools": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-mcp-tools/SKILL.md",
+      "skillFolderHash": "cbf407d09a125d9e89424077014302138e2237cc",
+      "installedAt": "2026-09-06T18:29:46.460Z",
+      "updatedAt": "2026-09-06T18:29:46.460Z"
+    },
+    "agentmemory-rest-api": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/agentmemory-rest-api/SKILL.md",
+      "skillFolderHash": "f91b3cbfe72d4428d08e22eac92d122f5025fd91",
+      "installedAt": "2026-09-06T18:29:46.460Z",
+      "updatedAt": "2026-09-06T18:29:46.460Z"
+    },
+    "commit-context": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/commit-context/SKILL.md",
+      "skillFolderHash": "07a8b513f4b6081e698ac4fb1a87f066ec1e9258",
+      "installedAt": "2026-09-06T18:29:46.460Z",
+      "updatedAt": "2026-09-06T18:29:46.460Z"
+    },
+    "commit-history": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/commit-history/SKILL.md",
+      "skillFolderHash": "949a512eaa9e0fabad7489e9c182e754f2deebf1",
+      "installedAt": "2026-09-06T18:29:46.460Z",
+      "updatedAt": "2026-09-06T18:29:46.460Z"
+    },
+    "forget": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/forget/SKILL.md",
+      "skillFolderHash": "72eff55fcbe9b6228dd6d678c91bfa6ee728c82d",
+      "installedAt": "2026-09-06T18:29:46.461Z",
+      "updatedAt": "2026-09-06T18:29:46.461Z"
+    },
+    "lesson": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/lesson/SKILL.md",
+      "skillFolderHash": "334092b808f4729d43caae79c5af1250f5f8832f",
+      "installedAt": "2026-09-06T18:29:46.461Z",
+      "updatedAt": "2026-09-06T18:29:46.461Z"
+    },
+    "memory-discipline": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/memory-discipline/SKILL.md",
+      "skillFolderHash": "358c3fc1edafe7eee0593a4816559e1c1e89e4a4",
+      "installedAt": "2026-09-06T18:29:46.461Z",
+      "updatedAt": "2026-09-06T18:29:46.461Z"
+    },
+    "recall": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/recall/SKILL.md",
+      "skillFolderHash": "1b6969dcc5d4060a2436b31fc8279ec95ff0c4b6",
+      "installedAt": "2026-09-06T18:29:46.462Z",
+      "updatedAt": "2026-09-06T18:29:46.462Z"
+    },
+    "recap": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/recap/SKILL.md",
+      "skillFolderHash": "a16b8a1d17a5d0934a284be3d8be9921140886a8",
+      "installedAt": "2026-09-06T18:29:46.462Z",
+      "updatedAt": "2026-09-06T18:29:46.462Z"
+    },
+    "remember": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/remember/SKILL.md",
+      "skillFolderHash": "07a8fd5852db27d6ac2ea33f8a12125eeceae88d",
+      "installedAt": "2026-09-06T18:29:46.462Z",
+      "updatedAt": "2026-09-06T18:29:46.462Z"
+    },
+    "session-history": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/session-history/SKILL.md",
+      "skillFolderHash": "215602eb80c1351f661ad912bda8b3c81ce82697",
+      "installedAt": "2026-09-06T18:29:46.462Z",
+      "updatedAt": "2026-09-06T18:29:46.462Z"
+    },
+    "write-agentmemory-skill": {
+      "source": "rohitg00/agentmemory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory.git",
+      "skillPath": "plugin/skills/write-agentmemory-skill/SKILL.md",
+      "skillFolderHash": "b1b2da6dc56b642f880171089f8592923ce9500c",
+      "installedAt": "2026-09-06T18:29:46.463Z",
+      "updatedAt": "2026-09-06T18:29:46.463Z"
     }
   },
   "dismissed": {
