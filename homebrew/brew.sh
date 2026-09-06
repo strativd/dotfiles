@@ -14,18 +14,11 @@ brew update
 # Upgrade any already-installed formulae and casks.
 brew upgrade
 
-# Install missing formulae and casks; upgrades handled by brew upgrade above.
-install_formulae() {
-  for formula in "$@"; do
-    brew list "$formula" &>/dev/null || brew install "$formula"
-  done
-}
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/packages.sh"
 
-install_cask() {
-  for cask in "$@"; do
-    brew list --cask "$cask" &>/dev/null || brew install --cask "$cask"
-  done
-}
+# Install missing formulae and casks; upgrades handled by brew upgrade above.
+# Missing casks use --force so an already-installed app is overwritten
+# with the cask version instead of erroring after the download.
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.

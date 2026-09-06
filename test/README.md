@@ -16,3 +16,9 @@ values are `prompt` (the default, used by `script/bootstrap`), `overwrite`, and
 
 Add a test by defining a function named `test_*`; the runner discovers them
 with `declare -F`.
+
+Cask install helpers (`homebrew/packages.sh`) have a matching runner:
+
+```bash
+test/brew_test.sh
+```
