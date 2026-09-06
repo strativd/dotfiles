@@ -288,6 +288,8 @@ agents/                                # content library
       coding-guidelines/               → ~/.agents/skills/coding-guidelines
       refactor-with-a-kiss/            (one whole-dir link per authored skill)
       ...
+      .local/                          (gitignored overlay)
+        <name>/                        → ~/.agents/skills/<name>
 
 cursor/                                # adapter
   cursor.symlink/
@@ -404,12 +406,15 @@ Migration is done topic by topic; each topic is independently bootstrappable, so
   marker, which is what preserves their extensions.
 - **Machine-local files are handled by `.gitignore`, not by filename.** Under a
   name-based convention the repo path must equal the target path, so a local
-  variant is a gitignored file at the real target path — or a Rule 4 `.link`
-  when a rename is genuinely required.
+  variant is a gitignored file at the real target path - or a Rule 4 `.link`
+  when a rename is genuinely required. Machine-local *directories* use a
+  `.local/` overlay (P4), which merges into the same destination and is
+  never a target path.
 
 ## Verification
 
-The repo has no automated test suite; verification is manual.
+Automated coverage lives in `test/links_test.sh`. The checks below are
+manual verification of a live bootstrap.
 
 1. `script/bootstrap` on a machine with existing links completes without
    prompting for intermediate directories.
@@ -418,8 +423,11 @@ The repo has no automated test suite; verification is manual.
 3. `ls -la ~/.cursor` shows `plugins/`, `projects/`, and `extensions/` as real
    directories, with `skills`, `prompts`, `commands`, and `hooks.json` as
    symlinks, and `mcp.json` still an untracked plain file.
-4. `~/.agents/skills` is a real directory; authored skills are symlinks into
-   the repo and external skills are real directories in `$HOME`.
+4. `~/.agents/skills` is a real directory; tracked authored skills
+   symlink into the tracked tree; overlay authored skills symlink into
+   `skills/.local/`; installer-written skills are real dirs in `$HOME`;
+   Gaia skills link outside this repo; `~/.agents/skills/.local` does
+   not exist.
 5. `git status` is clean after installing an external skill.
 6. Prune: `ln -s /nonexistent ~/.agents/skills/bogus` inside the repo tree,
    then bootstrap; the link is removed.

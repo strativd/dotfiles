@@ -21,7 +21,8 @@ and pi all consume this directory, each through its own topic.
 are symlinks into the tracked tree; overlay authored skills are
 symlinks into `.local/`; installer-written skills stay real
 directories in `$HOME`; Gaia skills stay linked from `~/.gaia`.
-Nothing in `.local/` is committed, so `git status` stays quiet.
+`.local/` is gitignored, so overlay skills stay out of `git status`.
+Untracked files in the tracked skills tree can still appear.
 
 `.skill-lock.json` is linked rather than copied, so the skills CLI's writes
 land in git and external skills can be restored on a new machine with
@@ -29,17 +30,24 @@ land in git and external skills can be restored on a new machine with
 
 ## Adding a skill
 
+Author a skill that is safe to publish:
+
 ```bash
 mkdir agents/agents.symlink/skills/my-skill
 # write SKILL.md
 dot --sync
 ```
 
+Author a skill that must stay untracked:
+
 ```bash
 mkdir agents/agents.symlink/skills/.local/unsafe-skill
 # write SKILL.md
 dot --sync
 ```
+
+Overlay children land at `~/.agents/skills/<name>`, never
+`~/.agents/skills/.local/<name>`.
 
 ## Who consumes this
 
