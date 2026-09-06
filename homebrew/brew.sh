@@ -45,10 +45,11 @@ install_formulae bat dark-mode tree
 # Install others for bin commands
 install_formulae fzf
 
+# Install for dev + package managers
 install_formulae mise pnpm uv
 
-# Install opencode
-install_formulae opencode ollama ast-grep
+# Install for agents
+install_formulae ollama ast-grep
 
 # Install Apps
 install_cask \
