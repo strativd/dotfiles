@@ -1,0 +1,63 @@
+{
+  "title": "APP_NAME app auth",
+  "category": "LOGIN",
+  "urls": [
+    {
+      "href": "http://localhost:5173",
+      "primary": true
+    }
+  ],
+  "fields": [
+    {
+      "id": "username",
+      "type": "STRING",
+      "purpose": "USERNAME",
+      "label": "username",
+      "value": "first-allowed-email"
+    },
+    {
+      "id": "password",
+      "type": "CONCEALED",
+      "purpose": "PASSWORD",
+      "label": "password",
+      "value": ""
+    },
+    {
+      "id": "notesPlain",
+      "type": "STRING",
+      "purpose": "NOTES",
+      "label": "notesPlain",
+      "value": "Better Auth Google SSO for this app.\n\npassword = BETTER_AUTH_SECRET\nGOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET = OAuth web client\nAPP_ALLOWED_EMAILS = comma-separated Google emails\nBETTER_AUTH_URL = deployed origin, no trailing slash\nAPP_ALLOWED_GOOGLE_HD = optional Workspace domain, or -\n\nRedirect URIs:\nhttp://localhost:5173/api/auth/callback/google\n<BETTER_AUTH_URL>/api/auth/callback/google"
+    },
+    {
+      "id": "GOOGLE_CLIENT_ID",
+      "type": "STRING",
+      "label": "GOOGLE_CLIENT_ID",
+      "value": "pending"
+    },
+    {
+      "id": "GOOGLE_CLIENT_SECRET",
+      "type": "CONCEALED",
+      "label": "GOOGLE_CLIENT_SECRET",
+      "value": "pending"
+    },
+    {
+      "id": "APP_ALLOWED_EMAILS",
+      "type": "STRING",
+      "label": "APP_ALLOWED_EMAILS",
+      "value": "first-allowed-email"
+    },
+    {
+      "id": "BETTER_AUTH_URL",
+      "type": "STRING",
+      "label": "BETTER_AUTH_URL",
+      "value": "http://localhost:5173"
+    },
+    {
+      "id": "APP_ALLOWED_GOOGLE_HD",
+      "type": "STRING",
+      "label": "APP_ALLOWED_GOOGLE_HD",
+      "value": "-"
+    }
+  ]
+}
