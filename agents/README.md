@@ -12,6 +12,7 @@ and pi all consume this directory, each through its own topic.
 | `agents.symlink/skills/` | yes | one whole-dir link per skill |
 | `agents.symlink/skills/.local/` | no | one whole-dir link per skill |
 | `agents.symlink/skills/.link-children` | yes | makes `~/.agents/skills` real |
+| `agents.symlink/AGENTS.md` | yes | `~/.agents/AGENTS.md`; other tools link here via `*.link` files |
 | `agents.symlink/.skill-lock.json` | yes | `~/.agents/.skill-lock.json` |
 | `README.md` | yes | not linked (outside the tree) |
 
