@@ -1,0 +1,11 @@
+#!/bin/zsh
+#
+# Wrapper so `dot -cd` can change the current shell's directory.
+# Other flags pass through to bin/dot.
+
+if [[ "$1" == "-cd" || "$1" == "--cd" ]]; then
+	cd "$(command dot -cd)" || return
+	return
+fi
+
+command dot "$@"

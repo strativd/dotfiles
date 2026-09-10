@@ -23,6 +23,7 @@ dot --brew        # Install/update Homebrew and packages
 dot --macos       # Set macOS system defaults
 dot --start       # Complete new laptop setup
 dot --edit        # Open dotfiles in $EDITOR
+dot --cd          # Change directory to the dotfiles repo
 dot --reload      # Reload current terminal session
 ```
 
