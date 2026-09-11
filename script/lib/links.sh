@@ -297,8 +297,14 @@ install_dotfiles () {
   LINK_MANAGED_DIRS=()
   LINK_DRIFT=()
 
-  local src name dst dir
+  # Collect first so link_file's conflict prompt can read the real stdin.
+  local srcs=() src name dst dir
   while IFS= read -r -d '' src; do
+    srcs+=("$src")
+  done < <(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' \
+    -not -path '*/.git/*' -print0)
+
+  for src in "${srcs[@]}"; do
     name="$(basename "$src")"
     dst="$HOME/.${name%.symlink}"
     if [ -d "$src" ] && [ ! -L "$src" ]; then
@@ -306,8 +312,7 @@ install_dotfiles () {
     else
       link_file "$(link_physical "$src")" "$dst"
     fi
-  done < <(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' \
-    -not -path '*/.git/*' -print0)
+  done
 
   if [ "${#LINK_MANAGED_DIRS[@]}" -gt 0 ]; then
     for dir in "${LINK_MANAGED_DIRS[@]}"; do
