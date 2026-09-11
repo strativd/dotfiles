@@ -16,8 +16,8 @@ have little context on the feature.
    line starts directly with the URL:
 
    ```
-   PR_URL - `LINES_ADDED`/`LINES_REMOVED` - TLDR_SENTENCE
-   PR_URL - `LINES_ADDED`/`LINES_REMOVED` - TLDR_SENTENCE
+   PR_URL - `+LINES_ADDED`/`-LINES_REMOVED` - TLDR_SENTENCE
+   PR_URL - `+LINES_ADDED`/`-LINES_REMOVED` - TLDR_SENTENCE
    ```
 
 3. Optionally offer (or produce, if asked) a Slack-ready variant.
@@ -63,8 +63,8 @@ One batch call per repo:
 gh pr view <n> --json number,url,state,baseRefName,headRefName,additions,deletions,body
 ```
 
-Line counts: use `additions`/`deletions` verbatim, wrapped in backticks:
-`` `3354`/`0` ``.
+Line counts: use `additions`/`deletions` verbatim, wrapped in backticks, with
+`+` prefixed to additions and `-` prefixed to deletions: `` `+3354`/`-0` ``.
 
 ### 4. Write TLDRs
 
