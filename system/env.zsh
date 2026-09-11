@@ -1,2 +1,3 @@
-export EDITOR='cursor'
-export TERMINAL='warp'
+: "${EDITOR:=cursor}"
+: "${TERMINAL:=warp}"
+export EDITOR TERMINAL

@@ -15,4 +15,8 @@
 #   # => opens the specified directory in your terminal
 path="$(cd "${1:-.}" && pwd)" || exit 1
 
-exec open -a "$TERMINAL" "$path"
+# zsh loads env.zsh via the topic glob; sandboxes don't, so t does.
+# ${0%/*} is builtin: dirname(1) is missing when PATH has no /usr/bin.
+. "${0%/*}/../system/env.zsh"
+
+exec /usr/bin/open -a "$TERMINAL" "$path"
