@@ -15,17 +15,22 @@ Passing a reply's id creates a new orphaned thread. That fragments the
 discussion.
 
 ```bash
-gh api "repos/{owner}/{repo}/pulls/comments/{COMMENT_DATABASE_ID}/replies" \
+gh api "repos/{owner}/{repo}/pulls/{PR}/comments/{COMMENT_DATABASE_ID}/replies" \
   -X POST \
   -f body="<your reply>"
 ```
 
+The endpoint requires the pull number. Omitting `{PR}` returns HTTP 404 even
+with write access.
+
 Use `gh pr comment {PR} --body "..."` only for top-level review bodies or issue
 comments that have no inline thread target.
 
-If a reply returns 403/404, you may lack write access (fork or missing
-collaborator). Reply only on the upstream repo. If you still cannot post, give
-the user the drafted text and the thread URL. Do not pretend the reply landed.
+If a reply returns 403/404, first check the URL carries the pull number and
+the root comment's `databaseId`. With the URL correct, 403/404 means you may
+lack write access (fork or missing collaborator). Reply only on the upstream
+repo. If you still cannot post, give the user the drafted text and the thread
+URL. Do not pretend the reply landed.
 
 ## Shape
 
