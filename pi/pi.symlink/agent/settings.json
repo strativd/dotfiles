@@ -17,7 +17,8 @@
     "npm:pi-bar",
     "npm:pi-warp",
     "git:github.com/GrowthLoop/pi-nitro@v0.1.0",
-    "https://github.com/edxeth/pi-better-skills"
+    "https://github.com/edxeth/pi-better-skills",
+    "npm:pi-queue-steer-factory"
   ],
   "piWarp": {
     "dynamicTitles": true

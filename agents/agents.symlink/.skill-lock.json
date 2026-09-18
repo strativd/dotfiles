@@ -64,7 +64,7 @@
       "skillPath": "skills/skill-judge/SKILL.md",
       "skillFolderHash": "7e98bf10ccdbd7e9293e9f59564e6dc949999f85",
       "installedAt": "2026-04-15T21:29:46.515Z",
-      "updatedAt": "2026-04-15T21:29:46.515Z"
+      "updatedAt": "2026-09-14T23:58:59.989Z"
     },
     "recharts": {
       "source": "ansanabria/skills",
@@ -729,6 +729,15 @@
       "skillFolderHash": "ac92229646fccf7315ae139c37b479b3790617f2",
       "installedAt": "2026-09-06T23:10:59.021Z",
       "updatedAt": "2026-09-06T23:10:59.021Z"
+    },
+    "simplify": {
+      "source": "brianlovin/agent-config",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/brianlovin/agent-config.git",
+      "skillPath": "skills/simplify/SKILL.md",
+      "skillFolderHash": "83566973442dc05bcf5abbe83053e8a8e5f50b6b",
+      "installedAt": "2026-09-15T17:47:32.417Z",
+      "updatedAt": "2026-09-15T17:47:32.417Z"
     }
   },
   "dismissed": {
@@ -736,14 +745,13 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
     "warp",
