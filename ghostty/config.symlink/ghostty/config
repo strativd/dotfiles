@@ -1,0 +1,92 @@
+
+# ------------------------------------------------------------------------------
+# Ghostty Config! 👻
+# 
+# Reference: https://ghostty.org/docs/config/reference
+# Validate: ghostty +validate-config
+# ------------------------------------------------------------------------------
+
+# Background & Foreground Colors
+background = #18181A
+foreground = #FFFFFF
+
+# Selection Colors
+selection-background = #323232
+selection-foreground = #FFFFFF
+
+# Cursor Colors
+cursor-color = #FFFFFF
+cursor-text = #000000
+
+# Black
+palette = 0=#212121
+palette = 8=#424242
+
+# Red
+palette = 1=#FA2E62
+palette = 9=#FA2E62
+
+# Green
+palette = 2=#36C278
+palette = 10=#36C278
+
+# Yellow
+palette = 3=#FFBF63
+palette = 11=#FFBF63
+
+# Blue
+palette = 4=#47BAC0
+palette = 12=#47BAC0
+
+# Magenta
+palette = 5=#E4609B
+palette = 13=#E4609B
+
+# Cyan
+palette = 6=#47BAC0
+palette = 14=#47BAC0
+
+# White
+palette = 7=#ffffff
+palette = 15=#ffffff
+
+# Font Family
+font-family = JetBrains Mono
+font-family = Symbols Nerd Font Mono
+
+# Font Size
+font-size = 14
+
+# Window Config
+macos-titlebar-style = hidden
+window-width = 140
+window-height = 30
+window-padding-y = 16,12
+window-padding-x = 16
+
+# Line height
+adjust-cell-height = 10%
+# adjust-cursor-height = 50%
+adjust-underline-position = 10%
+adjust-font-baseline = 10%
+
+# Cursor style
+cursor-style = block
+cursor-style-blink = false
+
+# Clipboard settings
+clipboard-read = allow
+clipboard-write = allow
+
+# Allow option to work as alt on macos
+macos-option-as-alt = true
+
+# Ensure shift+enter always works as soft line break
+keybind = shift+enter=text:\x1b[13;2u
+
+# Open or create tmux session
+keybind = cmd+k=text:\x02s
+
+# Open or create tmux session at root
+keybind = cmd+r=text:\x02r
+keybind = cmd+shift+k=text:\x02r
