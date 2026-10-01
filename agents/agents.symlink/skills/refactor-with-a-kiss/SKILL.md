@@ -1,6 +1,7 @@
 ---
 name: refactor-with-a-kiss
 description: Refactoring with KISS principles. Rethinks implementations to reach the same outcome with less complexity—prefers straightforward, readable code over clever abstractions. Use when refactoring, reviewing code, the user asks for a simpler approach, or when a solution feels over-engineered relative to the problem.
+disable-model-invocation: true
 ---
 
 # Refactor for simplicity (KISS)
