@@ -1,8 +1,1 @@
-{
-  "imports": [
-    "cursor",
-    "claude-code",
-    "codex",
-    "opencode"
-  ]
-}
+{}
