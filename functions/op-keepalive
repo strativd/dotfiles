@@ -1,0 +1,24 @@
+#!/bin/zsh
+#
+# Keep a 1Password CLI biometric session alive in this terminal.
+#
+# Biometric-mode sessions expire after 10 minutes of inactivity (12 h hard
+# cap, per terminal window) and are NOT configurable. Every `op` call
+# refreshes the 10-minute timer, so a silent `op whoami` every few minutes
+# keeps the session rolling for up to 12 hours without re-touching. The
+# refresh loop runs as a background job of this shell, so it dies when the
+# terminal closes (which ends the session — authorization is per-tty).
+#
+# If the session has expired or the 1Password app is locked, `op whoami`
+# pops a Touch ID prompt; ignore it and the loop keeps running.
+#
+# Usage: op-keepalive 60m my  # default 300 (5 hours) my account
+#
+op-keepalive() {
+  local interval="${1:-360}m"
+  local account="${2:-my}"
+  ( while true; do
+      sleep "$interval"
+      op whoami --account "$account" >/dev/null 2>&1
+    done ) &
+}
