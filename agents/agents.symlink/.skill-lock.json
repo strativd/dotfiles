@@ -774,6 +774,15 @@
       "skillFolderHash": "80d46d68aa3fea9ff45e191b7ec107d65d37e416",
       "installedAt": "2026-09-19T17:20:16.141Z",
       "updatedAt": "2026-09-19T17:20:16.141Z"
+    },
+    "prompt-engineering-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/llm-application-dev/skills/prompt-engineering-patterns/SKILL.md",
+      "skillFolderHash": "6370d6074cb1b75b09093e9804e6274f19069f48",
+      "installedAt": "2026-10-08T22:31:27.571Z",
+      "updatedAt": "2026-10-08T22:31:27.571Z"
     }
   },
   "dismissed": {
@@ -790,8 +799,8 @@
     "kilo",
     "kimi-code-cli",
     "opencode",
+    "pi",
     "warp",
-    "zed",
-    "pi"
+    "zed"
   ]
 }
