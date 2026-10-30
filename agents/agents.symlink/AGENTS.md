@@ -4,7 +4,7 @@ This file applies machine-wide to all coding agents. Project-level
 instructions (an `AGENTS.md` or `CLAUDE.md` in the repository being worked
 on) always extend this file, and override when instructions are more specific.
 
-## Language policy (mandatory)
+## Language policy (mandatory English)
 
 - **Always reply to the user in English.** Never reply in any other
   language, regardless of the user's locale, environment or prompt details.
@@ -42,7 +42,22 @@ on) always extend this file, and override when instructions are more specific.
 
 ## Writing for external humans
 
-[INSERT_SIMPLE_EGLISH_SKILL_GUIDANCE_HERE]
+Write prose a person outside this chat will read with one meaning per word.
+Use the plainest common word, and use that same word for the same action
+every time.
+
+- Use each word as one part of speech.
+- Use active voice. Name the actor.
+- Use a simple tense: present, past, or future.
+- Put one instruction in each sentence. Keep the subject, the verb, and
+  the article.
+- Keep a procedure sentence to 20 words. Keep a description to 25 words.
+- Keep a noun cluster to 3 words.
+- Give each paragraph one topic and at most 6 sentences.
+- Use a numbered or bulleted list for 3 or more steps or conditions.
+- Keep a needed technical term. Define it once on first use.
+- Keep every fact, condition, number, and exception. A shorter sentence
+  that drops one of these is wrong.
 
 ## Coding
 
@@ -60,6 +75,10 @@ on) always extend this file, and override when instructions are more specific.
   is still running; do not leave stragglers.
 - **Use code comments sparingly** and only when necessary to explain complex logic.
   Always default to one line that briefly explains one why.
+- Before adding complexity for a speculative or vanishingly unlikely race or security
+  edge case, explain the concrete failure mode, likelihood, and complexity cost to the
+  user and get their buy-in. Do not silently expand scope for theoretical robustness.
+- Always consider YAGNI. The smallest possible solution is usually the best.
 
 ## Verification and evidence
 
@@ -104,6 +123,9 @@ on) always extend this file, and override when instructions are more specific.
 
 ## Navigating memory (agentmemory)
 
+- Sessions and observations are keyed by repo basename (`vortex`, `marve`,
+  `quervice`), not by checkout path — filter `memory_sessions`/`memory_recall`
+  by that canonical id so memory crosses workspaces and worktrees.
 - Search memory (`memory_search` or the `recall` skill) before starting
   nontrivial work in a project — prior decisions, gotchas, and status are
   usually already saved.
@@ -122,9 +144,6 @@ on) always extend this file, and override when instructions are more specific.
   displayed output and executed commands. This is masking, not corruption —
   confirm with the user or re-verify rather than assuming the value is
   broken.
-- The user's day-to-day browser is Brave. When automation needs a real
-  browser or profile, prefer real Brave with the user's actual profile over
-  synthetic/headless defaults.
 
 ## Precedence
 
