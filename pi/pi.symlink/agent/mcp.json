@@ -1,1 +1,7 @@
-{}
+{
+  "mcpServers": {
+    "mixpanel": {
+      "url": "https://mcp.mixpanel.com/mcp"
+    }
+  }
+}
